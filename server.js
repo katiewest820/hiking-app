@@ -50,7 +50,8 @@ function closeServer() {
         .then(() => {
             return new Promise((resolve, reject) => {
                 console.log('closing server');
-                server.close(err => {
+                server.close((err) => {
+                	process.exit(0)
                     if (err) {
                         return reject();
                     }

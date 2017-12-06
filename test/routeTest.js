@@ -10,10 +10,12 @@ chai.use(chaiHttp);
 describe('users', function(){
 
 	before(function(){
+		console.log('starting server')
 		return runServer();
 	});
 
 	after(function(){
+		console.log('closing server')
 		return closeServer();
 	});
 
@@ -26,10 +28,4 @@ describe('users', function(){
 				res.should.be.html;
 			});	
 	});
-
-
-
-
-
-
 })
