@@ -7,7 +7,7 @@ const router = express.Router();
 mongoose.Promise = global.Promise;
 
 
-router.use((req, res) => {
+router.get('/', (req, res) => {
 	console.log('hello')
 	res.status(200).send('hello')
 })
