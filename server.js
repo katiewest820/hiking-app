@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
-	res.sendFile(_dirname + './public/index.html');
+	res.sendFile(_dirname + './public/index.html').status(200);
 });
 
 app.all('/')
@@ -48,7 +48,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 function closeServer() {
     return mongoose.disconnect()
         .then(() => {
-            return new Promose((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 console.log('closing server');
                 server.close(err => {
                     if (err) {
