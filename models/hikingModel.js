@@ -1,24 +1,41 @@
 const mongoose = require('mongoose');
 
-var hikingTripSchema = new mongoose.Schema({
+ let gearListSchema = new mongoose.Schema({
+	item: String,
+	weight: Number,
+	quantity: Number,
+	checked: Boolean
+})
+
+let foodListSchema = new mongoose.Schema({
+	item: String,
+	weight: Number,
+	quantity: Number,
+	checked: Boolean
+}) 
+
+let hikingTripSchema = new mongoose.Schema({
 	trail: String,
-	startLocation: Object,
-	endLocation: Object,
+	startLocation: String,
+	endLocation: String,
 	startDate: Date,
 	endDate: Date,
-	gearList: [],
+	gearList: [gearListSchema],
 	foodList: [],
 	createdAt: {type: Date, default: Date.now}
 });
 
-// var gearListSchema = new mongoose.Schema({
-// 	item: String,
-// 	wieght: Number,
-// 	quantity: Number,
-// 	checked: Boolean
-//})
 
- module.exports = mongoose.model('HikingTrip', hikingTripSchema);
+
+ let hikingTrip = mongoose.model('HikingTrip', hikingTripSchema);
+ let gearList = mongoose.model('GearList', gearListSchema);
+ let foodList = mongoose.model('FoodList', foodListSchema);
+
+ module.exports = {
+ 	hikingTrip: hikingTrip,
+ 	gearList: gearList,
+ 	foodList: foodList
+ }
 
 
 
