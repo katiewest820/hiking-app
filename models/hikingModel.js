@@ -15,6 +15,7 @@ let foodListSchema = new mongoose.Schema({
 }) 
 
 let hikingTripSchema = new mongoose.Schema({
+	userId: mongoose.Schema.Types.ObjectId,
 	trail: String,
 	startLocation: String,
 	endLocation: String,

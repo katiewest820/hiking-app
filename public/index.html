@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<link rel="stylesheet" type="text/css" href="index.css">
-<body>
 
-	<h1>Hello World</h1>
+<head>
+    <title></title>
+
+<link rel="stylesheet" type="text/css" href="index.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+</head>
+<body>
+    <section class="actLoginPage">
+        <label>Email:
+            <input class="emailLogin" type="text">
+        </label>
+        <label>Password:
+            <input class="passwordLogin" type="text">
+        </label>
+        <button class="loginBtn">Login</button>
+    </section>
+
+    <section class="actRegisterPage">
+    </section>
+
+    <section class="dashboardPage">
+    	<div class="currTrips"></div>
+    	<button class="createNewTrip">Create New Trip</button>
+    	<button class="logOut">Log Out</button>
+    </section>
+
+    <section class="createTripPage">
+    	<label>Trail:
+    		<input class="trailName" type="text">
+    	</label>
+    	<label>Trip Start Date:
+    		<input class="startDate" type="date">
+    	</label>
+    	<label>Trip End Date:
+    		<input class="endDate" type="date">
+    	</label>
+    	<label>Trip Start Location:
+    		<input class="startLocation" type="text">
+    	</label>
+    	<label>Trip End Location:
+    		<input class="endLocation" type="text">
+    	</label>
+    	<button class="submitNewTripBtn">Submit New Trip</button>	
+    </section>
+
+    <section class="viewEditShareTripPage">
+    </section>
+
+    <section class="archivesPage">
+    </section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="index.js"></script>
 </body>
+
 </html>

@@ -2,3 +2,7 @@ body{
 	background-color: green;
 	color: white;
 }
+
+.createTripPage, .dashboardPage{
+	display: none;
+}
