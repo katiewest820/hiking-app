@@ -1,7 +1,8 @@
+const { HikingTrip, gearList, foodList } = require('../models/hikingModel');
+const shareTrip = require('../models/sharingModel');
 const express = require('express');
 const config = require('../config').JWT_SECRET;
 const jwt = require('jsonwebtoken');
-const { hikingTrip, gearList, foodList } = require('../models/hikingModel');
 
 const router = express.Router();
 
@@ -21,9 +22,9 @@ router.use((req, res, next) => {
     });
 });
 
-//get all route
+//get all trips route
 router.get('/getByUser/:id', (req, res) => {
-    hikingTrip.find({userId: req.params.id})
+    HikingTrip.find({userId: req.params.id})
         .then((trips) => {
             console.log('successful get of all trips');
             res.status(200).send(trips);
@@ -34,9 +35,24 @@ router.get('/getByUser/:id', (req, res) => {
         })
 });
 
+//get all colab trips route
+router.get('/getByColab/:id', (req,res) => {
+	shareTrip.find({collaborator: req.params.id})
+	.populate('trip').exec((err, trips) => {
+    if (err) {
+    	console.log(err)
+	}
+	console.log(trips)
+		console.log('successful get of colab trips')
+		res.send(trips).status(200)
+	})
+	
+
+})
+
 //get one by id route
 router.get('/id/:id', (req, res) => {
-    hikingTrip.findById(req.params.id)
+    HikingTrip.findById(req.params.id)
         .then((trip) => {
             console.log('successful get of one trip');
             res.status(200).json(trip);
@@ -49,7 +65,7 @@ router.get('/id/:id', (req, res) => {
 
 //post route
 router.post('/', (req, res) => {
-    let newTrip = new hikingTrip({
+    let newTrip = new HikingTrip({
     	userId: req.body.userId,
         trail: req.body.trail,
         startDate: req.body.startDate,
@@ -72,7 +88,7 @@ router.post('/', (req, res) => {
 
 //post route to add gear item
 router.post('/gearList/id/:id', (req, res) => {
-    hikingTrip.findById(req.params.id)
+    HikingTrip.findById(req.params.id)
         .then((trip) => {
             let newGearList = new gearList();
             newGearList.item = req.body.item;
@@ -93,7 +109,7 @@ router.post('/gearList/id/:id', (req, res) => {
 
 //post route to add food item
 router.post('/foodList/id/:id', (req, res) => {
-    hikingTrip.findById(req.params.id)
+    HikingTrip.findById(req.params.id)
         .then((trip) => {
             let newFoodList = new foodList();
             newFoodList.item = req.body.item;
@@ -114,7 +130,7 @@ router.post('/foodList/id/:id', (req, res) => {
 
 //delete trip route
 router.delete('/id/:id', (req, res) => {
-    hikingTrip.findByIdAndRemove(req.params.id)
+    HikingTrip.findByIdAndRemove(req.params.id)
         .then((trip) => {
             console.log('successful delete of trip')
             res.status(200).json({
@@ -130,7 +146,7 @@ router.delete('/id/:id', (req, res) => {
 
 //delete gear item route
 router.delete('/gearList/id/:tripId/:gearId', (req, res) => {
-    hikingTrip.findById(req.params.tripId)
+    HikingTrip.findById(req.params.tripId)
         .then((trip) => {
             let myId = req.params.gearId;
             trip.gearList = trip.gearList.filter(myItem => myItem._id != myId);
@@ -148,7 +164,7 @@ router.delete('/gearList/id/:tripId/:gearId', (req, res) => {
 
 //delete food item route
 router.delete('/foodList/id/:tripId/:foodId', (req, res) => {
-    hikingTrip.findById(req.params.tripId)
+    HikingTrip.findById(req.params.tripId)
         .then((trip) => {
             let myId = req.params.foodId;
             trip.foodList = trip.foodList.filter(myItem => myItem._id != myId);
@@ -166,7 +182,7 @@ router.delete('/foodList/id/:tripId/:foodId', (req, res) => {
 
 //put route for trip
 router.put('/id/:id', (req, res) => {
-    hikingTrip.findById(req.params.id)
+    HikingTrip.findById(req.params.id)
         .then((trip) => {
             let editFields = ['trail', 'startDate', 'endDate', 'startLocaton', 'endLocation'];
 
@@ -187,7 +203,7 @@ router.put('/id/:id', (req, res) => {
 
 //put route for gear list item
 router.put('/gearList/id/:tripId/:gearId', (req, res) => {
-    hikingTrip.findById(req.params.tripId)
+    HikingTrip.findById(req.params.tripId)
         .then((trip) => {
             for (let i = 0; i < trip.gearList.length; i++) {
                 if (trip.gearList[i]._id == req.params.gearId) {
@@ -214,7 +230,7 @@ router.put('/gearList/id/:tripId/:gearId', (req, res) => {
 
 //put route for food list item
 router.put('/foodList/id/:tripId/:foodId', (req, res) => {
-    hikingTrip.findById(req.params.tripId)
+    HikingTrip.findById(req.params.tripId)
         .then((trip) => {
             for (let i = 0; i < trip.foodList.length; i++) {
                 if (trip.foodList[i] == req.params.foodId) {

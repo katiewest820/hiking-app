@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const { DATABASE_URL, PORT } = require('./config');
 const tripRoutes = require('./routes/tripRoutes');
 const authRoutes = require('./routes/auth');
+const sharing = require('./routes/sharingRoutes');
 
 app.use(morgan('common'));
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.all('/')
 app.use('/trip', tripRoutes);
 app.use('/auth', authRoutes);
+app.use('/share', sharing);
 
 
 

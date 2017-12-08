@@ -2,11 +2,12 @@
 <html>
 
 <head>
-    <title></title>
-
-<link rel="stylesheet" type="text/css" href="index.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+    <title>Hiking App</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+    <script src="https://use.fontawesome.com/c4e0aecf76.js"></script>
 </head>
+
 <body>
     <section class="actLoginPage">
         <label>Email:
@@ -17,44 +18,54 @@
         </label>
         <button class="loginBtn">Login</button>
     </section>
-
     <section class="actRegisterPage">
     </section>
-
     <section class="dashboardPage">
-    	<div class="currTrips"></div>
-    	<button class="createNewTrip">Create New Trip</button>
-    	<button class="logOut">Log Out</button>
+        <div class="currTripsDiv">
+            <h1>Your Trips:</h1>
+            <div class="currTrips"></div>
+        </div>
+        <div class="sharedTripsDiv">
+            <h1>Shared Trips:</h1>
+            <div class="colabTrips"></div>
+        </div>
+        <button class="createNewTrip">Create New Trip</button>
+        <button class="logOut">Log Out</button>
     </section>
-
     <section class="createTripPage">
-    	<label>Trail:
-    		<input class="trailName" type="text">
-    	</label>
-    	<label>Trip Start Date:
-    		<input class="startDate" type="date">
-    	</label>
-    	<label>Trip End Date:
-    		<input class="endDate" type="date">
-    	</label>
-    	<label>Trip Start Location:
-    		<input class="startLocation" type="text">
-    	</label>
-    	<label>Trip End Location:
-    		<input class="endLocation" type="text">
-    	</label>
-    	<button class="submitNewTripBtn">Submit New Trip</button>	
+        <label>Trail:
+            <input class="trailName" type="text">
+        </label>
+        <label>Trip Start Date:
+            <input class="startDate" type="date">
+        </label>
+        <label>Trip End Date:
+            <input class="endDate" type="date">
+        </label>
+        <label>Trip Start Location:
+            <input class="startLocation" type="text">
+        </label>
+        <label>Trip End Location:
+            <input class="endLocation" type="text">
+        </label>
+        <button class="submitNewTripBtn">Submit New Trip</button>
     </section>
-
     <section class="viewEditShareTripPage">
+        <label>Trip Id
+            <input class="tripIdShare" type="text">
+        </label>
+        <label>Collaborator
+            <input class="colabShare" type="text">
+        </label>
+        <label>Admin Permission
+            <input class="adminShare" type="checkBox">
+        </label>
+        <button class="shareTripBtn">Share Trip</button>
     </section>
-
     <section class="archivesPage">
     </section>
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>

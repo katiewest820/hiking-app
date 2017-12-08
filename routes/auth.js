@@ -26,20 +26,20 @@ router.post('/login', (req, res) => {
 			if(!bcrypt.compareSync(req.body.password, user.password)){
 				res.send('password does not match email').status(500);
 				return
-			}else{
-				let userToken = {
-					email: userSchema.email,
-					firstName: userSchema.firstName,
-					lastName: userSchema.lastName,
-				}
-				token = jwt.sign(userToken, config.JWT_SECRET)
-				console.log(`token: ${token}`)
-				res.status(200).json({
-					message: ` ${user.email} successfully logged in`,
-                    userId: user._id,
-                    token: token
-                });
 			}
+			let userToken = {
+				email: userSchema.email,
+				firstName: userSchema.firstName,
+				lastName: userSchema.lastName,
+			}
+			token = jwt.sign(userToken, config.JWT_SECRET)
+			console.log(`token: ${token}`)
+			res.status(200).json({
+				message: ` ${user.email} successfully logged in`,
+                userId: user._id,
+                token: token
+            });
+			
 
 		})
 		.catch((err) => {

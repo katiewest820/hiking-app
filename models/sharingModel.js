@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const hikingModel = require('./hikingModel');
-const authModel = require('./authModel');
+const { HikingTrip, gearList, foodList } = require('../models/hikingModel');
+const user = require('./authModel');
 
 var sharedTripSchema = new mongoose.Schema({
-	trip: {type: mongoose.Schema.ObjectId, ref: 'hikingModel'},
-	owner: {type: mongoose.Schema.ObjectId, ref: 'authModel'},
-	collaborator: {type: mongoose.Schema.ObjectId, ref: 'authModel'},
+	trip: {type: mongoose.Schema.ObjectId, ref: 'HikingTrip'},
+	owner: {type: mongoose.Schema.ObjectId, ref: 'user'},
+	collaborator: {type: mongoose.Schema.ObjectId, ref: 'user'},
 	admin: Boolean,
 	createdAt: {type: Date, default: Date.now}
 });

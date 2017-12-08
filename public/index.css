@@ -1,8 +1,21 @@
-body{
-	background-color: green;
-	color: white;
+
+
+.createTripPage, .dashboardPage, .viewEditShareTripPage{
+	display: none;
 }
 
-.createTripPage, .dashboardPage{
-	display: none;
+.currTripsDiv, .sharedTripsDiv{
+	border: solid 1px black;
+	padding: 20px;
+	margin: 20px;
+}
+
+.viewEditShareTripPage, .createTripPage{
+	height: 300px;
+	width: 80%;
+	padding: 20px;
+	margin-top: 20%;
+	background-color: grey;
+	border: solid black 5px;
+	margin:auto;
 }

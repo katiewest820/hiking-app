@@ -28,12 +28,12 @@ let hikingTripSchema = new mongoose.Schema({
 
 
 
- let hikingTrip = mongoose.model('HikingTrip', hikingTripSchema);
+ let HikingTrip = mongoose.model('HikingTrip', hikingTripSchema);
  let gearList = mongoose.model('GearList', gearListSchema);
  let foodList = mongoose.model('FoodList', foodListSchema);
 
  module.exports = {
- 	hikingTrip: hikingTrip,
+ 	HikingTrip: HikingTrip,
  	gearList: gearList,
  	foodList: foodList
  }
