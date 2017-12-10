@@ -1,6 +1,9 @@
 
-
-.createTripPage, .dashboardPage, .viewEditShareTripPage{
+*{
+	margin:0;
+	padding: 0;
+}
+.createTripPage, .dashboardPage, .shareTripPage, .tripDetails{
 	display: none;
 }
 
@@ -10,7 +13,11 @@
 	margin: 20px;
 }
 
-.viewEditShareTripPage, .createTripPage{
+.tripDiv a{
+	margin: 3%;
+}
+
+.shareTripPage, .createTripPage{
 	height: 300px;
 	width: 80%;
 	padding: 20px;
@@ -19,3 +26,28 @@
 	border: solid black 5px;
 	margin:auto;
 }
+
+
+.tripDetailsDiv, .gearListDiv, .foodListDiv{
+	height: fit-content;
+	width: 80%;
+	padding: 10px;
+	margin-top: 20%;
+	border: solid 5px black;
+	margin: auto;
+}
+
+
+
+.gearItemDetails, .foodItemDetails{
+	border: 1px solid black;
+}
+
+.currGearList, .currFoodList{
+	height: 0px;
+	overflow: hidden;
+	transition: height 0.5s;
+}
+
+
+

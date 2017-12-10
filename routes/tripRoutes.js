@@ -98,8 +98,9 @@ router.post('/gearList/id/:id', (req, res) => {
 
             trip.gearList.push(newGearList);
             trip.save();
-            console.log('successful post to gear list')
-            res.status(200).send(`gear list item saved ${trip}`);
+            let newItem = trip.gearList.slice(-1)
+            console.log(`successful post to gear list ${newItem}`)
+            res.status(200).send(newItem);
         })
         .catch((err) => {
             console.log('something bad happened')
@@ -119,8 +120,9 @@ router.post('/foodList/id/:id', (req, res) => {
 
             trip.foodList.push(newFoodList);
             trip.save();
-            console.log('successful post to food list');
-            res.status(200).send(`food list item saved ${trip}`)
+            let newItem = trip.foodList.slice(-1);
+            console.log(`successful post to food list ${newItem}`);
+            res.status(200).send(newItem)
         })
         .catch((err) => {
             console.log('something bad happened');

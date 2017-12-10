@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
  let gearListSchema = new mongoose.Schema({
 	item: String,
-	weight: Number,
+	weight: String,
 	quantity: Number,
 	checked: Boolean
 })
 
 let foodListSchema = new mongoose.Schema({
 	item: String,
-	weight: Number,
+	weight: String,
 	quantity: Number,
 	checked: Boolean
 }) 
@@ -22,7 +22,7 @@ let hikingTripSchema = new mongoose.Schema({
 	startDate: Date,
 	endDate: Date,
 	gearList: [gearListSchema],
-	foodList: [],
+	foodList: [foodListSchema],
 	createdAt: {type: Date, default: Date.now}
 });
 

@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
     <script src="https://use.fontawesome.com/c4e0aecf76.js"></script>
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
 </head>
 
 <body>
@@ -50,10 +53,56 @@
         </label>
         <button class="submitNewTripBtn">Submit New Trip</button>
     </section>
-    <section class="viewEditShareTripPage">
-        <label>Trip Id
-            <input class="tripIdShare" type="text">
-        </label>
+    <section class="tripDetails">
+        <div class="tripDetailsDiv">
+            
+            <h3 class="totalPackWeight">Total Pack Weight: 10000lbs</h3>
+        </div>
+<!--gear item section-->        
+        <div class="gearListDiv">
+            <h1>Gear List</h1><a href="#" class="expandGearList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+            <div class="currGearList">
+                <label>Add Gear Item
+                    <input class="newGearItem" type="text">
+                </label> 
+                <label>Weight
+                    <input class="newGearItemWeight" type="text">
+                    <select class="weightMeasure" name="weight">
+                      <option value="oz">Oz</option>
+                      <option value="lbs">Lbs</option>
+                      <option value="g">Grams</option>
+                    </select>
+                </label> 
+                <label>Quantity
+                    <input class="newGearItemQ" type="text">
+                </label>
+                <button class="submitGearItemBtn">Submit</button> 
+            </div> 
+        </div>
+<!--food item section-->
+         <div class="foodListDiv">
+            <h1>Food List</h1><a href="#" class="expandFoodList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+            <div class="currFoodList">
+                <label>Add Food Item
+                    <input class="newFoodItem" type="text">
+                </label> 
+                <label>Weight
+                    <input class="newFoodItemWeight" type="text">
+                    <select class="foodWeightMeasure" name="weight">
+                      <option value="oz">Oz</option>
+                      <option value="lbs">Lbs</option>
+                      <option value="g">Grams</option>
+                    </select>
+                </label> 
+                <label>Quantity
+                    <input class="newFoodItemQ" type="text">
+                </label>
+                <button class="submitFoodItemBtn">Submit</button>
+            </div>  
+        </div>
+    </section>
+<!--share trip page-->    
+    <section class="shareTripPage">
         <label>Collaborator
             <input class="colabShare" type="text">
         </label>
