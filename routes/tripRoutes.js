@@ -63,6 +63,7 @@ router.get('/id/:id', (req, res) => {
         });
 });
 
+
 //post route
 router.post('/', (req, res) => {
     let newTrip = new HikingTrip({
@@ -91,6 +92,7 @@ router.post('/gearList/id/:id', (req, res) => {
     HikingTrip.findById(req.params.id)
         .then((trip) => {
             let newGearList = new gearList();
+            newGearList.owner = req.body.owner;
             newGearList.item = req.body.item;
             newGearList.weight = req.body.weight;
             newGearList.quantity = req.body.quantity;
@@ -113,6 +115,7 @@ router.post('/foodList/id/:id', (req, res) => {
     HikingTrip.findById(req.params.id)
         .then((trip) => {
             let newFoodList = new foodList();
+            newFoodList.owner = req.body.owner;
             newFoodList.item = req.body.item;
             newFoodList.weight = req.body.weight;
             newFoodList.quantity = req.body.quantity;
@@ -209,7 +212,7 @@ router.put('/gearList/id/:tripId/:gearId', (req, res) => {
         .then((trip) => {
             for (let i = 0; i < trip.gearList.length; i++) {
                 if (trip.gearList[i]._id == req.params.gearId) {
-                    let editFields = ['item', 'weight', 'quantity'];
+                    let editFields = ['item', 'weight', 'quantity', 'owner'];
                     editFields.forEach((field) => {
                         if (field in req.body) {
                             trip.gearList[i][field] = req.body[field]
@@ -236,7 +239,7 @@ router.put('/foodList/id/:tripId/:foodId', (req, res) => {
         .then((trip) => {
             for (let i = 0; i < trip.foodList.length; i++) {
                 if (trip.foodList[i] == req.params.foodId) {
-                    let editFields = ['item', 'weight', 'quantity'];
+                    let editFields = ['item', 'weight', 'quantity', 'owner'];
                     editFields.forEach((field) => {
                         if (field in req.body) {
                             trip.foodList[i][field] == req.body[field]
@@ -258,9 +261,4 @@ router.put('/foodList/id/:tripId/:foodId', (req, res) => {
 });
 
 
-
-
-
-
-
-            module.exports = router;
+module.exports = router;

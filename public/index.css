@@ -2,22 +2,85 @@
 *{
 	margin:0;
 	padding: 0;
+	text-decoration: none;
 }
+
+body{
+	background: url("background_stars.png");
+	background-size: cover;
+}
+
 .createTripPage, .dashboardPage, .shareTripPage, .tripDetails{
 	display: none;
 }
 
-.currTripsDiv, .sharedTripsDiv{
-	border: solid 1px black;
+.dashboardPage, .tripDetails{
+	position: relative;
+	min-height: 500px;
+	background-color: lightgrey;
+	padding: 30px;
+	margin: 12%;
+}
+
+
+
+.currTripsDiv h1, .sharedTripsDiv h1{
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 3%;
+}
+
+.currTripsDiv{
+	border-bottom: solid 2px black;
 	padding: 20px;
-	margin: 20px;
+	min-height: 200px;
 }
 
-.tripDiv a{
-	margin: 3%;
+.sharedTripsDiv{
+	padding: 20px;
+	text-align: center;
+	min-height: 200px;
 }
 
-.shareTripPage, .createTripPage{
+.tripDiv{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+	margin: 2%;
+}
+
+.tripDiv .tripName{
+	justify-self: center;
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
+.deleteTrip{
+	justify-self: end;
+}
+
+.dashboardToolbar{
+	position: absolute;
+	bottom: 5%;
+	display: grid;
+	grid-template-columns: 20% 80%;
+	grid-gap: 10px;
+}
+
+.dashboardBtns{
+	height: 0px;
+	overflow: hidden;
+}
+
+.togglerClass i{
+	margin: 5px;
+}
+
+.toolbarIcon{
+	align-self: center;
+}
+
+.createTripPage{
 	height: 300px;
 	width: 80%;
 	padding: 20px;
@@ -46,8 +109,48 @@
 .currGearList, .currFoodList{
 	height: 0px;
 	overflow: hidden;
-	transition: height 0.5s;
+	
 }
 
+.autoPop{
+	width: 90%;
+}
 
+.colabShare{
+	width: 100%;
+	height: 25px;
+	
+	
+}
+
+.availUsers{
+	width: 100%;
+	display: block;
+	background-color: white;
+	
+}
+
+.shareTripPage{
+	height: fit-content;
+	width: 50%;
+	padding: 40px;
+	margin: 20%;
+	background-color: grey;
+	border: solid 5px black;
+}
+
+.sharePageGrid{
+	display: grid;
+	grid-template-columns: 85% 15%;
+	grid-gap: 20px;
+}
+
+@media  (min-width: 640px){
+
+	.dashboardPage, .tripDetails{
+		margin: 8% 13%;
+	}
+
+	
+}
 

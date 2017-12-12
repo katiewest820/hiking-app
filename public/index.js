@@ -6,8 +6,8 @@ let tripIdValue;
 
 function checkUserLogin() {
     if (localStorage.getItem('userId')) {
-        $('.actLoginPage').fadeOut();
-        $('.dashboardPage').fadeIn();
+        $('.actLoginPage').css('display', 'none');
+        $('.dashboardPage').delay(300).fadeIn();
         displayDashboardTrips();
         displayColabTrips();
     }
@@ -55,7 +55,7 @@ function userLogin() {
                 $('.dashboardPage').fadeIn();
                 displayColabTrips();
                 displayDashboardTrips();
-                
+
             })
             .fail((err) => {
                 console.log(err)
@@ -75,7 +75,9 @@ function displayDashboardTrips() {
             for (let i = 0; i < trips.length; i++) {
                 //let startDate = moment(trips[i].startDate).utc().format('MMM Do YYYY')
                 //let endDate = moment(trips[i].endDate).utc().format('MMM Do YYYY')
-                $('.currTrips').append(`<div class="tripDiv" ><a class="tripName" value="${trips[i]._id}" href="#">${trips[i].trail}</a><a href="#" class="shareImg" value="${trips[i]._id}"><i class="fa fa-share" aria-hidden="true"></i></a></div>`)
+                $('.currTrips').append(`<div class="tripDiv" ><a class="tripName" value="${trips[i]._id}" href="#">${trips[i].trail}</a>
+                	<a href="#" class="deleteTrip" value="${trips[i]._id}"><i class="fa fa-trash" aria-hidden="true" title="Delete Trip"></i></a>
+                	<a href="#" class="shareImg" value="${trips[i]._id}"><i class="fa fa-share-alt" aria-hidden="true" title="Share Trip"></i></a></div>`)
             }
         })
         .fail((err) => {
@@ -83,32 +85,38 @@ function displayDashboardTrips() {
         })
 }
 
-function displayColabTrips(){
-	//console.log('hello 1')
-	$.ajax({
-		url: `${myURL}trip/getByColab/${localStorage.getItem('userId')}`,
-		type: 'GET',
-		headers: { authorization: myStorage.tokenKey }
-	})
-	.done((trips) => {
-		console.log(trips)
-		//console.log('hello 2')
-		$('.colabTrips').empty();
-		for (let i = 0; i < trips.length; i++) {
-			$('.colabTrips').append(`<div><a href="#">${trips[i].trip.trail}</a></div>`)
-		}
-	})
-	.fail((err) => {
-		console.log(err)
-	});
+function displayColabTrips() {
+    $.ajax({
+            url: `${myURL}trip/getByColab/${localStorage.getItem('userId')}`,
+            type: 'GET',
+            headers: { authorization: myStorage.tokenKey }
+        })
+        .done((trips) => {
+            console.log(trips)
+            $('.colabTrips').empty();
+            for (let i = 0; i < trips.length; i++) {
+                $('.colabTrips').append(`<div><a value="${trips[i].trip._id}" href="#">${trips[i].trip.trail}</a></div>`)
+            }
+        })
+        .fail((err) => {
+            console.log(err)
+        });
 }
 
 
+
+function toolBarToggle(){
+	$('.toolbarIcon').on('click', function(){
+		$('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
+		$('.togglerClass').toggleClass('dashboardBtns toggledDashboardBtns');
+	});
+}
+
 function createNewTripPageLoad() {
     $('.createNewTrip').on('click', function() {
-    	$('.dashboardPage').fadeOut();
+        $('.dashboardPage').fadeOut();
         $('.createTripPage').delay(500).fadeIn();
-    })
+    });
 }
 
 function addNewTrip() {
@@ -122,7 +130,6 @@ function addNewTrip() {
             startDate: $('.startDate').val(),
             endDate: $('.endDate').val()
         }
-
         $.ajax({
                 url: `${myURL}trip`,
                 type: 'POST',
@@ -135,9 +142,53 @@ function addNewTrip() {
                 console.log(trip.data.userId)
                 console.log(trip)
                 displayColabTrips();
-            	displayDashboardTrips();
-            	$('.createTripPage').fadeOut();
+                displayDashboardTrips();
+                $('.createTripPage').fadeOut();
                 $('.dashboardPage').delay(500).fadeIn();
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
+}    
+
+function backToDashboard(){
+    $('.backToDashboard').on('click', function(){
+    	let fadeOutDiv = $(this).parent('section')
+    	fadeOutDiv.fadeOut();
+    	$('.dashboardPage').delay(500).fadeIn()
+    	})
+    }
+
+function deleteTrip() {
+    $('.currTrips').on('click', '.deleteTrip', function(element) {
+    	let divToRemove = $(this).parent('.tripDiv');
+        let myId = element.currentTarget.attributes.value.nodeValue;
+        $.ajax({
+                url: `${myURL}trip/id/${myId}`,
+                type: 'DELETE',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((trip) => {
+                console.log(trip)
+                divToRemove.remove()
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
+}
+
+function deleteColabTrips() {
+    $('.currTrips').on('click', '.deleteTrip', function(element) {
+        let myId = element.currentTarget.attributes.value.nodeValue;
+        $.ajax({
+                url: `${myURL}share/deleteTrip/id/${myId}`,
+                type: 'DELETE',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((trip) => {
+                console.log(trip)
             })
             .fail((err) => {
                 console.log(err)
@@ -150,151 +201,218 @@ function shareTrip() {
         let shareTripId = {
             tripId: tripIdValue,
             ownerId: localStorage.getItem('userId'),
-            colabId: $('.colabShare').val(),
+            colabId: $('.colabShare').attr('placeholder'),
             admin: $('.adminShare').is(":checked")
         }
-		console.log(shareTripId)
-		$.ajax({
-			url: `${myURL}share/shareTrip`,
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify(shareTripId),
-			headers: { authorization: myStorage.tokenKey }
-		})
-		.done((share) => {
-			console.log(share)
-			displayColabTrips();
-            displayDashboardTrips();
-			$('.shareTripPage').fadeOut();
-			$('.dashboardPage').delay(500).fadeIn();
-		})
-		.fail((err) => {
-			console.log(err)
-		});
+        console.log(shareTripId)
+        $.ajax({
+                url: `${myURL}share/shareTrip`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(shareTripId),
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((share) => {
+                console.log(share)
+                displayColabTrips();
+                displayDashboardTrips();
+                $('.shareTripPage').fadeOut();
+                $('.dashboardPage').delay(500).fadeIn();
+            })
+            .fail((err) => {
+                console.log(err)
+            });
     });
 }
 
-function shareTripFormLoad(){
-	$('.currTrips').on('click', '.shareImg', function(){
-		tripIdValue = $(this).attr('value');
-		console.log(tripIdValue)
-		$('.dashboardPage').fadeOut();
-		$('.shareTripPage').delay(500).fadeIn();
-	})	
+function shareTripFormLoad() {
+    $('.currTrips').on('click', '.shareImg', function() {
+        tripIdValue = $(this).attr('value');
+        console.log(tripIdValue)
+        $('.dashboardPage').fadeOut();
+        $('.shareTripPage').delay(500).fadeIn();
+    })
 }
 
-function displayTripDetails(){
-	$('.currTrips').on('click', '.tripName', function(){
-		tripIdValue = $(this).attr('value')
-		console.log(tripIdValue)
-		$.ajax({
-			url: `${myURL}trip/id/${tripIdValue}`,
-			type: 'GET',
-			headers: { authorization: myStorage.tokenKey }
-		})
-		.done((trip) => {
-			console.log(trip)
-			$('.dashboardPage').fadeOut();
-			$('.tripDetails').delay(500).fadeIn();
-			let startDate = moment(trip.startDate).utc().format('MMM Do YYYY')
-            let endDate = moment(trip.endDate).utc().format('MMM Do YYYY')
-			$('.tripDetailsDiv').prepend(`<h1>${trip.trail}</h1><p>${startDate}</p><p>${endDate}</p>`)
-			for(let i = 0; i < trip.gearList.length; i++){
-				$('.currGearList').append(`<div class="gearItemDetails"><h3>${trip.gearList[i].item}</h3><p>Quantity: ${trip.gearList[i].quantity}</p><p>Weight: ${trip.gearList[i].weight}</p></div>`)
-			}
-			for(let i = 0; i < trip.foodList.length; i++){
-				$('.currFoodList').append(`<div class="foodItemDetails"><h3>${trip.foodList[i].item}</h3><p>Quantity: ${trip.foodList[i].quantity}</p><p>Weight: ${trip.foodList[i].weight}</p></div>`)
-			}
+function findColaborator() {
+    $('.colabShare').on('keyup', function() {
+        if ($(this).val().length < 3) {
+            return
+        }
+        console.log($(this).val())
+        $.ajax({
+                url: `${myURL}auth/search/${$(this).val()}`,
+                type: 'GET',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((user) => {
+                $('.availUsers').html(' ')
+                console.log(user)
+                user.forEach((currUser) => {
+                    $('.availUsers').append(`<option value="${currUser._id}">${currUser.firstName}</option>`)
+                })
+            })
+    })
 
-		})
-		.fail((err) => {
-			console.log(err)
-		});
-	});
 }
 
-function expandGearList(){
-	$('.expandGearList').on('click', function(){
-		let list = $('.gearListDiv').children('div');
-		list.toggleClass('currGearListExpanded currGearList');
-		//$('.currGearListExpanded').toggleClass('currGearList')
-		icon = $('.gearListDiv').find('i');
-		icon.toggleClass('fa fa-chevron-circle-down fa fa-chevron-circle-up')
-	});
+
+function selectColaborator() {
+    $('.availUsers').on('click', 'option', function(event) {
+        console.log(event.currentTarget.firstChild.data)
+        $('.colabShare').attr('placeholder', event.target.attributes.value.nodeValue).val(event.currentTarget.firstChild.data)
+        $('.availUsers').empty()
+    });
 }
 
-function expandFoodList(){
-	$('.expandFoodList').on('click', function(){
-		let listTwo = $('.foodListDiv').children('div');
-		listTwo.toggleClass('currFoodListExpanded currFoodList');
-		iconTwo = $('.foodListDiv').find('i');
-		iconTwo.toggleClass('fa fa-chevron-circle-up fa fa-chevron-circle-down')
-		//$('.fa-chevron-circle-down').toggleClass('.fa-chevron-circle-up expandGearList')
-		//$('.currGearList').addClass('animated slideInDown')
-		//$('.currGearList').toggleClass('.currGearListExpanded')
-		
-	})
+
+function displayTripDetails() {
+    $('.currTrips').on('click', '.tripName', function() {
+        tripIdValue = $(this).attr('value')
+        console.log(tripIdValue)
+        $.ajax({
+                url: `${myURL}trip/id/${tripIdValue}`,
+                type: 'GET',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((trip) => {
+                console.log(trip)
+                $('.dashboardPage').fadeOut();
+                $('.tripDetails').delay(500).fadeIn();
+                let startDate = moment(trip.startDate).utc().format('MMM Do YYYY')
+                let endDate = moment(trip.endDate).utc().format('MMM Do YYYY')
+                $('.tripDetailsDiv').prepend(`<h1>${trip.trail}</h1><p>${startDate}</p><p>${endDate}</p>`)
+                for (let i = 0; i < trip.gearList.length; i++) {
+                    $('.currGearList').append(`<div class="gearItemDetails"><h3>${trip.gearList[i].item}</h3><p>Owner: ${trip.gearList[i].owner}</p><a class="deleteGearItem" value="${trip.gearList[i]._id}" href="#">
+					<i class="fa fa-trash" aria-hidden="true"></i></a><p>Quantity: ${trip.gearList[i].quantity}</p><p>Weight: ${trip.gearList[i].weight}</p></div>`)
+                }
+                for (let i = 0; i < trip.foodList.length; i++) {
+                    $('.currFoodList').append(`<div class="foodItemDetails"><h3>${trip.foodList[i].item}</h3><p>Owner: ${trip.foodList[i].owner}</p><a class="deleteFoodItem" value="${trip.foodList[i]._id}" href="#">
+					<i class="fa fa-trash" aria-hidden="true"></i></a><p>Quantity: ${trip.foodList[i].quantity}</p><p>Weight: ${trip.foodList[i].weight}</p></div>`)
+                }
+
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
 }
 
-function addGearItem(){
-	$('.submitGearItemBtn').on('click', function(){
-		let weight = `${$('.newGearItemWeight').val()} ${$('.weightMeasure').val()}`
-		console.log(weight) 
-		let addedGearItem = {
-			item: $('.newGearItem').val(),
-			weight: weight,
-			quantity: $('.newGearItemQ').val()
-		}
-		console.log(addedGearItem)
-
-		$.ajax({
-			url: `${myURL}trip/gearList/id/${tripIdValue}`,
-			type: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify(addedGearItem),
-			headers: {authorization: myStorage.tokenKey}
-		})
-		.done((gearItem) => {
-			console.log(gearItem)
-			$('.currGearList').prepend(`<div class="gearItemDetails"><h3>${gearItem[0].item}</h3><p>Quantity: ${gearItem[0].quantity}</p><p>Weight: ${gearItem[0].weight}</p></div>`)
-		})
-		.fail((err)=> {
-			console.log(err)
-		})
-	});
+function expandGearList() {
+    $('.expandGearList').on('click', function() {
+        let list = $('.gearListDiv').children('div');
+        list.toggleClass('currGearListExpanded currGearList');
+        icon = $('.gearListDiv').find('i');
+        icon.toggleClass('fa fa-chevron-circle-down fa fa-chevron-circle-up');
+    });
 }
 
-function addFoodItem(){
-	$('.submitFoodItemBtn').on('click', function(){
-		let weight = `${$('.newFoodItemWeight').val()} ${$('.foodWeightMeasure').val()}`
-		console.log(weight) 
-		let addedFoodItem = {
-	 		item: $('.newFoodItem').val(),
-	 		weight: weight,
-	 		quantity: $('.newFoodItemQ').val()
-	 	}
-	 	console.log(addedFoodItem)
-
-	 	$.ajax({
-	 		url: `${myURL}trip/foodList/id/${tripIdValue}`,
-	 		type: 'POST',
-	 		contentType: 'application/json',
-	 		data: JSON.stringify(addedFoodItem),
-	 		headers: {authorization: myStorage.tokenKey}
-	 	})
-	 	.done((foodItem) => {
-	 		console.log(foodItem)
-			
-	 		$('.currFoodList').prepend(`<div class="foodItemDetails"><h3>${foodItem[0].item}</h3><p>Quantity: ${foodItem[0].quantity}</p><p>Weight: ${foodItem[0].weight}</p></div>`)
-	 	})
-	 	.fail((err)=> {
-	 		console.log(err)
-	 	})
-	 });
+function expandFoodList() {
+    $('.expandFoodList').on('click', function() {
+        let listTwo = $('.foodListDiv').children('div');
+        listTwo.toggleClass('currFoodListExpanded currFoodList');
+        iconTwo = $('.foodListDiv').find('i');
+        iconTwo.toggleClass('fa fa-chevron-circle-up fa fa-chevron-circle-down');
+    });
 }
 
-function deleteGearItem(){
+function addGearItem() {
+    $('.submitGearItemBtn').on('click', function() {
+        let weight = `${$('.newGearItemWeight').val()} ${$('.weightMeasure').val()}`
+        console.log(weight)
+        let addedGearItem = {
+            owner: $('.newGearListOwner').val(),
+            item: $('.newGearItem').val(),
+            weight: weight,
+            quantity: $('.newGearItemQ').val()
+        }
+        console.log(addedGearItem)
 
+        $.ajax({
+                url: `${myURL}trip/gearList/id/${tripIdValue}`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(addedGearItem),
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((gearItem) => {
+                console.log(gearItem)
+                $('.gearListClick').append(`<div class="gearItemDetails"><h3>${gearItem[0].item}</h3><p>Owner:${gearItem[0].owner}</p><a class="deleteGearItem" value="${gearItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+				<p>Quantity: ${gearItem[0].quantity}</p><p>Weight: ${gearItem[0].weight}</p></div>`)
+            })
+            .fail((err) => {
+                console.log(err)
+            })
+    });
+}
+
+function addFoodItem() {
+    $('.submitFoodItemBtn').on('click', function() {
+        let weight = `${$('.newFoodItemWeight').val()} ${$('.foodWeightMeasure').val()}`
+        console.log(weight)
+        let addedFoodItem = {
+            owner: $('.newFoodListOwner').val(),
+            item: $('.newFoodItem').val(),
+            weight: weight,
+            quantity: $('.newFoodItemQ').val()
+        }
+        console.log(addedFoodItem)
+
+        $.ajax({
+                url: `${myURL}trip/foodList/id/${tripIdValue}`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(addedFoodItem),
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((foodItem) => {
+                console.log(foodItem)
+                $('.foodListClick').append(`<div class="foodItemDetails"><h3>${foodItem[0].item}</h3><p>Owner: ${foodItem[0].owner}</p><a class="deleteFoodItem" value="${foodItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+	 			<p>Quantity: ${foodItem[0].quantity}</p><p>Weight: ${foodItem[0].weight}</p></div>`)
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
+}
+
+function deleteGearItem() {
+    $('.gearListClick').on('click', 'a', function() {
+        let divToRemove = $(this).parent('.gearItemDetails');
+        let myId = $(this).attr('value');
+        $.ajax({
+                url: `${myURL}trip/gearList/id/${tripIdValue}/${myId}`,
+                type: 'DELETE',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((gearItem) => {
+                console.log(gearItem)
+                divToRemove.remove()
+
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
+}
+
+function deleteFoodItem() {
+    $('.foodListClick').on('click', 'a', function() {
+        let divToRemove = $(this).parent('.foodItemDetails');
+        let myId = $(this).attr('value');
+        $.ajax({
+                url: `${myURL}trip/foodList/id/${tripIdValue}/${myId}`,
+                type: 'DELETE',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((foodItem) => {
+                console.log(foodItem)
+                divToRemove.remove()
+            })
+            .fail((err) => {
+                console.log(err)
+            });
+    });
 }
 
 
@@ -310,6 +428,14 @@ shareTripFormLoad()
 displayTripDetails()
 addGearItem()
 addFoodItem()
-
 expandGearList()
 expandFoodList()
+deleteGearItem()
+deleteFoodItem()
+findColaborator()
+selectColaborator()
+
+deleteTrip()
+deleteColabTrips()
+toolBarToggle()
+backToDashboard()

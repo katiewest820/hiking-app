@@ -6,12 +6,11 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
     <script src="https://use.fontawesome.com/c4e0aecf76.js"></script>
-    <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
+<!-- login -->    
     <section class="actLoginPage">
         <label>Email:
             <input class="emailLogin" type="text">
@@ -23,6 +22,7 @@
     </section>
     <section class="actRegisterPage">
     </section>
+<!-- main page -->    
     <section class="dashboardPage">
         <div class="currTripsDiv">
             <h1>Your Trips:</h1>
@@ -32,9 +32,16 @@
             <h1>Shared Trips:</h1>
             <div class="colabTrips"></div>
         </div>
-        <button class="createNewTrip">Create New Trip</button>
-        <button class="logOut">Log Out</button>
+        <div class="dashboardToolbar">
+            <i class="fa fa-ellipsis-v fa-2x toolbarIcon" aria-hidden="true" ></i>
+            <div class="dashboardBtns togglerClass">
+                <i class="fa fa-plus fa-2x createNewTrip" aria-hidden="true" title="Create New Trip"></i>
+                <i class="fa fa-sign-out fa-2x logOut" aria-hidden="true" title="Log Out"></i>
+                <i class="fa fa-archive fa-2x" aria-hidden="true" title="See Archives"></i>
+            </div>    
+        </div>
     </section>
+<!--create new trip-->    
     <section class="createTripPage">
         <label>Trail:
             <input class="trailName" type="text">
@@ -52,16 +59,20 @@
             <input class="endLocation" type="text">
         </label>
         <button class="submitNewTripBtn">Submit New Trip</button>
+        <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
     <section class="tripDetails">
         <div class="tripDetailsDiv">
-            
             <h3 class="totalPackWeight">Total Pack Weight: 10000lbs</h3>
         </div>
-<!--gear item section-->        
+<!--gear item section-->       
         <div class="gearListDiv">
             <h1>Gear List</h1><a href="#" class="expandGearList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
-            <div class="currGearList">
+
+            <div class="currGearList gearListClick">
+                <label>Item Owner
+                    <input type="text" class="newGearListOwner">
+                </label>
                 <label>Add Gear Item
                     <input class="newGearItem" type="text">
                 </label> 
@@ -82,7 +93,10 @@
 <!--food item section-->
          <div class="foodListDiv">
             <h1>Food List</h1><a href="#" class="expandFoodList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
-            <div class="currFoodList">
+            <div class="currFoodList foodListClick">
+                <label>Item Owner
+                    <input type="text" class="newFoodListOwner">
+                </label>
                 <label>Add Food Item
                     <input class="newFoodItem" type="text">
                 </label> 
@@ -100,16 +114,21 @@
                 <button class="submitFoodItemBtn">Submit</button>
             </div>  
         </div>
+        <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
 <!--share trip page-->    
     <section class="shareTripPage">
-        <label>Collaborator
-            <input class="colabShare" type="text">
-        </label>
-        <label>Admin Permission
-            <input class="adminShare" type="checkBox">
-        </label>
-        <button class="shareTripBtn">Share Trip</button>
+        <div class="sharePageGrid">
+            <div class="autoPop">
+                <input class="colabShare" type="text" placeholder="Colaborator">
+                <datalist class="availUsers"></datalist>
+            </div>    
+            <a href="#"><i class="fa fa-share-alt fa-2x shareTripBtn" aria-hidden="true" title="Share Trip"></i></a>
+            <label>Edit Permissions
+                <input class="adminShare" type="checkBox">
+            </label>
+        </div>
+        <!--<div class="availUsers"></div> -->
     </section>
     <section class="archivesPage">
     </section>

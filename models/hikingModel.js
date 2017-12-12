@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
  let gearListSchema = new mongoose.Schema({
+ 	owner: String,
 	item: String,
 	weight: String,
 	quantity: Number,
@@ -8,6 +9,7 @@ const mongoose = require('mongoose');
 })
 
 let foodListSchema = new mongoose.Schema({
+	owner: String,
 	item: String,
 	weight: String,
 	quantity: Number,

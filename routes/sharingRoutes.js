@@ -31,6 +31,19 @@ router.post('/shareTrip', (req,res) => {
 	});
 });
 
+router.delete('/deleteTrip/id/:id', (req, res) => {
+	sharingSchema.remove({trip: req.params.id})
+		.then((trip) => {
+			res.status(200).json({
+				message: 'your colab trip was deleted',
+				data: trip
+			});	
+		})
+		.catch((err) => {
+			res.status(500).send(err)
+		})
+})
+
 
 
 

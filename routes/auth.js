@@ -11,6 +11,19 @@ const router = express.Router();
 
 let token;
 
+
+
+router.get('/search/:value', (req, res) => {
+	userSchema.find({firstName: req.params.value})
+		.then((user) => {
+			res.status(200).send(user)
+		})
+		.catch((err) => {
+			res.status(500).send(err)
+		})
+})
+
+
 //login route
 router.post('/login', (req, res) => {
 	userSchema.findOne({email: req.body.email})
