@@ -12,17 +12,22 @@
 <body>
 <!-- login -->    
     <section class="actLoginPage">
-        <label>Email:
+        <img class="loginImg" src="Camping.svg" height="500px" width="500px">
+        
+        <div class="actLoginDiv">
+            <label>Email:</label>
             <input class="emailLogin" type="text">
-        </label>
-        <label>Password:
-            <input class="passwordLogin" type="text">
-        </label>
-        <button class="loginBtn">Login</button>
+            <label>Password:</label>
+            <input class="passwordLogin" type="password">
+            <button class="loginBtn">Login</button>
+            <button class="registerBtn">Register</button>
+        </div>
     </section>
+<!-- registration page -->    
     <section class="actRegisterPage">
+        
     </section>
-<!-- main page -->    
+<!-- main/dashboard page -->    
     <section class="dashboardPage">
         <div class="currTripsDiv">
             <h1>Your Trips:</h1>
@@ -61,11 +66,12 @@
         <button class="submitNewTripBtn">Submit New Trip</button>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
+<!--trip details page -->    
     <section class="tripDetails">
         <div class="tripDetailsDiv">
             <h3 class="totalPackWeight">Total Pack Weight: 10000lbs</h3>
         </div>
-<!--gear item section-->       
+    <!--gear item section-->       
         <div class="gearListDiv">
             <h1>Gear List</h1><a href="#" class="expandGearList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
 
@@ -90,7 +96,7 @@
                 <button class="submitGearItemBtn">Submit</button> 
             </div> 
         </div>
-<!--food item section-->
+    <!--food item section-->
          <div class="foodListDiv">
             <h1>Food List</h1><a href="#" class="expandFoodList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
             <div class="currFoodList foodListClick">
@@ -128,12 +134,14 @@
                 <input class="adminShare" type="checkBox">
             </label>
         </div>
-        <!--<div class="availUsers"></div> -->
+        <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
+<!--archives page -->    
     <section class="archivesPage">
     </section>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="authFrontend.js"></script>
 </body>
-
 </html>

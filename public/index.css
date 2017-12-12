@@ -8,6 +8,64 @@
 body{
 	background: url("background_stars.png");
 	background-size: cover;
+	background-attachment: fixed;
+	overflow: hidden;
+}
+
+.loginImg{
+	height: 300px;
+	width: 300px;
+	margin: 45% 9%;
+	
+}
+
+.actLoginDiv{
+	display: none;
+	height: 250px;
+	width: 200px;
+	background-color: black;
+	opacity: .8;
+	margin:auto;
+	margin-top: 40%;
+	padding: 40px;
+	border-radius: 10%;
+	
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+}
+
+.actLoginDiv label{
+	color:white;
+	font-size: 20px;
+	grid-column: span 2;
+}
+
+.actLoginDiv input{
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid white;
+	width: 200px;
+	color:white;
+	grid-column: span 2;
+}
+
+.actLoginDiv input:focus{
+	border-bottom: 2px solid yellow;
+	outline:none;
+}
+
+.actLoginDiv button{
+	width: 80px;
+	height: 25px;
+	justify-self:center;
+	background: transparent;
+	border: solid white 2px;
+	color:white;
+	border-radius: 10%
+}
+
+.actLoginDiv button:hover{
+	border: solid 2px yellow;
 }
 
 .createTripPage, .dashboardPage, .shareTripPage, .tripDetails{
@@ -16,10 +74,10 @@ body{
 
 .dashboardPage, .tripDetails{
 	position: relative;
-	min-height: 500px;
+	min-height: 400px;
 	background-color: lightgrey;
 	padding: 30px;
-	margin: 12%;
+	margin: 15%;
 }
 
 
@@ -147,10 +205,27 @@ body{
 
 @media  (min-width: 640px){
 
-	.dashboardPage, .tripDetails{
-		margin: 8% 13%;
+	.loginImg{
+		margin: 8% 32%;
+		height: 500px;
+		width: 500px;
 	}
 
-	
+	.dashboardPage, .tripDetails{
+		margin: 7% 15%;
+	}
+
+	.actLoginDiv{
+		margin-top: 15%;
+		width: 250px;
+	}
+
+	.actLoginDiv input{
+		width: 240px;
+	}
+
+	.actLoginDiv button{
+		width: 100px;
+	}
 }
 

@@ -4,65 +4,6 @@ let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
 
-function checkUserLogin() {
-    if (localStorage.getItem('userId')) {
-        $('.actLoginPage').css('display', 'none');
-        $('.dashboardPage').delay(300).fadeIn();
-        displayDashboardTrips();
-        displayColabTrips();
-    }
-}
-
-function logOut() {
-    $('.logOut').on('click', function() {
-        localStorage.removeItem('userId');
-        localStorage.removeItem('token');
-        $('.dashboardPage').fadeOut();
-        $('.actLoginPage').fadeIn();
-    });
-}
-
-function userLogin() {
-    $('.loginBtn').on('click', function() {
-        let userLoginInfo = {
-            email: $('.emailLogin').val(),
-            password: $('.passwordLogin').val()
-        }
-        $.ajax({
-                url: `${myURL}auth/login`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(userLoginInfo)
-            })
-            .done((response) => {
-                console.log(response)
-                if (response == 'you must enter a username and password') {
-                    console.log('error 1')
-                    return
-                }
-                if (response == 'this user does not exist') {
-                    console.log('error 2')
-                    return
-                }
-                if (response == 'password does not match email') {
-                    console.log('error 3')
-                    return
-                }
-                localStorage.setItem('tokenKey', response.token);
-                localStorage.setItem('userId', response.userId);
-                console.log(myStorage)
-                $('.actLoginPage').fadeOut();
-                $('.dashboardPage').fadeIn();
-                displayColabTrips();
-                displayDashboardTrips();
-
-            })
-            .fail((err) => {
-                console.log(err)
-            })
-    });
-}
-
 function displayDashboardTrips() {
     $.ajax({
             url: `${myURL}trip/getByUser/${localStorage.getItem('userId')}`,
@@ -95,12 +36,45 @@ function displayColabTrips() {
             console.log(trips)
             $('.colabTrips').empty();
             for (let i = 0; i < trips.length; i++) {
-                $('.colabTrips').append(`<div><a value="${trips[i].trip._id}" href="#">${trips[i].trip.trail}</a></div>`)
+                $('.colabTrips').append(`<div class="colabTripDiv"><a value="${trips[i].trip._id}" href="#">${trips[i].trip.trail}</a></div>`)
             }
         })
         .fail((err) => {
             console.log(err)
         });
+}
+
+function displayColabTripDetails(){
+   $('.colabTrips').on('click', '.colabTripDiv', function(){
+   		$('.tripDetailsDiv').empty();
+   	 	let myId = $(this).children('a').attr('value')
+   	 	console.log(myId)
+   	 	tripIdValue = myId;
+   	 	$.ajax({
+                url: `${myURL}trip/id/${myId}`,
+                type: 'GET',
+                headers: { authorization: myStorage.tokenKey }
+            })
+            .done((trip) => {
+            	console.log(trip)
+            	$('.dashboardPage').fadeOut();
+                $('.tripDetails').delay(500).fadeIn();
+                let startDate = moment(trip.startDate).utc().format('MMM Do YYYY')
+                let endDate = moment(trip.endDate).utc().format('MMM Do YYYY')
+                $('.tripDetailsDiv').prepend(`<h1>${trip.trail}</h1><p>${startDate}</p><p>${endDate}</p>`)
+                for (let i = 0; i < trip.gearList.length; i++) {
+                    $('.currGearList').append(`<div class="gearItemDetails"><h3>${trip.gearList[i].item}</h3><p>Owner: ${trip.gearList[i].owner}</p><a class="deleteGearItem" value="${trip.gearList[i]._id}" href="#">
+					<i class="fa fa-trash" aria-hidden="true"></i></a><p>Quantity: ${trip.gearList[i].quantity}</p><p>Weight: ${trip.gearList[i].weight}</p></div>`)
+                }
+                for (let i = 0; i < trip.foodList.length; i++) {
+                    $('.currFoodList').append(`<div class="foodItemDetails"><h3>${trip.foodList[i].item}</h3><p>Owner: ${trip.foodList[i].owner}</p><a class="deleteFoodItem" value="${trip.foodList[i]._id}" href="#">
+					<i class="fa fa-trash" aria-hidden="true"></i></a><p>Quantity: ${trip.foodList[i].quantity}</p><p>Weight: ${trip.foodList[i].weight}</p></div>`)
+                }
+            })
+            .fail((err) => {
+            	console.log(err)
+            });
+   });
 }
 
 
@@ -155,6 +129,7 @@ function addNewTrip() {
 function backToDashboard(){
     $('.backToDashboard').on('click', function(){
     	let fadeOutDiv = $(this).parent('section')
+    	console.log(fadeOutDiv)
     	fadeOutDiv.fadeOut();
     	$('.dashboardPage').delay(500).fadeIn()
     	})
@@ -201,7 +176,7 @@ function shareTrip() {
         let shareTripId = {
             tripId: tripIdValue,
             ownerId: localStorage.getItem('userId'),
-            colabId: $('.colabShare').attr('placeholder'),
+            colabId: $('.colabShare').attr('name'),
             admin: $('.adminShare').is(":checked")
         }
         console.log(shareTripId)
@@ -250,9 +225,9 @@ function findColaborator() {
                 console.log(user)
                 user.forEach((currUser) => {
                     $('.availUsers').append(`<option value="${currUser._id}">${currUser.firstName}</option>`)
-                })
-            })
-    })
+                });
+            });
+    });
 
 }
 
@@ -260,7 +235,7 @@ function findColaborator() {
 function selectColaborator() {
     $('.availUsers').on('click', 'option', function(event) {
         console.log(event.currentTarget.firstChild.data)
-        $('.colabShare').attr('placeholder', event.target.attributes.value.nodeValue).val(event.currentTarget.firstChild.data)
+        $('.colabShare').attr('name', event.target.attributes.value.nodeValue).val(event.currentTarget.firstChild.data)
         $('.availUsers').empty()
     });
 }
@@ -419,9 +394,6 @@ function deleteFoodItem() {
 
 shareTrip()
 shareTripFormLoad()
-checkUserLogin()
-logOut()
-userLogin()
 createNewTripPageLoad()
 addNewTrip()
 shareTripFormLoad()
@@ -434,8 +406,8 @@ deleteGearItem()
 deleteFoodItem()
 findColaborator()
 selectColaborator()
-
 deleteTrip()
 deleteColabTrips()
 toolBarToggle()
 backToDashboard()
+displayColabTripDetails()
