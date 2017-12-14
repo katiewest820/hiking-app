@@ -2,11 +2,14 @@
 //TODO cleanup fadein of already logged in user
 function checkUserLogin() {
     if (localStorage.getItem('userId')) {
-        $('.actLoginPage').css('display', 'none');
-        $('.dashboardPage').delay(200).fadeIn();
+        //$('.actLoginPage').css('display', 'none');
+        $('.dashboardPage').fadeIn();
+        $('body').css('overflow', 'visible');
         displayDashboardTrips();
         displayColabTrips();
+        return
     }
+    $('.actLoginPage').fadeIn()
 }
 
 function logOut() {
@@ -22,7 +25,7 @@ function logOut() {
 function fadeInLoginDiv(){
     $('.loginImg').on('mouseenter', function(){
         $('.loginImg').fadeOut('slow');
-        $('.actLoginDiv').delay(300).fadeIn('slow').css('display', 'grid');
+        $('.actLoginDiv').delay(400).fadeIn('slow').css('display', 'grid');
     })
 }
 
@@ -41,15 +44,15 @@ function userLogin() {
             .done((response) => {
                 console.log(response)
                 if (response == 'you must enter a username and password') {
-                    console.log('error 1')
+                    loginErrorMsg('Please enter your email and password to login');
                     return
                 }
                 if (response == 'this user does not exist') {
-                    console.log('error 2')
+                    loginErrorMsg('Email doesn\'t exist in our records. Click register to create an account');
                     return
                 }
                 if (response == 'password does not match email') {
-                    console.log('error 3')
+                    loginErrorMsg('Incorrect password. Please try again');
                     return
                 }
                 localStorage.setItem('tokenKey', response.token);
@@ -70,11 +73,87 @@ function userLogin() {
     });
 }
 
-//TODO create error messages for login
+function loginErrorMsg(msg){
+   //TODO refactor to one error function
+    $('.actLoginPage').fadeOut().delay(2000).fadeIn();
+    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut()
+    $('.errorMsgDiv').html(`<p>${msg}</p>`)
+}
+
+function registrationErrorMsg(msg){
+   //TODO refactor to one error function
+    $('.actRegisterPage').fadeOut().delay(2000).fadeIn();
+    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut()
+    $('.errorMsgDiv').html(`<p>${msg}</p>`)
+}
+function registrationSuccessMsg(msg){
+    $('.actRegisterPage').fadeOut();
+    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut();
+    $('.errorMsgDiv').html(`<p>${msg}</p>`);
+    $('.actLoginPage').delay(2000).fadeIn();
+}
+
+function loadRegisterPage(){
+    $('.createActBtn').on('click', function(){
+        $('.actLoginPage').fadeOut();
+        $('.actRegisterPage').delay(400).fadeIn()
+        $('.actRegisterDiv').css('display', 'grid');
+    });
+}
+
+function cancelRegistration(){
+    $('.cancelRegistrationBtn').on('click', function(){
+        $('.actRegisterPage').fadeOut()
+        $('.actLoginPage').delay(400).fadeIn();
+    });
+}
+
+function createNewUser(){
+    $('.registrationSubmitBtn').on('click', function(){
+        let newUser = {
+            firstName: $('.registrationFN').val(),
+            lastName: $('.registrationLN').val(),
+            email: $('.registrationEmail').val(),
+            password: $('.registrationPassword').val()
+        }
+        $.ajax({
+            url: `${myURL}auth/register/`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newUser)
+        })
+        .done((response) => {
+            console.log(response)
+            if(response == 'An account already exists for this email'){
+                registrationErrorMsg('An account already exists for this email. Please login');
+                return
+            }
+            if(response == 'please enter an email address'){
+                registrationErrorMsg('Please enter an email address');
+                return
+            }
+            if(response == 'please enter a password'){
+                registrationErrorMsg('Please enter a password');
+                return
+            }
+            if(response == 'please enter a first and last name'){
+                registrationErrorMsg('Please enter a first and last name')
+                return
+            }
+           registrationSuccessMsg('Your account was successfully created!')
+
+        })
+        .fail((err) => {
+            console.log(err)
+        });
+    });
+}
 //TODO create error messages for registration
 
 checkUserLogin()
 logOut()
 userLogin()
-
 fadeInLoginDiv()
+loadRegisterPage()
+cancelRegistration()
+createNewUser()

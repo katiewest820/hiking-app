@@ -24,7 +24,7 @@ router.use((req, res, next) => {
 
 //get all trips route
 router.get('/getByUser/:id', (req, res) => {
-    HikingTrip.find({userId: req.params.id})
+    HikingTrip.find({userId: req.params.id}).select('trail')
         .then((trips) => {
             console.log('successful get of all trips');
             res.status(200).send(trips);
@@ -54,11 +54,30 @@ router.get('/getByColab/:id', (req,res) => {
 router.get('/id/:id', (req, res) => {
     HikingTrip.findById(req.params.id)
         .then((trip) => {
+        	let orderGearList = {};
+        	let orderFoodList = {};
+        	trip.gearList.forEach((element) => {
+        		if(!orderGearList[element.owner]){
+        			orderGearList[element.owner] = [element]
+        		}else{
+        			orderGearList[element.owner].push(element)
+        		}
+        	});
+        	trip.foodList.forEach((element) => {
+        		if(!orderFoodList[element.owner]){
+        			orderFoodList[element.owner] = [element]
+        		}else{
+        			orderFoodList[element.owner].push(element)
+        		}
+        	});
+        	trip.orderGearList = orderGearList;
+        	trip.orderFoodList = orderFoodList;
             console.log('successful get of one trip');
-            res.status(200).json(trip);
+            res.status(200).json({trip: trip, orderGearList: orderGearList, orderFoodList: orderFoodList});
         })
         .catch((err) => {
             console.log('something bad happened');
+            console.log(err)
             res.status(500).send(err);
         });
 });

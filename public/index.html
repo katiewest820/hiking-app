@@ -4,6 +4,7 @@
 <head>
     <title>Hiking App</title>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
     <script src="https://use.fontawesome.com/c4e0aecf76.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,19 +14,33 @@
 <!-- login -->    
     <section class="actLoginPage">
         <img class="loginImg" src="Camping.svg" height="500px" width="500px">
-        
         <div class="actLoginDiv">
             <label>Email:</label>
             <input class="emailLogin" type="text">
             <label>Password:</label>
             <input class="passwordLogin" type="password">
             <button class="loginBtn">Login</button>
-            <button class="registerBtn">Register</button>
+            <button class="createActBtn">Register</button>
         </div>
+    </section>
+<!--error message screen-->    
+    <section class="errorMsgPage">
+        <div class="errorMsgDiv"></div>
     </section>
 <!-- registration page -->    
     <section class="actRegisterPage">
-        
+        <div class="actRegisterDiv">
+            <label>First Name:</label>
+            <input class="registrationFN" type="text">
+            <label>Last Name:</label>
+            <input class="registrationLN" type="text">
+            <label>Email:</label>
+            <input class="registrationEmail" type="text">
+            <label>Password:</label>
+            <input class="registrationPassword" type="password">
+            <button class="registrationSubmitBtn">Submit</button>
+            <button class="cancelRegistrationBtn">Cancel</button>
+        </div>
     </section>
 <!-- main/dashboard page -->    
     <section class="dashboardPage">
@@ -69,7 +84,6 @@
 <!--trip details page -->    
     <section class="tripDetails">
         <div class="tripDetailsDiv">
-            <h3 class="totalPackWeight">Total Pack Weight: 10000lbs</h3>
         </div>
     <!--gear item section-->       
         <div class="gearListDiv">
@@ -94,7 +108,9 @@
                     <input class="newGearItemQ" type="text">
                 </label>
                 <button class="submitGearItemBtn">Submit</button> 
+                <div class="userGearLists"></div>
             </div> 
+
         </div>
     <!--food item section-->
          <div class="foodListDiv">
@@ -118,6 +134,7 @@
                     <input class="newFoodItemQ" type="text">
                 </label>
                 <button class="submitFoodItemBtn">Submit</button>
+                <div class="userFoodLists"></div>
             </div>  
         </div>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>

@@ -11,8 +11,6 @@ const router = express.Router();
 
 let token;
 
-
-
 router.get('/search/:value', (req, res) => {
 	userSchema.find({firstName: req.params.value})
 		.then((user) => {
@@ -66,41 +64,45 @@ router.post('/register', (req, res) => {
 	userSchema.findOne({email: req.body.email})
 		.then((user) => {
 			if(user){
-				res.status(500).send('An account already exists for this email')
+				res.send('An account already exists for this email').status(500);
 				return
 			}
 			if(!req.body.email){
-				res.status(500).send('please enter an email address');
+				res.send('please enter an email address').status(500);
 				return
 			}
 			if(!req.body.password){
-				res.status(500).send('please enter a password');
+				res.send('please enter a password').status(500);
+				return
 			}
-			else{
-				const newUser = new userSchema()
-				newUser.email = req.body.email;
-				newUser.firstName = req.body.firstName;
-				newUser.lastName = req.body.lastName;
-				
-				bcrypt.hash(req.body.password, 8, (err, hash) => {
+			if(!req.body.firstName || !req.body.lastName){
+				res.send('please enter a first and last name').status(500);
+				return
+			}
+			const newUser = new userSchema()
+			newUser.email = req.body.email;
+			newUser.firstName = req.body.firstName;
+			newUser.lastName = req.body.lastName;
+			
+			bcrypt.hash(req.body.password, 8, (err, hash) => {
+				if(err){
+					console.log(err)
+				}else{
+					console.log(hash)
+				}
+				newUser.password = hash;
+				newUser.save((err, user) => {
 					if(err){
 						console.log(err)
-					}else{
-						console.log(hash)
+						res.send(err).status(500);
 					}
-					newUser.password = hash;
-					newUser.save((err, user) => {
-						if(err){
-							console.log(err)
-							res.status(500).send(err)
-						}
-						res.status(200).send(`new user created: ${newUser}`)
-					});
-				});	
-			}
+					res.send(`new user created: ${newUser}`).status(200);
+				});
+			});	
+			
 		})
 		.catch((err) => {
-			res.status(500).send(err)
+			res.send(err).status(500);
 		});
 });
 
