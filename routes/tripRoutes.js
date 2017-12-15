@@ -24,7 +24,7 @@ router.use((req, res, next) => {
 
 //get all trips route
 router.get('/getByUser/:id', (req, res) => {
-    HikingTrip.find({userId: req.params.id}).select('trail')
+    HikingTrip.find({userId: req.params.id}).select('trail archived')
         .then((trips) => {
             console.log('successful get of all trips');
             res.status(200).send(trips);
@@ -90,9 +90,8 @@ router.post('/', (req, res) => {
         trail: req.body.trail,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
-        startLocation: req.body.startLocation,
-        endLocation: req.body.endLocation,
-        //TODO add in all other keys
+        trailheadName: req.body.trailheadName,
+        archived: false
     })
     newTrip.save((err, trip) => {
         if (err) {
@@ -115,8 +114,7 @@ router.post('/gearList/id/:id', (req, res) => {
             newGearList.item = req.body.item;
             newGearList.weight = req.body.weight;
             newGearList.quantity = req.body.quantity;
-            newGearList.checked = false;
-
+            
             trip.gearList.push(newGearList);
             trip.save();
             let newItem = trip.gearList.slice(-1)
@@ -138,7 +136,6 @@ router.post('/foodList/id/:id', (req, res) => {
             newFoodList.item = req.body.item;
             newFoodList.weight = req.body.weight;
             newFoodList.quantity = req.body.quantity;
-            newFoodList.checked = false;
 
             trip.foodList.push(newFoodList);
             trip.save();
@@ -208,8 +205,7 @@ router.delete('/foodList/id/:tripId/:foodId', (req, res) => {
 router.put('/id/:id', (req, res) => {
     HikingTrip.findById(req.params.id)
         .then((trip) => {
-            let editFields = ['trail', 'startDate', 'endDate', 'startLocaton', 'endLocation'];
-
+            let editFields = ['trail', 'startDate', 'endDate', 'trailheadName', 'archived'];
             editFields.forEach((field) => {
                 if (field in req.body) {
                     trip[field] = req.body[field]

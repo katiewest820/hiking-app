@@ -16,7 +16,8 @@ body{
 	overflow: hidden;
 }
 
-.actLoginPage, .createTripPage, .dashboardPage, .shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage{
+.actLoginPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, 
+.shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage{
 	display: none;
 }
 
@@ -107,8 +108,10 @@ body{
 .dashboardPage{
 	position: relative;
 	height: fit-content;
-	min-height: 400px;
-	background-color: lightgrey;
+	min-height: 550px;
+	background-color: white;
+	opacity: .9;
+	border-radius: 5%;
 	padding: 30px;
 	margin: 15%;
 }
@@ -120,7 +123,7 @@ body{
 	margin: auto;
 	margin-top: 10%;
 	margin-bottom: 10%;
-	width: 70%;
+	width: 75%;
 	padding: 20px;
 	background-color: white;
 	opacity: 0.9;
@@ -153,19 +156,26 @@ body{
 
 .tripDiv{
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 10px;
-	margin: 2%;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 7px;
+	margin:auto;
+	justify-items: center;
+	width: fit-content;
+	min-width: 150px;
 }
 
 .tripDiv .tripName{
 	justify-self: center;
 	grid-column-start: 1;
-	grid-column-end: 3;
+	grid-column-end: 4;
+	font-size: 20px;
+	margin-bottom: 15px;
 }
 
-.deleteTrip{
-	justify-self: end;
+
+.colabTripDiv a{
+	font-size: 20px;
+	margin-bottom: 15px;
 }
 
 .dashboardToolbar{
@@ -190,6 +200,7 @@ body{
 }
 
 .createTripPage{
+	position: relative;
 	height: 300px;
 	width: 80%;
 	padding: 20px;
@@ -204,7 +215,7 @@ body{
 	margin-top: 20px;
 }
 
-.gearItemDetails, .foodItemDetails{
+.visibleGearItemDetails, .visibleFoodItemDetails{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	width:fit-content;
@@ -213,11 +224,19 @@ body{
 	justify-items:center;
 }
 
-.gearItemDetails h3, .foodItemDetails h3{
+.listOwner{
+	font-size: 30px;
+}
+
+.gearItemDetails, .foodItemDetails{
+	display: none;
+}
+
+.visibleGearItemDetails h3, .visibleFoodItemDetails h3{
 	grid-column: span 2;
 }
 
-.gearItemDetails p, .foodItemDetails p{
+.visibleGearItemDetails p, .visibleFoodItemDetails p{
 	padding: 5px;
 }
 
@@ -229,11 +248,42 @@ body{
 	margin: auto;
 }
 
+.gearListPlus, .foodListPlus{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
 .foodListDiv{
 	padding-bottom: 20%;
 }
 
+.addFoodItemForm, .addGearItemForm{
+	grid-gap: 10px;
+	padding-bottom: 20px;
+	margin-top: 10px;
+	border: 1px solid lightgrey;
+	padding: 20px;
+}
 
+.visibleGearItemForm, .visibleFoodItemForm{
+	display: grid;
+}
+
+.addFoodItemForm input, .addGearItemForm input{
+	background: transparent;
+	border: none;
+	border-bottom: solid 2px black;
+	font-size: 18px;
+}
+
+.addFoodItemForm select, .addGearItemForm select{
+	width: fit-content;
+}
+
+.addFoodItemForm button, .addGearItemForm button{
+	width: 80px;
+	height: 30px;
+}
 
 .tripDetailsDiv{
 	color:black;
@@ -263,14 +313,6 @@ body{
 	border: solid black 2px;
 	height: 50px;
 	transform: rotate(25deg);
-}
-
-
-
-.currGearList, .currFoodList{
-	height: 0px;
-	overflow: hidden;
-	
 }
 
 .autoPop{
@@ -306,6 +348,25 @@ body{
 	grid-gap: 20px;
 }
 
+.archivesPage{
+	position: relative;
+	height: fit-content;
+	min-height: 500px;
+	width: 70%;
+	background-color: white;
+	border-radius: 5%;
+	opacity: 0.9;
+	margin:auto;
+	margin-top: 20%;
+}
+
+.listOfArchivedTrips{
+	display: grid;
+	grid-gap: 15px;
+	text-align: center;
+	padding: 30px;
+}
+
 @media  (min-width: 640px){
 
 	.loginImg{
@@ -315,7 +376,7 @@ body{
 	}
 
 	.dashboardPage{
-		margin: 7% 15%;
+		margin: 7% 30%;
 	}
 
 	.tripDetails{
@@ -324,8 +385,20 @@ body{
 		border-radius: 5%;
 	}
 
+	.gearListPlus, .foodListPlus{
+	width: fit-content;
+	}
+
+	.gearListPlus i, .foodListPlus i{
+		padding-left: 20px;
+	}
+
 	.foodListDiv{
 	padding-bottom: 10%;
+	}
+
+	.addFoodItemForm, .addGearItemForm{
+		width: 50%;
 	}
 	.actLoginDiv, .errorMsgDiv, .actRegisterDiv{
 		margin-top: 15%;
@@ -339,6 +412,11 @@ body{
 
 	.actLoginDiv button, .actRegisterDiv button{
 		width: 100px;
+	}
+
+	.archivesPage{
+		margin-top: 8%;
+		width: 50%;
 	}
 }
 

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<!-- login -->    
+    <!-- login -->
     <section class="actLoginPage">
         <img class="loginImg" src="Camping.svg" height="500px" width="500px">
         <div class="actLoginDiv">
@@ -23,11 +23,11 @@
             <button class="createActBtn">Register</button>
         </div>
     </section>
-<!--error message screen-->    
+    <!--error message screen-->
     <section class="errorMsgPage">
         <div class="errorMsgDiv"></div>
     </section>
-<!-- registration page -->    
+    <!-- registration page -->
     <section class="actRegisterPage">
         <div class="actRegisterDiv">
             <label>First Name:</label>
@@ -42,7 +42,7 @@
             <button class="cancelRegistrationBtn">Cancel</button>
         </div>
     </section>
-<!-- main/dashboard page -->    
+    <!-- main/dashboard page -->
     <section class="dashboardPage">
         <div class="currTripsDiv">
             <h1>Your Trips:</h1>
@@ -53,99 +53,76 @@
             <div class="colabTrips"></div>
         </div>
         <div class="dashboardToolbar">
-            <i class="fa fa-ellipsis-v fa-2x toolbarIcon" aria-hidden="true" ></i>
+            <i class="fa fa-ellipsis-v fa-2x toolbarIcon" aria-hidden="true"></i>
             <div class="dashboardBtns togglerClass">
                 <i class="fa fa-plus fa-2x createNewTrip" aria-hidden="true" title="Create New Trip"></i>
                 <i class="fa fa-sign-out fa-2x logOut" aria-hidden="true" title="Log Out"></i>
-                <i class="fa fa-archive fa-2x" aria-hidden="true" title="See Archives"></i>
-            </div>    
+                <i class="fa fa-archive fa-2x seeArchives" aria-hidden="true" title="See Archives"></i>
+            </div>
         </div>
     </section>
-<!--create new trip-->    
+    <!--create new trip-->
     <section class="createTripPage">
-        <label>Trail:
-            <input class="trailName" type="text">
-        </label>
-        <label>Trip Start Date:
-            <input class="startDate" type="date">
-        </label>
-        <label>Trip End Date:
-            <input class="endDate" type="date">
-        </label>
-        <label>Trip Start Location:
-            <input class="startLocation" type="text">
-        </label>
-        <label>Trip End Location:
-            <input class="endLocation" type="text">
-        </label>
-        <button class="submitNewTripBtn">Submit New Trip</button>
+        <input class="trailName" type="text" placeholder="Trail Name">
+        <input class="trailheadName" type="text" placeholder="Trailhead">
+        <input class="startDate" type="date" placeholder="Start Date">
+        <input class="endDate" type="date" placeholder="End Date">
+        <button class="submitNewTripBtn">Create New Trip</button>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
-<!--trip details page -->    
+    <!--trip details page -->
     <section class="tripDetails">
         <div class="tripDetailsDiv">
         </div>
-    <!--gear item section-->       
+        <!--gear item section-->
         <div class="gearListDiv">
-            <h1>Gear List</h1><a href="#" class="expandGearList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
-
-            <div class="currGearList gearListClick">
-                <label>Item Owner
-                    <input type="text" class="newGearListOwner">
-                </label>
-                <label>Add Gear Item
-                    <input class="newGearItem" type="text">
-                </label> 
-                <label>Weight
-                    <input class="newGearItemWeight" type="text">
+            <h1>Gear List's</h1>
+            <i class="fa fa-plus fa-2x addGearItem" aria-hidden="true"></i>
+            <div class="currGearList">
+                <div class="hiddenAddGearItemForm addGearItemForm">
+                    <input type="text" class="newGearListOwner" placeholder="Item Owner">
+                    <input class="newGearItem" type="text" placeholder="Gear Item">
+                    <input class="newGearItemWeight" type="text" placeholder="Item Weight">
                     <select class="weightMeasure" name="weight">
-                      <option value="oz">Oz</option>
-                      <option value="lbs">Lbs</option>
-                      <option value="g">Grams</option>
+                        <option value="oz">Oz</option>
+                        <option value="lbs">Lbs</option>
+                        <option value="g">Grams</option>
                     </select>
-                </label> 
-                <label>Quantity
-                    <input class="newGearItemQ" type="text">
-                </label>
-                <button class="submitGearItemBtn">Submit</button> 
+                    <input class="newGearItemQ" type="text" placeholder="Quantity">
+                    <button class="submitGearItemBtn">Submit</button>
+                </div>
                 <div class="userGearLists"></div>
-            </div> 
-
+            </div>
         </div>
-    <!--food item section-->
-         <div class="foodListDiv">
-            <h1>Food List</h1><a href="#" class="expandFoodList"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
-            <div class="currFoodList foodListClick">
-                <label>Item Owner
-                    <input type="text" class="newFoodListOwner">
-                </label>
-                <label>Add Food Item
-                    <input class="newFoodItem" type="text">
-                </label> 
-                <label>Weight
-                    <input class="newFoodItemWeight" type="text">
+        <!--food item section-->
+        <div class="foodListDiv">
+            <h1>Food List's</h1>
+            <i class="fa fa-plus fa-2x addFoodItem" aria-hidden="true"></i>
+            <div class="currFoodList">
+                <div class="hiddenAddFoodItemForm addFoodItemForm">
+                    <input type="text" class="newFoodListOwner" placeholder="Item Owner">
+                    <input class="newFoodItem" type="text" placeholder="Food Item">
+                    <input class="newFoodItemWeight" type="text" placeholder="Item Weight">
                     <select class="foodWeightMeasure" name="weight">
-                      <option value="oz">Oz</option>
-                      <option value="lbs">Lbs</option>
-                      <option value="g">Grams</option>
+                        <option value="oz">Oz</option>
+                        <option value="lbs">Lbs</option>
+                        <option value="g">Grams</option>
                     </select>
-                </label> 
-                <label>Quantity
-                    <input class="newFoodItemQ" type="text">
-                </label>
-                <button class="submitFoodItemBtn">Submit</button>
+                    <input class="newFoodItemQ" type="text" placeholder="Quantity">
+                    <button class="submitFoodItemBtn">Submit</button>
+                </div>
                 <div class="userFoodLists"></div>
-            </div>  
+            </div>
         </div>
-        <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
+        <i class="fa fa-arrow-left fa-2x backToDashboard leaveTripPage" aria-hidden="true"></i>
     </section>
-<!--share trip page-->    
+    <!--share trip page-->
     <section class="shareTripPage">
         <div class="sharePageGrid">
             <div class="autoPop">
                 <input class="colabShare" type="text" placeholder="Colaborator">
                 <datalist class="availUsers"></datalist>
-            </div>    
+            </div>
             <a href="#"><i class="fa fa-share-alt fa-2x shareTripBtn" aria-hidden="true" title="Share Trip"></i></a>
             <label>Edit Permissions
                 <input class="adminShare" type="checkBox">
@@ -153,12 +130,22 @@
         </div>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
-<!--archives page -->    
+    <!--archives page -->
     <section class="archivesPage">
-    </section>
 
+        <div class="listOfArchivedTrips">
+            <h1>Your Archived Trips:</h1>
+            
+        </div>
+        <i class="fa fa-arrow-left fa-2x backToDashboard  leaveArchives" aria-hidden="true"></i>
+    </section>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="colabFrontend.js"></script>
     <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="archives.js"></script>
     <script type="text/javascript" src="authFrontend.js"></script>
+
 </body>
+
 </html>
