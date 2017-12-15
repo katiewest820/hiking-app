@@ -3,7 +3,7 @@ console.log('I\'m working!!')
 let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
-let options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
+let options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0};
 navigator.geolocation.getCurrentPosition(
     (position) => {
         console.log(position.coords.latitude)
@@ -16,13 +16,12 @@ navigator.geolocation.getCurrentPosition(
 );
 let markers = [];
 
-
 function displayDashboardTrips() {
     $.ajax({
-            url: `${myURL}trip/getByUser/${localStorage.getItem('userId')}`,
-            type: 'GET',
-            headers: { authorization: myStorage.tokenKey }
-        })
+        url: `${myURL}trip/getByUser/${localStorage.getItem('userId')}`,
+        type: 'GET',
+        headers: {authorization: myStorage.tokenKey}
+    })
         .done((trips) => {
             console.log(trips)
             $('.currTrips').empty();
@@ -42,21 +41,24 @@ function displayDashboardTrips() {
 }
 
 function toolBarToggle() {
-    $('.toolbarIcon').on('click', function() {
+    $('.toolbarIcon').on('click', function () {
         $('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
         $('.togglerClass').toggleClass('dashboardBtns toggledDashboardBtns');
     });
 }
 
 function createNewTripPageLoad() {
-    $('.createNewTrip').on('click', function() {
+    $('.createNewTrip').on('click', function () {
         $('.dashboardPage').fadeOut();
-        $('.createTripPage').delay(500).fadeIn();
+        $('.createTripPage').fadeIn(500, () => {
+            initMap(-25.363, 131.044);
+            google.maps.event.trigger(map, "resize");
+        });
     });
 }
 
 function addNewTrip() {
-    $('.submitNewTripBtn').on('click', function() {
+    $('.submitNewTripBtn').on('click', function () {
         console.log(myStorage.userId)
         let tripDetails = {
             userId: myStorage.userId,
@@ -66,13 +68,13 @@ function addNewTrip() {
             endDate: $('.endDate').val()
         }
         $.ajax({
-                url: `${myURL}trip`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(tripDetails),
-                headers: { authorization: myStorage.tokenKey }
+            url: `${myURL}trip`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(tripDetails),
+            headers: {authorization: myStorage.tokenKey}
 
-            })
+        })
             .done((trip) => {
                 console.log(trip.data.userId)
                 console.log(trip)
@@ -88,7 +90,7 @@ function addNewTrip() {
 }
 
 function backToDashboard() {
-    $('.backToDashboard').on('click', function() {
+    $('.backToDashboard').on('click', function () {
         let fadeOutDiv = $(this).parent('section')
         console.log(fadeOutDiv)
         fadeOutDiv.fadeOut();
@@ -97,14 +99,14 @@ function backToDashboard() {
 }
 
 function deleteTrip() {
-    $('.currTrips').on('click', '.deleteTrip', function(element) {
+    $('.currTrips').on('click', '.deleteTrip', function (element) {
         let divToRemove = $(this).parent('.tripDiv');
         let myId = element.currentTarget.attributes.value.nodeValue;
         $.ajax({
-                url: `${myURL}trip/id/${myId}`,
-                type: 'DELETE',
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/id/${myId}`,
+            type: 'DELETE',
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((trip) => {
                 console.log(trip)
                 divToRemove.remove()
@@ -116,16 +118,16 @@ function deleteTrip() {
 }
 
 function displayTripDetails() {
-    $('.currTrips').on('click', '.tripName', function() {
+    $('.currTrips').on('click', '.tripName', function () {
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
         tripIdValue = $(this).attr('value')
         console.log(tripIdValue)
         $.ajax({
-                url: `${myURL}trip/id/${tripIdValue}`,
-                type: 'GET',
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/id/${tripIdValue}`,
+            type: 'GET',
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((data) => {
                 console.log(data)
                 $('.dashboardPage').fadeOut();
@@ -163,7 +165,7 @@ function displayTripDetails() {
 
 function initMap(lat, lng) {
     //var uluru = { lat: -25.363, lng: 131.044 };
-    var myPosition = { lat: lat, lng: lng }
+    var myPosition = {lat: lat, lng: lng}
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12,
         center: myPosition
@@ -173,8 +175,8 @@ function initMap(lat, lng) {
         map: map
     });
     markers.push(marker);
-    map.addListener('click', function(e) {
-    	debugger
+    map.addListener('click', function (e) {
+        debugger
 
         var marker = new google.maps.Marker({
             position: e.latLng,
@@ -188,21 +190,21 @@ function initMap(lat, lng) {
 }
 
 function showAddGearListForm() {
-    $('.addGearItem').on('click', function() {
+    $('.addGearItem').on('click', function () {
         $('.addGearItem').toggleClass('fa fa-plus fa fa-minus');
         $('.addGearItemForm').toggleClass('hiddenAddGearItemForm visibleGearItemForm')
     })
 }
 
 function showAddFoodListForm() {
-    $('.addFoodItem').on('click', function() {
+    $('.addFoodItem').on('click', function () {
         $('.addFoodItem').toggleClass('fa fa-plus fa fa-minus');
         $('.addFoodItemForm').toggleClass('hiddenAddFoodItemForm visibleFoodItemForm')
     })
 }
 
 function expandGearList() {
-    $('.userGearLists').on('click', '.showGearList', function() {
+    $('.userGearLists').on('click', '.showGearList', function () {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');
         console.log(this)
         let myItems = $(this).siblings('div');
@@ -212,7 +214,7 @@ function expandGearList() {
 }
 
 function expandFoodList() {
-    $('.userFoodLists').on('click', '.showFoodList', function() {
+    $('.userFoodLists').on('click', '.showFoodList', function () {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');
         console.log(this)
         let myItems = $(this).siblings('div');
@@ -221,7 +223,7 @@ function expandFoodList() {
 }
 
 function addGearItem() {
-    $('.submitGearItemBtn').on('click', function() {
+    $('.submitGearItemBtn').on('click', function () {
         let weight = `${$('.newGearItemWeight').val()} ${$('.weightMeasure').val()}`
         console.log(weight)
         let addedGearItem = {
@@ -232,12 +234,12 @@ function addGearItem() {
         }
         console.log(addedGearItem)
         $.ajax({
-                url: `${myURL}trip/gearList/id/${tripIdValue}`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(addedGearItem),
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/gearList/id/${tripIdValue}`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(addedGearItem),
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((gearItem) => {
                 console.log(gearItem);
                 let className = `gear-${gearItem[0].owner}`;
@@ -256,7 +258,7 @@ function addGearItem() {
 }
 
 function addFoodItem() {
-    $('.submitFoodItemBtn').on('click', function() {
+    $('.submitFoodItemBtn').on('click', function () {
         let weight = `${$('.newFoodItemWeight').val()} ${$('.foodWeightMeasure').val()}`
         console.log(weight)
         let addedFoodItem = {
@@ -268,12 +270,12 @@ function addFoodItem() {
         console.log(addedFoodItem)
 
         $.ajax({
-                url: `${myURL}trip/foodList/id/${tripIdValue}`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(addedFoodItem),
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/foodList/id/${tripIdValue}`,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(addedFoodItem),
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((foodItem) => {
                 console.log(foodItem);
                 let className = `food-${foodItem[0].owner}`;
@@ -292,15 +294,15 @@ function addFoodItem() {
 }
 
 function deleteGearItem() {
-    $('.userGearLists').on('click', '.deleteGearItem', function() {
+    $('.userGearLists').on('click', '.deleteGearItem', function () {
         let divToRemove = $(this).parent('div');
         console.log(divToRemove)
         let myId = $(this).attr('value');
         $.ajax({
-                url: `${myURL}trip/gearList/id/${tripIdValue}/${myId}`,
-                type: 'DELETE',
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/gearList/id/${tripIdValue}/${myId}`,
+            type: 'DELETE',
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((gearItem) => {
                 console.log(gearItem)
                 divToRemove.remove()
@@ -312,16 +314,16 @@ function deleteGearItem() {
 }
 
 function deleteFoodItem() {
-    $('.userFoodLists').on('click', '.deleteFoodItem', function() {
+    $('.userFoodLists').on('click', '.deleteFoodItem', function () {
         console.log(this)
         let divToRemove = $(this).parent('div');
         console.log(divToRemove)
         let myId = $(this).attr('value');
         $.ajax({
-                url: `${myURL}trip/foodList/id/${tripIdValue}/${myId}`,
-                type: 'DELETE',
-                headers: { authorization: myStorage.tokenKey }
-            })
+            url: `${myURL}trip/foodList/id/${tripIdValue}/${myId}`,
+            type: 'DELETE',
+            headers: {authorization: myStorage.tokenKey}
+        })
             .done((foodItem) => {
                 console.log(foodItem)
                 divToRemove.remove()
