@@ -248,9 +248,13 @@ body{
 	margin: auto;
 }
 
-.gearListPlus, .foodListPlus{
+.gearListDiv, .foodListDiv{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+}
+
+.currGearList, .currFoodList{
+	grid-column: span 2;
 }
 
 .foodListDiv{
@@ -267,6 +271,11 @@ body{
 
 .visibleGearItemForm, .visibleFoodItemForm{
 	display: grid;
+}
+
+#map{
+	height: 500px;
+	width: 100%;
 }
 
 .addFoodItemForm input, .addGearItemForm input{

@@ -25,6 +25,7 @@ let hikingTripSchema = new mongoose.Schema({
 	gearList: [gearListSchema],
 	foodList: [foodListSchema],
 	archived: Boolean,
+	mapPoints: [],
 	createdAt: {type: Date, default: Date.now}
 });
 

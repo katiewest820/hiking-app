@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!--api key AIzaSyBBZwyMuYIv63gurPf9os1D5RLBFix7hDM -->
 <head>
     <title>Hiking App</title>
     <link rel="stylesheet" type="text/css" href="index.css">
@@ -19,6 +19,8 @@
             <input class="emailLogin" type="text">
             <label>Password:</label>
             <input class="passwordLogin" type="password">
+            
+
             <button class="loginBtn">Login</button>
             <button class="createActBtn">Register</button>
         </div>
@@ -50,7 +52,10 @@
         </div>
         <div class="sharedTripsDiv">
             <h1>Shared Trips:</h1>
+
             <div class="colabTrips"></div>
+            <div id="map">  
+            </div>
         </div>
         <div class="dashboardToolbar">
             <i class="fa fa-ellipsis-v fa-2x toolbarIcon" aria-hidden="true"></i>
@@ -67,7 +72,9 @@
         <input class="trailheadName" type="text" placeholder="Trailhead">
         <input class="startDate" type="date" placeholder="Start Date">
         <input class="endDate" type="date" placeholder="End Date">
+
         <button class="submitNewTripBtn">Create New Trip</button>
+        
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
     <!--trip details page -->
@@ -140,11 +147,14 @@
         <i class="fa fa-arrow-left fa-2x backToDashboard  leaveArchives" aria-hidden="true"></i>
     </section>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZwyMuYIv63gurPf9os1D5RLBFix7hDM">
+    </script>
     <script type="text/javascript" src="colabFrontend.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="archives.js"></script>
     <script type="text/javascript" src="authFrontend.js"></script>
+
 
 </body>
 
