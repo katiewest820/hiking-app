@@ -35,6 +35,38 @@ router.get('/getByUser/:id', (req, res) => {
         })
 });
 
+//get trip for weight
+router.get('/getForWeight/id/:id', (req, res) => {
+    HikingTrip.findById(req.params.id)
+        .then((trip) => {
+        	let orderGearList = {};
+        	let orderFoodList = {};
+        	trip.gearList.forEach((element) => {
+        		if(!orderGearList[element.owner]){
+        			orderGearList[element.owner] = [element]
+        		}else{
+        			orderGearList[element.owner].push(element)
+        		}
+        	});
+        	trip.foodList.forEach((element) => {
+        		if(!orderFoodList[element.owner]){
+        			orderFoodList[element.owner] = [element]
+        		}else{
+        			orderFoodList[element.owner].push(element)
+        		}
+        	});
+        	trip.orderGearList = orderGearList;
+        	trip.orderFoodList = orderFoodList;
+            console.log('successful get of one trip');
+            res.status(200).json({trip: trip, orderGearList: orderGearList, orderFoodList: orderFoodList});
+        })
+        .catch((err) => {
+            console.log('something bad happened');
+            console.log(err)
+            res.status(500).send(err);
+        });
+});
+
 //get all colab trips route
 router.get('/getByColab/:id', (req,res) => {
 	shareTrip.find({collaborator: req.params.id})
@@ -85,14 +117,17 @@ router.get('/id/:id', (req, res) => {
 
 //post route
 router.post('/', (req, res) => {
+
     let newTrip = new HikingTrip({
     	userId: req.body.userId,
         trail: req.body.trail,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         trailheadName: req.body.trailheadName,
-        archived: false
+        archived: false,
+        mapPoints: req.body.mapPoints
     })
+
     newTrip.save((err, trip) => {
         if (err) {
             console.log(err)

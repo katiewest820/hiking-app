@@ -1,21 +1,6 @@
-console.log('I\'m working!!')
-
 let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
-let options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
-navigator.geolocation.getCurrentPosition(
-    (position) => {
-        console.log(position.coords.latitude)
-        console.log(position.coords.longitude)
-        initMap(position.coords.latitude, position.coords.longitude)
-    }, (err) => {
-        console.log(err)
-    },
-    options
-);
-let markers = [];
-
 
 function displayDashboardTrips() {
     $.ajax({
@@ -51,7 +36,9 @@ function toolBarToggle() {
 function createNewTripPageLoad() {
     $('.createNewTrip').on('click', function() {
         $('.dashboardPage').fadeOut();
-        $('.createTripPage').delay(500).fadeIn();
+        $('.createTripPage').delay(400).fadeIn();
+        setTimeout(initMap, 800, lat, lng)
+
     });
 }
 
@@ -63,8 +50,10 @@ function addNewTrip() {
             trail: $('.trailName').val(),
             trailheadName: $('.trailheadName').val(),
             startDate: $('.startDate').val(),
-            endDate: $('.endDate').val()
+            endDate: $('.endDate').val(),
+            mapPoints: markers
         }
+        console.log(tripDetails)
         $.ajax({
                 url: `${myURL}trip`,
                 type: 'POST',
@@ -92,7 +81,8 @@ function backToDashboard() {
         let fadeOutDiv = $(this).parent('section')
         console.log(fadeOutDiv)
         fadeOutDiv.fadeOut();
-        $('.dashboardPage').delay(500).fadeIn()
+        displayDashboardTrips()
+        $('.dashboardPage').delay(600).fadeIn()
     })
 }
 
@@ -115,7 +105,7 @@ function deleteTrip() {
     });
 }
 
-function displayTripDetails() {
+function apiCallforTripDetailsPage() {
     $('.currTrips').on('click', '.tripName', function() {
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
@@ -127,71 +117,75 @@ function displayTripDetails() {
                 headers: { authorization: myStorage.tokenKey }
             })
             .done((data) => {
-                console.log(data)
-                $('.dashboardPage').fadeOut();
-                $('.tripDetails').delay(500).fadeIn();
-                let startDate = moment(data.trip.startDate).utc().format('MMM Do YYYY')
-                let endDate = moment(data.trip.endDate).utc().format('MMM Do YYYY')
-
-                $('.tripDetailsDiv').empty().prepend(`<h1>${data.trip.trail}</h1><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`)
-                for (let owner in data.orderGearList) {
-                    //TODO create owner ID for div class     
-                    let gearContent = `<div><h1 class="listOwner">${owner}</h1><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
-                    for (let i = 0; i < data.orderGearList[owner].length; i++) {
-                        gearContent += `<div class="visibleGearItemDetails"><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
-                        <a class="deleteGearItem" value="${data.orderGearList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
-                    }
-                    gearContent += `</div></div><hr>`
-                    $('.userGearLists').append(gearContent);
-                }
-                for (let owner in data.orderFoodList) {
-                    let foodContent = `<div><h1 class="listOwner">${owner}</h1><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
-                    for (let i = 0; i < data.orderFoodList[owner].length; i++) {
-                        foodContent += `<div class="visibleFoodItemDetails"><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
-                		<a class="deleteFoodItem" value="${data.orderFoodList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
-                    }
-                    foodContent += `</div></div><hr>`
-                    $('.userFoodLists').append(foodContent);
-                }
-
+                displayTripDetails(data);
+                calculatePackWeight(data);
             })
             .fail((err) => {
-                console.log(err)
+                console.log(err);
             });
     });
 }
 
-function initMap(lat, lng) {
-    //var uluru = { lat: -25.363, lng: 131.044 };
-    var myPosition = { lat: lat, lng: lng }
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: myPosition
-    });
-    var marker = new google.maps.Marker({
-        position: myPosition,
-        map: map
-    });
-    markers.push(marker);
-    map.addListener('click', function(e) {
-    	debugger
+function displayTripDetails(data) {
+    // $('.currTrips').on('click', '.tripName', function() {
+    //     $('.userGearLists').empty();
+    //     $('.userFoodLists').empty();
+    //     tripIdValue = $(this).attr('value')
+    //     console.log(tripIdValue)
+    //     $.ajax({
+    //             url: `${myURL}trip/id/${tripIdValue}`,
+    //             type: 'GET',
+    //             headers: { authorization: myStorage.tokenKey }
+    //         })
+    //         .done((data) => {
+    console.log(data)
+    let myLat = [];
+    let myLng = [];
+    $('.dashboardPage').fadeOut();
+    $('.tripDetails').delay(500).fadeIn();
+    let startDate = moment(data.trip.startDate).utc().format('MMM Do YYYY')
+    let endDate = moment(data.trip.endDate).utc().format('MMM Do YYYY')
 
-        var marker = new google.maps.Marker({
-            position: e.latLng,
-            map: map
+    $('.tripDetailsDiv').empty().prepend(`<h1>${data.trip.trail}</h1><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`)
+    for (let owner in data.orderGearList) {
+        //TODO create owner ID for div class     
+        let gearContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
+        for (let i = 0; i < data.orderGearList[owner].length; i++) {
+            gearContent += `<div class="visibleGearItemDetails"><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
+                        <a class="deleteGearItem" value="${data.orderGearList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
+        }
+        gearContent += `</div></div><hr>`
+        $('.userGearLists').append(gearContent);
+    }
+    for (let owner in data.orderFoodList) {
+        let foodContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
+        for (let i = 0; i < data.orderFoodList[owner].length; i++) {
+            foodContent += `<div class="visibleFoodItemDetails"><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
+                		<a class="deleteFoodItem" value="${data.orderFoodList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
+        }
+        foodContent += `</div></div><hr>`
+        $('.userFoodLists').append(foodContent);
+    }
+    for (let i = 0; i < data.trip.mapPoints.length; i++) {
+        myLat.push(data.trip.mapPoints[i].lat);
+        myLng.push(data.trip.mapPoints[i].lng);
 
-        });
-        markers.push(marker);
-        map.panTo(e.latLng);
-    });
-
+    }
+    setTimeout(initRouteMap, 800, lat, lng, myLat, myLng);
+    // })
+    // .fail((err) => {
+    //     console.log(err);
+    // });
+    // });
 }
+
+
 
 function showAddGearListForm() {
     $('.addGearItem').on('click', function() {
         $('.addGearItem').toggleClass('fa fa-plus fa fa-minus');
-        $('.addGearItemForm').toggleClass('hiddenAddGearItemForm visibleGearItemForm')
-    })
+        $('.addGearItemForm').toggleClass('hiddenAddGearItemForm visibleGearItemForm');
+    });
 }
 
 function showAddFoodListForm() {
@@ -242,7 +236,7 @@ function addGearItem() {
                 console.log(gearItem);
                 let className = `gear-${gearItem[0].owner}`;
                 if ($('.userGearLists').find(`.${className}`).length == 0) {
-                    $('.userGearLists').append(`<div><h1 class="listOwner">${gearItem[0].owner}</h1>
+                    $('.userGearLists').append(`<div><h2 class="listOwner">${gearItem[0].owner}</h2>
                 	<i class="fa fa-angle-down fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="${className}"></div></div><hr>`)
                 }
                 $(`.${className}`).append(`<div class="visibleGearItemDetails"><h3>${gearItem[0].item}</h3>
@@ -278,7 +272,7 @@ function addFoodItem() {
                 console.log(foodItem);
                 let className = `food-${foodItem[0].owner}`;
                 if ($('.userFoodLists').find(`.${className}`).length == 0) {
-                    $('.userFoodLists').append(`<div><h1 class="listOwner">${foodItem[0].owner}</h1>
+                    $('.userFoodLists').append(`<div><h2 class="listOwner">${foodItem[0].owner}</h2>
                 	<i class="fa fa-angle-down fa-3x showFoodList" aria-hidden="true" title="See Food List"></i><div class="${className}"></div></div><hr>`)
                 }
                 $(`.${className}`).append(`<div class="visibleFoodItemDetails"><h3>${foodItem[0].item}</h3>
@@ -334,7 +328,8 @@ function deleteFoodItem() {
 
 createNewTripPageLoad()
 addNewTrip()
-displayTripDetails()
+//displayTripDetails()
+apiCallforTripDetailsPage()
 addGearItem()
 addFoodItem()
 expandGearList()
@@ -346,4 +341,3 @@ deleteFoodItem()
 deleteTrip()
 toolBarToggle()
 backToDashboard()
-//initMap()

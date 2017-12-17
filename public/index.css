@@ -108,7 +108,7 @@ body{
 .dashboardPage{
 	position: relative;
 	height: fit-content;
-	min-height: 550px;
+	min-height: 500px;
 	background-color: white;
 	opacity: .9;
 	border-radius: 5%;
@@ -132,7 +132,7 @@ body{
 
 .backToDashboard{
 	position: absolute;
-	bottom: 5%;
+	bottom: 1%;
 	left: 5%;
 }
 
@@ -157,11 +157,11 @@ body{
 .tripDiv{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-gap: 7px;
 	margin:auto;
+	margin-bottom: 10px;
 	justify-items: center;
 	width: fit-content;
-	min-width: 150px;
+	min-width: 120px;
 }
 
 .tripDiv .tripName{
@@ -201,13 +201,21 @@ body{
 
 .createTripPage{
 	position: relative;
-	height: 300px;
+	height: fit-content;
 	width: 80%;
 	padding: 20px;
 	margin-top: 20%;
 	background-color: grey;
 	border: solid black 5px;
 	margin:auto;
+}
+
+#map, #map2{
+	height: 500px;
+	width: 90%;
+	margin:auto;
+	margin-bottom: 70px;
+	margin-top: 50px;
 }
 
 .userGearList, .userFoodList{
@@ -225,7 +233,7 @@ body{
 }
 
 .listOwner{
-	font-size: 30px;
+	font-size: 25px;
 }
 
 .gearItemDetails, .foodItemDetails{
@@ -250,7 +258,11 @@ body{
 
 .gearListDiv, .foodListDiv{
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 2fr 1fr;
+}
+
+.gearListDiv h1, .foodListDiv h1{
+	font-size: 30px;
 }
 
 .currGearList, .currFoodList{
@@ -271,11 +283,6 @@ body{
 
 .visibleGearItemForm, .visibleFoodItemForm{
 	display: grid;
-}
-
-#map{
-	height: 500px;
-	width: 100%;
 }
 
 .addFoodItemForm input, .addGearItemForm input{
@@ -361,7 +368,7 @@ body{
 	position: relative;
 	height: fit-content;
 	min-height: 500px;
-	width: 70%;
+	width: 75%;
 	background-color: white;
 	border-radius: 5%;
 	opacity: 0.9;
@@ -369,12 +376,28 @@ body{
 	margin-top: 20%;
 }
 
-.listOfArchivedTrips{
-	display: grid;
-	grid-gap: 15px;
+.archivesPage h1{
 	text-align: center;
-	padding: 30px;
+	padding-top: 10%;
+	text-decoration: underline;
+	font-size: 30px;
 }
+
+.listOfArchivedTrips{
+	justify-items:center;
+	padding: 30px;
+	width:fit-content;
+	margin:auto;
+	font-size: 25px;
+}
+
+.archivedTripDiv{
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	justify-items:center;
+}
+
+
 
 @media  (min-width: 640px){
 
@@ -394,12 +417,16 @@ body{
 		border-radius: 5%;
 	}
 
-	.gearListPlus, .foodListPlus{
-	width: fit-content;
+	.gearListDiv, .foodListDiv{
+		grid-template-columns: 1fr 2fr;
 	}
 
-	.gearListPlus i, .foodListPlus i{
-		padding-left: 20px;
+	.gearListDiv h1, .foodListDiv h1{
+		font-size: 35px;
+	}
+
+	.gearListDiv i, .foodListDiv i{
+		align-self: center;
 	}
 
 	.foodListDiv{

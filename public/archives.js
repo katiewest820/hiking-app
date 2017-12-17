@@ -1,6 +1,3 @@
-
-console.log('hello')
-
 function changeToArchivedTrue(){
 	$('.currTrips').on('click', '.archiveTrip', function(){
 		let myId = $(this).attr('value')
@@ -26,7 +23,7 @@ function changeToArchivedTrue(){
 
 function displayArchivedTrips(){
 	$('.seeArchives').on('click', function(){
-		$('.archivedTrip').remove();
+		$('.listOfArchivedTrips').empty('a');
 		$('.dashboardPage').fadeOut();
 		$('.archivesPage').delay(400).fadeIn();
 	 	$.ajax({
@@ -38,24 +35,65 @@ function displayArchivedTrips(){
 	 		console.log(trips)
 	 		for(let i = 0; i < trips.length; i++){
 	 			if(trips[i].archived == true){
-	 				$('.listOfArchivedTrips').append(`<a href="#" class='archivedTrip' value='${trips[i]._id}'>${trips[i].trail}</a>`)
+	 				$('.listOfArchivedTrips').append(`<div class="archivedTripDiv"><a href="#" value='${trips[i]._id}'>${trips[i].trail}</a>
+	 					<i class="fa fa-trash deleteArchive" value="${trips[i]._id}" aria-hidden="true"></i><i class="fa fa-check-circle-o reactivateTrip" value="${trips[i]._id}" aria-hidden="true"></i><div>`)
 	 			}
 	 		}
-	 		
 	 	})
 	 	.fail((err) => {
 	 		console.log(err)
-	 	})
-	})
-	
-}
+	 	});
+	});
+};
+
+function deleteArchives(){
+	$('.listOfArchivedTrips').on('click', '.deleteArchive', function(){
+		let myId = $(this).attr('value');
+		let divToRemove = $(this).parent('.archivedTripDiv')
+		$.ajax({
+			url: `${myURL}trip/id/${myId}`,
+			type: 'DELETE',
+			headers: { authorization: myStorage.tokenKey }
+		})
+		.done((trip) => {
+			console.log(trip)
+			divToRemove.remove();
+		})
+		.fail((err) => {
+			console.log(err)
+		});
+	});
+};
+
+function reactivateArchives(){
+	$('.listOfArchivedTrips').on('click', '.reactivateTrip', function(){
+		let myId = $(this).attr('value');
+		let divToRemove = $(this).parent('.archivedTripDiv');
+		let updates = {'archived': false};
+		$.ajax({
+			url: `${myURL}trip/id/${myId}`,
+			type: 'PUT',
+			contentType: 'application/json',
+            data: JSON.stringify(updates),
+            headers: { authorization: myStorage.tokenKey }
+		})
+		.done((trip) => {
+			console.log(trip)
+			divToRemove.remove()
+		})
+		.fail((err) => {
+			console.log(err)
+
+		});
+	});
+};
 
 function displayArchivedTripDetails() {
-    $('.listOfArchivedTrips').on('click', '.archivedTrip', function() {
+    $('.listOfArchivedTrips').on('click', 'a', function() {
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
-        $('.addFoodItem').css('display', 'none');//todo remove
-        $('.addGearItem').css('display', 'none');//todo remove
+        $('.addFoodItem').css('display', 'none');
+        $('.addGearItem').css('display', 'none');
         $('.archivesPage').fadeOut();
         $('.tripDetails').delay(400).fadeIn();
         tripIdValue = $(this).attr('value')
@@ -67,14 +105,15 @@ function displayArchivedTripDetails() {
             })
             .done((data) => {
                 console.log(data)
+                let myLat = [];
+                let myLng = [];
                 $('.dashboardPage').fadeOut();
                 $('.tripDetails').delay(500).fadeIn();
                 let startDate = moment(data.trip.startDate).utc().format('MMM Do YYYY')
                 let endDate = moment(data.trip.endDate).utc().format('MMM Do YYYY')
 
                 $('.tripDetailsDiv').empty().prepend(`<h1>${data.trip.trail}</h1><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`)
-                for (let owner in data.orderGearList) {
-//TODO create owner ID for div class     
+                for (let owner in data.orderGearList) { 
                     let gearContent = `<div><h1 class="listOwner">${owner}</h1><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
                     for (let i = 0; i < data.orderGearList[owner].length; i++) {
                         gearContent += `<div class="visibleGearItemDetails"><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
@@ -93,33 +132,41 @@ function displayArchivedTripDetails() {
                 	$('.userFoodLists').append(foodContent);
                 }
                 $('.leaveTripPage').css('display', 'none');//todo remove
-                $('.tripDetails').append(`<i class="fa fa-arrow-left fa-2x backToArchives" aria-hidden="true"></i>`)//todo remove
+                $('.tripDetails').append(`<i class="fa fa-arrow-left fa-2x backToArchives" aria-hidden="true"></i>`);
+
+                for (let i = 0; i < data.trip.mapPoints.length; i++) {
+                    myLat.push(data.trip.mapPoints[i].lat);
+                    myLng.push(data.trip.mapPoints[i].lng);
+                };
+                setTimeout(initRouteMap, 800, lat, lng, myLat, myLng);
             })
             .fail((err) => {
                 console.log(err)
             });
     });
-}
+};
 
 function backtoArchives(){
 	$('.tripDetails').on('click', '.backToArchives', function(){
 		$('.tripDetails').fadeOut();
 		$('.archivesPage').delay(400).fadeIn();
 		$('.backToArchives').delay(1000).remove();
-	})
-}
+	});
+};
 
 function cleanupTripDetailsPage(){
 	$('.leaveArchives').on('click', function(){
 		$('.leaveTripPage').css('display', 'block');
 		$('.addGearItem').css('display', 'block');
 		$('.addFoodItem').css('display', 'block');
-	})
-}
+	});
+};
 
 
 changeToArchivedTrue()
 displayArchivedTrips()
+deleteArchives()
+reactivateArchives()
 displayArchivedTripDetails()
 backtoArchives()
 cleanupTripDetailsPage()
