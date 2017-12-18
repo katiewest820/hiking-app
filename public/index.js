@@ -118,7 +118,7 @@ function apiCallforTripDetailsPage() {
             })
             .done((data) => {
                 displayTripDetails(data);
-                calculatePackWeight(data);
+                calculatePackWeight();
             })
             .fail((err) => {
                 console.log(err);
@@ -127,17 +127,6 @@ function apiCallforTripDetailsPage() {
 }
 
 function displayTripDetails(data) {
-    // $('.currTrips').on('click', '.tripName', function() {
-    //     $('.userGearLists').empty();
-    //     $('.userFoodLists').empty();
-    //     tripIdValue = $(this).attr('value')
-    //     console.log(tripIdValue)
-    //     $.ajax({
-    //             url: `${myURL}trip/id/${tripIdValue}`,
-    //             type: 'GET',
-    //             headers: { authorization: myStorage.tokenKey }
-    //         })
-    //         .done((data) => {
     console.log(data)
     let myLat = [];
     let myLng = [];
@@ -149,7 +138,7 @@ function displayTripDetails(data) {
     $('.tripDetailsDiv').empty().prepend(`<h1>${data.trip.trail}</h1><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`)
     for (let owner in data.orderGearList) {
         //TODO create owner ID for div class     
-        let gearContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
+        let gearContent = `<div><h2 class="gearListOwner" value='${owner}'>${owner}</h2><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
         for (let i = 0; i < data.orderGearList[owner].length; i++) {
             gearContent += `<div class="visibleGearItemDetails"><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
                         <a class="deleteGearItem" value="${data.orderGearList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
@@ -158,7 +147,7 @@ function displayTripDetails(data) {
         $('.userGearLists').append(gearContent);
     }
     for (let owner in data.orderFoodList) {
-        let foodContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
+        let foodContent = `<div><h2 class="foodListOwner" value='${owner}'>${owner}</h2><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
         for (let i = 0; i < data.orderFoodList[owner].length; i++) {
             foodContent += `<div class="visibleFoodItemDetails"><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
                 		<a class="deleteFoodItem" value="${data.orderFoodList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
@@ -169,16 +158,22 @@ function displayTripDetails(data) {
     for (let i = 0; i < data.trip.mapPoints.length; i++) {
         myLat.push(data.trip.mapPoints[i].lat);
         myLng.push(data.trip.mapPoints[i].lng);
-
     }
-    setTimeout(initRouteMap, 800, lat, lng, myLat, myLng);
-    // })
-    // .fail((err) => {
-    //     console.log(err);
-    // });
-    // });
+    setTimeout(initRouteMap, 800, myLat, myLng);
 }
 
+function exitTripDetailPage(){
+	$('.leaveTripPage').on('click', function(){
+		if($('.addGearItemForm').hasClass('visibleGearItemForm') == true){
+			$('.addGearItem').toggleClass('fa fa-plus fa fa-minus');
+    		$('.addGearItemForm').toggleClass('hiddenAddGearItemForm visibleGearItemForm');
+    	}
+    	if($('.addFoodItemForm').hasClass('visibleFoodItemForm') == true){
+    		$('.addFoodItem').toggleClass('fa fa-plus fa fa-minus');
+    		$('.addFoodItemForm').toggleClass('hiddenAddFoodItemForm visibleFoodItemForm')
+    	}
+    });
+}
 
 
 function showAddGearListForm() {
@@ -236,12 +231,13 @@ function addGearItem() {
                 console.log(gearItem);
                 let className = `gear-${gearItem[0].owner}`;
                 if ($('.userGearLists').find(`.${className}`).length == 0) {
-                    $('.userGearLists').append(`<div><h2 class="listOwner">${gearItem[0].owner}</h2>
+                    $('.userGearLists').append(`<div><h2 class="gearListOwner" value='${gearItem[0].owner}'>${gearItem[0].owner}</h2>
                 	<i class="fa fa-angle-down fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="${className}"></div></div><hr>`)
                 }
                 $(`.${className}`).append(`<div class="visibleGearItemDetails"><h3>${gearItem[0].item}</h3>
-                	<p>Quantity: ${gearItem[0].quantity}</p><p>Weight:${gearItem[0].weight}</p>
-                	<a class="deleteGearItem" value="${gearItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`)
+                <p>Quantity: ${gearItem[0].quantity}</p><p>Weight:${gearItem[0].weight}</p>
+                <a class="deleteGearItem" value="${gearItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`);
+                calculatePackWeight()
             })
             .fail((err) => {
                 console.log(err)
@@ -272,12 +268,13 @@ function addFoodItem() {
                 console.log(foodItem);
                 let className = `food-${foodItem[0].owner}`;
                 if ($('.userFoodLists').find(`.${className}`).length == 0) {
-                    $('.userFoodLists').append(`<div><h2 class="listOwner">${foodItem[0].owner}</h2>
+                    $('.userFoodLists').append(`<div><h2 class="foodListOwner" value='${gearItem[0].owner}'>${foodItem[0].owner}</h2>
                 	<i class="fa fa-angle-down fa-3x showFoodList" aria-hidden="true" title="See Food List"></i><div class="${className}"></div></div><hr>`)
                 }
                 $(`.${className}`).append(`<div class="visibleFoodItemDetails"><h3>${foodItem[0].item}</h3>
 	 			<p>Quantity: ${foodItem[0].quantity}</p><p>Weight: ${foodItem[0].weight}</p>
-	 			<a class="deleteFoodItem" value="${foodItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`)
+	 			<a class="deleteFoodItem" value="${foodItem[0]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`);
+	 			calculatePackWeight()
             })
             .fail((err) => {
                 console.log(err)
@@ -286,7 +283,8 @@ function addFoodItem() {
 }
 
 function deleteGearItem() {
-    $('.userGearLists').on('click', '.deleteGearItem', function() {
+    $('.userGearLists').on('click', '.deleteGearItem', function(event) {
+    	event.preventDefault()
         let divToRemove = $(this).parent('div');
         console.log(divToRemove)
         let myId = $(this).attr('value');
@@ -297,7 +295,9 @@ function deleteGearItem() {
             })
             .done((gearItem) => {
                 console.log(gearItem)
-                divToRemove.remove()
+                divToRemove.remove();
+                calculatePackWeight();
+                
             })
             .fail((err) => {
                 console.log(err)
@@ -306,7 +306,8 @@ function deleteGearItem() {
 }
 
 function deleteFoodItem() {
-    $('.userFoodLists').on('click', '.deleteFoodItem', function() {
+    $('.userFoodLists').on('click', '.deleteFoodItem', function(event){
+    	event.preventDefault()
         console.log(this)
         let divToRemove = $(this).parent('div');
         console.log(divToRemove)
@@ -318,7 +319,8 @@ function deleteFoodItem() {
             })
             .done((foodItem) => {
                 console.log(foodItem)
-                divToRemove.remove()
+                divToRemove.remove();
+                calculatePackWeight();
             })
             .fail((err) => {
                 console.log(err)
@@ -328,7 +330,6 @@ function deleteFoodItem() {
 
 createNewTripPageLoad()
 addNewTrip()
-//displayTripDetails()
 apiCallforTripDetailsPage()
 addGearItem()
 addFoodItem()
@@ -341,3 +342,4 @@ deleteFoodItem()
 deleteTrip()
 toolBarToggle()
 backToDashboard()
+exitTripDetailPage()

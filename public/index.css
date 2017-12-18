@@ -3,6 +3,11 @@
 	margin:0;
 	padding: 0;
 	text-decoration: none;
+	font-family: 'Amatic SC', cursive;
+}
+
+p{
+	font-size: 20px;
 }
 
 html{
@@ -111,9 +116,9 @@ body{
 	min-height: 500px;
 	background-color: white;
 	opacity: .9;
-	border-radius: 5%;
+	
 	padding: 30px;
-	margin: 15%;
+	margin: 10%;
 }
 
 .tripDetails{
@@ -132,7 +137,7 @@ body{
 
 .backToDashboard{
 	position: absolute;
-	bottom: 1%;
+	bottom: 3%;
 	left: 5%;
 }
 
@@ -140,6 +145,7 @@ body{
 	text-align: center;
 	text-decoration: underline;
 	margin-bottom: 3%;
+	font-size: 30px;
 }
 
 .currTripsDiv{
@@ -202,20 +208,56 @@ body{
 .createTripPage{
 	position: relative;
 	height: fit-content;
-	width: 80%;
-	padding: 20px;
-	margin-top: 20%;
-	background-color: grey;
-	border: solid black 5px;
+	width: 75%;
+	padding: 4%;
 	margin:auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	background-color: white;
+	opacity: 0.9;
+}
+
+.createTripForm{
+	display: grid;
+	grid-gap: 5px;
+	width: 75%;
+	margin:auto;
+}
+
+.createTripForm input{
+	border:none;
+	border-bottom: black solid 2px;
+	font-size: 18px;
+}
+
+.submitNewTripBtn{
+	display: block;
+	margin:auto;
+	height: 40px;
+	width: 120px;
+	font-size: 20px;
+}
+
+.mapDistanceTotalsDiv{
+	display: grid;
+	width: fit-content;
+	margin:auto;
+	justify-items:center;
+	font-weight: bold;
 }
 
 #map, #map2{
 	height: 500px;
-	width: 90%;
+	width: 85%;
 	margin:auto;
-	margin-bottom: 70px;
-	margin-top: 50px;
+	margin-bottom: 20px;
+	margin-top: 15px;
+}
+
+#mapInput{
+	display: block;
+	width: 60%;
+	margin-bottom: 20px;
 }
 
 .userGearList, .userFoodList{
@@ -232,8 +274,12 @@ body{
 	justify-items:center;
 }
 
-.listOwner{
+.gearListOwner, foodListOwner{
 	font-size: 25px;
+}
+
+.gearListOwner p, .foodListOwner p{
+	font-size: 16px;
 }
 
 .gearItemDetails, .foodItemDetails{
@@ -409,7 +455,17 @@ body{
 
 	.dashboardPage{
 		margin: 7% 30%;
+		border-radius: 5%
 	}
+
+	.createTripPage{
+		border-radius: 5%
+	}
+
+	.createTripForm{
+		grid-template-columns: 1fr 1fr;
+	}
+
 
 	.tripDetails{
 		margin-top: 6%;

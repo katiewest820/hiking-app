@@ -2,6 +2,8 @@ let options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
 let markers = [];
 let lat;
 let lng;
+var directionsService = new google.maps.DirectionsService();
+var directionsDisplay;
 
 navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -24,22 +26,29 @@ function initMap(lat, lng) {
         zoom: 8,
         center: myPosition
     });
-
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
     var input = document.getElementById('mapInput');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(input);
 
-    var marker = new google.maps.Marker({
-        position: myPosition,
-        map: map
-    });
-    markers.push(myPosition);
-    map.addListener('click', function(e) {
+    searchBox.addListener('places_changed', function() {
 
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return
+            //todo error message
+        }
+        map.setCenter(new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()));
+        console.log(places)
+
+    });
+    //add click listener
+    map.addListener('click', function(e) {
         var marker = new google.maps.Marker({
             position: e.latLng,
             map: map
-
         });
         let myLat = marker.getPosition().lat()
         let myLng = marker.getPosition().lng()
@@ -49,27 +58,99 @@ function initMap(lat, lng) {
         markers.push(flag);
         console.log(markers)
         map.panTo(e.latLng);
+        if (markers.length > 1) {
+            calcRoute(markers)
+        }
+        if (markers.length > 2) {
+            calcRouteAgain(markers)
+        }
+    });
+
+}
+
+ function initRouteMap(mylat, mylng) {
+     console.log('map running')
+     //let myPosition = { lat: lat, lng: lng }
+     let position;
+    
+     let map = new google.maps.Map(document.getElementById('map2'), {
+         zoom: 8,
+         //center: myPosition
+     });
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+    let markers = []
+    for (i = 0; i < mylat.length; i++) {
+         position = new google.maps.LatLng({ lat: mylat[i], lng: mylng[i] })
+         let setLat = position.lat();
+         let setLng = position.lng();
+         let flag = { lat: setLat, lng: setLng }
+         markers.push(flag);
+
+
+         var marker = new google.maps.Marker({
+             position: position,
+             map: map
+         });
+     };
+     console.log(markers)
+         if (markers.length > 1) {
+             calcRoute(markers)
+         }
+         if (markers.length > 2) {
+             calcRouteAgain(markers)
+         }
+};
+
+
+
+function calcRoute(markers) {
+    console.log(markers)
+    let start = markers[0];
+    let end = markers[1];
+    let request = {
+        origin: start,
+        destination: end,
+        provideRouteAlternatives: false,
+        travelMode: 'WALKING'
+    };
+    directionsService.route(request, function(result, status) {
+        if (status == 'OK') {
+            directionsDisplay.setDirections(result);
+            console.log(result)
+        }
     });
 }
 
-function initRouteMap(lat, lng, mylat, mylng) {
-    console.log('map running')
-    let myPosition = { lat: lat, lng: lng }
-    let position;
-
-    let map = new google.maps.Map(document.getElementById('map2'), {
-        zoom: 8,
-        center: myPosition
+function calcRouteAgain(markers) {
+    var start = markers[0]
+    var end = markers[markers.length-1]
+    console.log(end)
+    let wayPoints = [];
+    for (let i = 1; i < markers.length -1; i++) {
+        wayPoints.push({location: markers[i], stopover: false}) 
+    }
+        var request = {
+            origin: start,
+            destination: end,
+            waypoints: wayPoints,
+            provideRouteAlternatives: false,
+            travelMode: 'WALKING'
+        };
+        console.log(wayPoints)
+    directionsService.route(request, function(result, status) {
+        if (status == 'OK') {
+            directionsDisplay.setDirections(result);
+            let distance = result.routes[0].legs[0].distance.text
+            let duration = result.routes[0].legs[0].duration.text
+            if(distance == undefined){
+                distance == '0 miles'
+            }
+            if(duration == undefined){
+                duration == 'no route recorded'
+            }
+            $('.mapDistanceTotalsDiv').html(`<p>Route Distance:${distance}</p><p>Estimated Duration: ${duration}</p>`)
+        }
     });
 
-    for (i = 0; i < mylat.length; i++) {
-        position = new google.maps.LatLng({ lat: mylat[i], lng: mylng[i] })
-
-
-
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map
-        });
-    };
-};
+}

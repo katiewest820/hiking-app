@@ -43,7 +43,7 @@ function displayColabTripDetails() {
                     console.log('split gear list')
                     console.log(data.orderGearList[owner]);
 //TODO create owner ID for div class     
-                    let gearContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
+                    let gearContent = `<div><h2 class="gearListOwner" value='${owner}'>${owner}</h2><i class="fa fa-angle-right fa-3x showGearList" aria-hidden="true" title="See Gear List"></i><div class="gear-${owner} gearItemDetails">`;
                     for (let i = 0; i < data.orderGearList[owner].length; i++) {
                         gearContent += `<div class="visibleGearItemDetails"><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
                         <a class="deleteGearItem" value="${data.orderGearList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
@@ -52,7 +52,7 @@ function displayColabTripDetails() {
                     $('.userGearLists').append(gearContent);
                 }
                 for(let owner in data.orderFoodList){
-                    let foodContent = `<div><h2 class="listOwner">${owner}</h2><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
+                    let foodContent = `<div><h2 class="foodListOwner" value='${owner}'>${owner}</h2><i class="fa fa-angle-right fa-3x showFoodList" aria-hidden="true" title="See Gear List"></i><div class="food-${owner} foodItemDetails">`;
                     for(let i = 0; i < data.orderFoodList[owner].length; i++){
                         foodContent += `<div class="visibleFoodItemDetails"><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
                         <a class="deleteFoodItem" value="${data.orderFoodList[owner][i]._id}" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div>`;
@@ -60,6 +60,7 @@ function displayColabTripDetails() {
                     foodContent += `</div></div><hr>`
                     $('.userFoodLists').append(foodContent);
                 }
+                calculatePackWeight()
                 
             })
             .fail((err) => {
@@ -78,6 +79,7 @@ function deleteColabTrips() {
             })
             .done((trip) => {
                 console.log(trip)
+                
             })
             .fail((err) => {
                 console.log(err)

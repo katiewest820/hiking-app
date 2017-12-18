@@ -67,25 +67,28 @@
     </section>
     <!--create new trip-->
     <section class="createTripPage">
-        <input class="trailName" type="text" placeholder="Trail Name">
-        <input class="trailheadName" type="text" placeholder="Trailhead">
-        <input class="startDate" type="date" placeholder="Start Date">
-        <input class="endDate" type="date" placeholder="End Date">
-        <button class="submitNewTripBtn">Create New Trip</button>
-        
+        <div class="createTripForm">
+            <input class="trailName" type="text" placeholder="Trail Name">
+            <input class="trailheadName" type="text" placeholder="Trailhead">
+            <input class="startDate" type="date" placeholder="Start Date">
+            <input class="endDate" type="date" placeholder="End Date">
+        </div>
+        <!--map on create trip page-->
         <input id="mapInput" class="controls" type="text" placeholder="Search Box">
         <div id="map"></div>
+
+        <button class="submitNewTripBtn">Create New Trip</button>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
     <!--trip details page -->
     <section class="tripDetails">
         <div class="tripDetailsDiv"></div>
-        <div class="weightTotalsDiv"></div>
+        <div class="mapDistanceTotalsDiv"></div>
         <div id="map2"></div>
 
         <!--gear item section-->
         <div class="gearListDiv">
-            <h1>Gear List's</h1>
+            <h1>Gear Lists</h1>
             <i class="fa fa-plus fa-2x addGearItem" aria-hidden="true"></i>
             <div class="currGearList">
                 <div class="hiddenAddGearItemForm addGearItemForm">
@@ -105,7 +108,7 @@
         </div>
         <!--food item section-->
         <div class="foodListDiv">
-            <h1>Food List's</h1>
+            <h1>Food Lists</h1>
             <i class="fa fa-plus fa-2x addFoodItem" aria-hidden="true"></i>
             <div class="currFoodList">
                 <div class="hiddenAddFoodItemForm addFoodItemForm">
