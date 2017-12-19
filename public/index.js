@@ -106,7 +106,8 @@ function deleteTrip() {
 }
 
 function apiCallforTripDetailsPage() {
-    $('.currTrips').on('click', '.tripName', function() {
+    $('.currTrips').on('click', '.tripName', function(event) {
+        event.preventDefault()
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
         tripIdValue = $(this).attr('value')
@@ -159,6 +160,8 @@ function displayTripDetails(data) {
         myLat.push(data.trip.mapPoints[i].lat);
         myLng.push(data.trip.mapPoints[i].lng);
     }
+    $('.mapDistanceTotalsDiv').empty();
+    $('#map2').empty().css('height', '500px')
     setTimeout(initRouteMap, 800, myLat, myLng);
 }
 
@@ -268,7 +271,7 @@ function addFoodItem() {
                 console.log(foodItem);
                 let className = `food-${foodItem[0].owner}`;
                 if ($('.userFoodLists').find(`.${className}`).length == 0) {
-                    $('.userFoodLists').append(`<div><h2 class="foodListOwner" value='${gearItem[0].owner}'>${foodItem[0].owner}</h2>
+                    $('.userFoodLists').append(`<div><h2 class="foodListOwner" value='${foodItem[0].owner}'>${foodItem[0].owner}</h2>
                 	<i class="fa fa-angle-down fa-3x showFoodList" aria-hidden="true" title="See Food List"></i><div class="${className}"></div></div><hr>`)
                 }
                 $(`.${className}`).append(`<div class="visibleFoodItemDetails"><h3>${foodItem[0].item}</h3>

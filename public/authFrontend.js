@@ -25,8 +25,8 @@ function logOut() {
 function fadeInLoginDiv(){
     $('.loginImg').on('mouseenter', function(){
         $('.loginImg').fadeOut('slow');
-        $('.actLoginDiv').delay(400).fadeIn('slow').css('display', 'grid');
-    })
+        $('.actLoginDiv').delay(500).fadeIn('slow')//.css('display', 'grid');
+    })  
 }
 
 function userLogin() {
@@ -75,8 +75,8 @@ function userLogin() {
 
 function loginErrorMsg(msg){
    //TODO refactor to one error function
-    $('.actLoginPage').fadeOut().delay(2000).fadeIn();
-    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut()
+    $('.actLoginPage').fadeOut().delay(2200).fadeIn();
+    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut()
     $('.errorMsgDiv').html(`<p>${msg}</p>`)
 }
 
@@ -97,7 +97,7 @@ function loadRegisterPage(){
     $('.createActBtn').on('click', function(){
         $('.actLoginPage').fadeOut();
         $('.actRegisterPage').delay(400).fadeIn()
-        $('.actRegisterDiv').css('display', 'grid');
+        $('.actRegisterDiv').css('display', 'block');
     });
 }
 

@@ -28,6 +28,7 @@ function initMap(lat, lng) {
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
+    $('#map').append(`<input id="mapInput" class="controls" type="text" placeholder="Search Box">`)
     var input = document.getElementById('mapInput');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(input);
@@ -69,6 +70,7 @@ function initMap(lat, lng) {
 }
 
  function initRouteMap(mylat, mylng) {
+    //$('.mapDistanceTotalsDiv').empty();
      console.log('map running')
      //let myPosition = { lat: lat, lng: lng }
      let position;
@@ -99,6 +101,9 @@ function initMap(lat, lng) {
          }
          if (markers.length > 2) {
              calcRouteAgain(markers)
+         }
+         if(markers.length == 0){
+            $('#map2').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content')
          }
 };
 
@@ -143,12 +148,7 @@ function calcRouteAgain(markers) {
             directionsDisplay.setDirections(result);
             let distance = result.routes[0].legs[0].distance.text
             let duration = result.routes[0].legs[0].duration.text
-            if(distance == undefined){
-                distance == '0 miles'
-            }
-            if(duration == undefined){
-                duration == 'no route recorded'
-            }
+            
             $('.mapDistanceTotalsDiv').html(`<p>Route Distance:${distance}</p><p>Estimated Duration: ${duration}</p>`)
         }
     });

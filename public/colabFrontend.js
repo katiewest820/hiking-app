@@ -18,6 +18,8 @@ function displayColabTrips() {
 
 function displayColabTripDetails() {
     $('.colabTrips').on('click', '.colabTripDiv', function() {
+        let myLat = [];
+        let myLng = [];
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
         $('.tripDetailsDiv').empty();
@@ -61,6 +63,13 @@ function displayColabTripDetails() {
                     $('.userFoodLists').append(foodContent);
                 }
                 calculatePackWeight()
+                for (let i = 0; i < data.trip.mapPoints.length; i++) {
+                    myLat.push(data.trip.mapPoints[i].lat);
+                    myLng.push(data.trip.mapPoints[i].lng);
+                }
+                $('.mapDistanceTotalsDiv').empty();
+                $('#map2').empty().css('height', '500px')
+                setTimeout(initRouteMap, 800, myLat, myLng);
                 
             })
             .fail((err) => {
@@ -79,7 +88,7 @@ function deleteColabTrips() {
             })
             .done((trip) => {
                 console.log(trip)
-                
+
             })
             .fail((err) => {
                 console.log(err)
@@ -92,8 +101,8 @@ function shareTrip() {
         let shareTripId = {
             tripId: tripIdValue,
             ownerId: localStorage.getItem('userId'),
-            colabId: $('.colabShare').attr('name'),
-            admin: $('.adminShare').is(":checked")
+            colabId: $('.colabShare').attr('name')
+            //admin: $('.adminShare').is(":checked")
         }
         console.log(shareTripId)
         $.ajax({
@@ -121,7 +130,7 @@ function shareTripFormLoad() {
         tripIdValue = $(this).attr('value');
         console.log(tripIdValue)
         $('.dashboardPage').fadeOut();
-        $('.shareTripPage').delay(500).fadeIn();
+        $('.shareTripPage').delay(500).fadeIn().css('display', 'grid');
     })
 }
 

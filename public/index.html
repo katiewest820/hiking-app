@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!--api key AIzaSyBBZwyMuYIv63gurPf9os1D5RLBFix7hDM -->
 <head>
     <title>Hiking App</title>
     <link rel="stylesheet" type="text/css" href="index.css">
@@ -15,12 +14,8 @@
     <section class="actLoginPage">
         <img class="loginImg" src="Camping.svg" height="500px" width="500px">
         <div class="actLoginDiv">
-            <label>Email:</label>
-            <input class="emailLogin" type="text">
-            <label>Password:</label>
-            <input class="passwordLogin" type="password">
-            
-
+            <input class="emailLogin" type="text" placeholder="Email">
+            <input class="passwordLogin" type="password" placeholder="Password">
             <button class="loginBtn">Login</button>
             <button class="createActBtn">Register</button>
         </div>
@@ -32,14 +27,10 @@
     <!-- registration page -->
     <section class="actRegisterPage">
         <div class="actRegisterDiv">
-            <label>First Name:</label>
-            <input class="registrationFN" type="text">
-            <label>Last Name:</label>
-            <input class="registrationLN" type="text">
-            <label>Email:</label>
-            <input class="registrationEmail" type="text">
-            <label>Password:</label>
-            <input class="registrationPassword" type="password">
+            <input class="registrationFN" type="text" placeholder="First Name">
+            <input class="registrationLN" type="text" placeholder="Last Name">
+            <input class="registrationEmail" type="text" placeholder="Email">
+            <input class="registrationPassword" type="password" placeholder="Password">
             <button class="registrationSubmitBtn">Submit</button>
             <button class="cancelRegistrationBtn">Cancel</button>
         </div>
@@ -70,14 +61,12 @@
         <div class="createTripForm">
             <input class="trailName" type="text" placeholder="Trail Name">
             <input class="trailheadName" type="text" placeholder="Trailhead">
-            <input class="startDate" type="date" placeholder="Start Date">
-            <input class="endDate" type="date" placeholder="End Date">
+            <input class="startDate" type="text" onfocus="(this.type='date')" placeholder="Start Date">
+            <input class="endDate" type="text" onfocus="(this.type='date')"  placeholder="End Date">
         </div>
-        <!--map on create trip page-->
-        <input id="mapInput" class="controls" type="text" placeholder="Search Box">
         <div id="map"></div>
 
-        <button class="submitNewTripBtn">Create New Trip</button>
+        <button class="submitNewTripBtn">Create Trip</button>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
     <!--trip details page -->
@@ -136,9 +125,7 @@
                 <datalist class="availUsers"></datalist>
             </div>
             <a href="#"><i class="fa fa-share-alt fa-2x shareTripBtn" aria-hidden="true" title="Share Trip"></i></a>
-            <label>Edit Permissions
-                <input class="adminShare" type="checkBox">
-            </label>
+            
         </div>
         <i class="fa fa-arrow-left fa-2x backToDashboard" aria-hidden="true"></i>
     </section>
@@ -156,15 +143,12 @@
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZwyMuYIv63gurPf9os1D5RLBFix7hDM&libraries=places">
     </script>
-    
     <script type="text/javascript" src="colabFrontend.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="map.js"></script>
     <script type="text/javascript" src="weight.js"></script>
     <script type="text/javascript" src="archives.js"></script>
     <script type="text/javascript" src="authFrontend.js"></script>
-
-
 </body>
 
 </html>
