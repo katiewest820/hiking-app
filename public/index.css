@@ -156,7 +156,7 @@ button:hover{
 .currTripsDiv h1, .sharedTripsDiv h1{
 	text-align: center;
 	text-decoration: underline;
-	margin-bottom: 2%;
+	margin-bottom: 1%;
 	font-size: 30px;
 }
 
@@ -174,7 +174,7 @@ button:hover{
 
 .tripDiv{
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	margin:auto;
 	margin-bottom: 10px;
 	justify-items: center;
@@ -184,7 +184,7 @@ button:hover{
 
 .tripDiv .tripName{
 	text-align: center;
-	grid-column:span 3;
+	grid-column:span 4;
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
@@ -247,8 +247,8 @@ button:hover{
 	border-bottom: 2px solid #36ba45;
 }
 
-.submitNewTripBtn{
-	display: block;
+.submitNewTripBtn, .submitEditedTripBtn{
+	/*display: block;*/
 	margin:auto;
 	height: 39px;
 	width: 105px;
@@ -256,6 +256,10 @@ button:hover{
 	background: none;
 	border: solid black 2px;
 	font-weight: bold;
+}
+
+.submitNewTripBtn{
+	display: block;
 }
 
 .mapDistanceTotalsDiv{
@@ -266,9 +270,9 @@ button:hover{
 	font-weight: bold;
 }
 
-#map, #map2{
+#map, #map2, #map3{
 	height: 500px;
-	width: 85%;
+	width: 95%;
 	margin:auto;
 	margin-bottom: 20px;
 	margin-top: 15px;
@@ -280,10 +284,21 @@ button:hover{
 	padding: 10%;
 }
 
-#mapInput{
+#mapInput, #mapEditInput{
 	display: block;
 	width: 60%;
-	margin-bottom: 20px;
+	margin-bottom: 63px;
+}
+
+.clearRouteBtn, .clearEditRouteBtn{
+	position: absolute;
+	background: white;
+	height: 32px;
+	width: 70px;
+	bottom: 5%;
+	right: 53%;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .userGearList, .userFoodList{
@@ -425,6 +440,7 @@ button:hover{
 .availUsers option{
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
 }
 
 .shareTripPage{
@@ -499,7 +515,7 @@ button:hover{
 
 	.dashboardPage{
 		margin: auto;
-		margin-top: 6%;
+		margin-top: 4%;
 		width: 70%
 	}
 
@@ -511,6 +527,10 @@ button:hover{
 	.currTrips{
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+	}
+
+	.tripDiv{
+		min-width: 170px;
 	}
 
 	.currTripsDiv h1, .sharedTripsDiv h1{
@@ -527,6 +547,21 @@ button:hover{
 
 	.createTripForm input{
 		font-size: 25px;
+	}
+
+	.clearRouteBtn, .clearEditRouteBtn{
+		position: absolute;
+		background: white;
+		height: 39px;
+		width: 85px;
+		bottom: 3%;
+		right: 8%;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	#mapInput, #mapEditInput{
+		margin-bottom: 18px;
 	}
 
 	.submitNewTripBtn{
@@ -553,7 +588,7 @@ button:hover{
 		width: 60%;
 	}
 
-	#map, #map2{
+	#map, #map2, #map3{
 		width: 75%;
 	}
 

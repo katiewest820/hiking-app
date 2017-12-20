@@ -74,7 +74,6 @@ router.get('/getByColab/:id', (req,res) => {
     if (err) {
     	console.log(err)
 	}
-	console.log(trips)
 		console.log('successful get of colab trips')
 		res.send(trips).status(200)
 	})
@@ -240,7 +239,7 @@ router.delete('/foodList/id/:tripId/:foodId', (req, res) => {
 router.put('/id/:id', (req, res) => {
     HikingTrip.findById(req.params.id)
         .then((trip) => {
-            let editFields = ['trail', 'startDate', 'endDate', 'trailheadName', 'archived'];
+            let editFields = ['trail', 'startDate', 'endDate', 'trailheadName', 'archived', 'mapPoints'];
             editFields.forEach((field) => {
                 if (field in req.body) {
                     trip[field] = req.body[field]

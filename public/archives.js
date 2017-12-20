@@ -138,6 +138,7 @@ function displayArchivedTripDetails() {
                     myLat.push(data.trip.mapPoints[i].lat);
                     myLng.push(data.trip.mapPoints[i].lng);
                 };
+                $('.mapDistanceTotalsDiv').empty();
                 setTimeout(initRouteMap, 800, lat, lng, myLat, myLng);
             })
             .fail((err) => {

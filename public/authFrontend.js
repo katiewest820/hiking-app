@@ -65,6 +65,9 @@ function userLogin() {
                 $('body').css('overflow', 'visible');
                 displayColabTrips();
                 displayDashboardTrips();
+                $('.actLoginDiv').children('input').each((index, element)=> {
+                    $(element).val('')
+                })
 
             })
             .fail((err) => {
@@ -88,9 +91,9 @@ function registrationErrorMsg(msg){
 }
 function registrationSuccessMsg(msg){
     $('.actRegisterPage').fadeOut();
-    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut();
+    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
-    $('.actLoginPage').delay(2000).fadeIn();
+    $('.actLoginPage').delay(2600).fadeIn();
 }
 
 function loadRegisterPage(){
@@ -141,6 +144,9 @@ function createNewUser(){
                 return
             }
            registrationSuccessMsg('Your account was successfully created!')
+           $('.actRegisterDiv').children('input').each((index, element)=> {
+                $(element).val('')
+            })
 
         })
         .fail((err) => {

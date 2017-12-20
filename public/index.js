@@ -17,7 +17,8 @@ function displayDashboardTrips() {
                     $('.currTrips').append(`<div class="tripDiv" ><a class="tripName" value="${trips[i]._id}" href="#">${trips[i].trail}</a>
                 	<i class="fa fa-trash deleteTrip" aria-hidden="true" value="${trips[i]._id}" title="Delete Trip"></i>
                 	<i class="fa fa-share-alt shareImg" aria-hidden="true" value="${trips[i]._id}" title="Share Trip"></i>
-                	<i class="fa fa-archive archiveTrip" aria-hidden="true" value="${trips[i]._id}" title="Archive Trip"></i></div>`)
+                	<i class="fa fa-archive archiveTrip" aria-hidden="true" value="${trips[i]._id}" title="Archive Trip"></i>
+                    <i class="fa fa-pencil editTrip" aria-hidden="true" value="${trips[i]._id}" title="Edit Trip"></i></div>`)
                 }
             }
         })
@@ -35,8 +36,11 @@ function toolBarToggle() {
 
 function createNewTripPageLoad() {
     $('.createNewTrip').on('click', function() {
+        $('.submitEditedTripBtn').remove()
+        $('.submitNewTripBtn').css('display', 'block');
         $('.dashboardPage').fadeOut();
         $('.createTripPage').delay(400).fadeIn();
+        $('#map3').replaceWith('<div id=map></div>')
         setTimeout(initMap, 800, lat, lng)
 
     });
@@ -63,6 +67,8 @@ function addNewTrip() {
 
             })
             .done((trip) => {
+
+                $('input').val('')
                 console.log(trip.data.userId)
                 console.log(trip)
                 displayColabTrips();
