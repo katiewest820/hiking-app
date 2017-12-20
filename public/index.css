@@ -1,137 +1,115 @@
-
-*{
-	margin:0;
+* {
+	margin: 0;
 	padding: 0;
 	text-decoration: none;
 	font-family: 'Amatic SC', cursive;
 	color: black;
 }
-
-input{
+input {
 	font-size: 25px;
 	font-weight: bold;
 }
-html{
+html {
 	position: relative;
 }
-
-body{
+body {
 	background: url("background_stars.png");
 	background-size: cover;
 	overflow: hidden;
 }
-
-section{
+section {
 	opacity: 0.9;
 	border-radius: 5%;
 }
-
-.backToDashboard{
+.backToDashboard {
 	position: absolute;
 	bottom: 3%;
 }
-
-input:focus{
+input:focus {
 	border-bottom: 2px solid #36ba45;
-	outline:none;
+	outline: none;
 }
-
-a:hover, i:hover{
+a:hover, i:hover {
 	color: #36ba45;
+	cursor: pointer;
 }
-
-button:hover{
+button:hover {
 	border: solid 2px #36ba45;
+	cursor: pointer;
 }
-
-
-.actLoginPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, 
-.shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage{
+.actLoginPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, .shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage {
 	display: none;
 }
-
-.loginImg{
+.loginImg {
 	height: 300px;
 	width: 300px;
 	display: block;
 	margin: auto;
 	margin-top: 45%;
 }
-
-.actLoginDiv, .actRegisterDiv{
+.actLoginDiv, .actRegisterDiv {
 	display: none;
 	height: 250px;
 	width: 200px;
 	background-color: white;
 	opacity: 0.9;
-	margin:auto;
+	margin: auto;
 	text-align: center;
 	margin-top: 40%;
 	padding: 40px;
 	border-radius: 10%;
 }
-
-.actRegisterDiv{
+.actRegisterDiv {
 	height: 310px;
 }
-
-.actLoginDiv label, .actRegisterDiv label{
+.actLoginDiv label, .actRegisterDiv label {
 	font-weight: bold;
 	font-size: 25px;
 }
-
-.actLoginDiv input, .actRegisterDiv input{
+.actLoginDiv input, .actRegisterDiv input {
 	background: transparent;
 	border: none;
 	border-bottom: 2px solid black;
 	width: 200px;
 	margin-top: 16%;
 }
-
-.actRegisterDiv input{
+.actRegisterDiv input {
 	margin-top: 13%;
 }
-
-.actLoginDiv input:focus, .actRegisterDiv input:focus{
+.actLoginDiv input:focus, .actRegisterDiv input:focus {
 	border-bottom: 2px solid #36ba45;
-	outline:none;
+	outline: none;
 }
-
-.actLoginDiv button, .actRegisterDiv button{
+.actLoginDiv button, .actRegisterDiv button {
 	width: 80px;
 	height: 30px;
-	justify-self:center;
+	justify-self: center;
 	background: transparent;
 	border: solid black 2px;
 	border-radius: 10%;
 	margin: 20px 5px;
 	font-size: 20px;
 }
-
-.actLoginDiv button:hover, .actRegisterDiv button:hover{
+.actLoginDiv button:hover, .actRegisterDiv button:hover {
 	border: solid 2px #36ba45;
 }
-
-.errorMsgDiv{
+.errorMsgDiv {
 	height: 250px;
 	width: 200px;
 	background-color: white;
 	opacity: 0.9;
-	margin:auto;
+	margin: auto;
 	margin-top: 40%;
 	padding: 40px;
 	border-radius: 10%;
 }
-
-.errorMsgDiv p{
+.errorMsgDiv p {
 	font-weight: bold;
 	text-align: center;
 	margin-top: 30%;
 	font-size: 30px;
 }
-
-
-.dashboardPage{
+.dashboardPage {
 	margin: 10%;
 	position: relative;
 	height: fit-content;
@@ -139,8 +117,7 @@ button:hover{
 	background-color: white;
 	padding: 30px;
 }
-
-.tripDetails{
+.tripDetails {
 	position: relative;
 	min-height: 500px;
 	height: fit-content;
@@ -150,54 +127,47 @@ button:hover{
 	width: 75%;
 	padding: 20px;
 	background-color: white;
-	color:black;
+	color: black;
 }
-
-.currTripsDiv h1, .sharedTripsDiv h1{
+.currTripsDiv h1, .sharedTripsDiv h1 {
 	text-align: center;
 	text-decoration: underline;
 	margin-bottom: 1%;
 	font-size: 30px;
 }
-
-.currTripsDiv{
+.currTripsDiv {
 	border-bottom: solid 2px black;
 	padding: 20px;
 	min-height: 200px;
 }
-
-.sharedTripsDiv{
+.sharedTripsDiv {
+	margin-bottom: 40px;
 	padding: 20px;
 	text-align: center;
 	min-height: 200px;
 }
-
-.tripDiv{
+.tripDiv {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	margin:auto;
+	margin: auto;
 	margin-bottom: 10px;
 	justify-items: center;
 	width: fit-content;
 	min-width: 120px;
 }
-
-.tripDiv .tripName{
+.tripDiv .tripName {
 	text-align: center;
-	grid-column:span 4;
+	grid-column: span 4;
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-
-
-.colabTripDiv a{
+.colabTripDiv a {
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 15px;
 }
-
-.dashboardToolbar{
+.dashboardToolbar {
 	position: absolute;
 	bottom: 5%;
 	left: 5%;
@@ -205,51 +175,42 @@ button:hover{
 	grid-template-columns: 20% 80%;
 	grid-gap: 10px;
 }
-
-.dashboardBtns{
+.dashboardBtns {
 	height: 0px;
 	overflow: hidden;
 }
-
-.togglerClass i{
+.togglerClass i {
 	margin: 5px;
 }
-
-.toolbarIcon{
+.toolbarIcon {
 	align-self: center;
 }
-
-.createTripPage{
+.createTripPage {
 	position: relative;
 	height: fit-content;
 	width: 75%;
 	padding: 4%;
-	margin:auto;
+	margin: auto;
 	margin-top: 5%;
 	margin-bottom: 5%;
 	background-color: white;
 }
-
-.createTripForm{
+.createTripForm {
 	display: grid;
 	grid-gap: 5px;
 	width: 75%;
-	margin:auto;
+	margin: auto;
 }
-
-.createTripForm input{
-	border:none;
+.createTripForm input {
+	border: none;
 	border-bottom: black solid 2px;
 	font-size: 18px;
 }
-
-.createTripForm input:hover{
+.createTripForm input:hover {
 	border-bottom: 2px solid #36ba45;
 }
-
-.submitNewTripBtn, .submitEditedTripBtn{
-	/*display: block;*/
-	margin:auto;
+.submitNewTripBtn, .submitEditedTripBtn {
+	margin: auto;
 	height: 39px;
 	width: 105px;
 	font-size: 20px;
@@ -257,40 +218,35 @@ button:hover{
 	border: solid black 2px;
 	font-weight: bold;
 }
-
-.submitNewTripBtn{
+.submitNewTripBtn {
 	display: block;
 }
-
-.mapDistanceTotalsDiv{
+.mapDistanceTotalsDiv {
+	font-size: 20px;
 	display: grid;
 	width: fit-content;
-	margin:auto;
-	justify-items:center;
+	margin: auto;
+	justify-items: center;
 	font-weight: bold;
 }
-
-#map, #map2, #map3{
+#map, #map2, #map3 {
 	height: 500px;
 	width: 95%;
-	margin:auto;
+	margin: auto;
 	margin-bottom: 20px;
 	margin-top: 15px;
 }
-
-.noMapMsg{
+.noMapMsg {
 	text-align: center;
 	font-size: 35px;
 	padding: 10%;
 }
-
-#mapInput, #mapEditInput{
+#mapInput, #mapEditInput {
 	display: block;
 	width: 60%;
 	margin-bottom: 63px;
 }
-
-.clearRouteBtn, .clearEditRouteBtn{
+.clearRouteBtn, .clearEditRouteBtn {
 	position: absolute;
 	background: white;
 	height: 32px;
@@ -300,335 +256,293 @@ button:hover{
 	font-size: 16px;
 	font-weight: bold;
 }
-
-.userGearList, .userFoodList{
+.userGearList, .userFoodList {
 	border-top: solid 1px black;
 	margin-top: 20px;
 }
-
-.visibleGearItemDetails, .visibleFoodItemDetails{
+.visibleGearItemDetails, .visibleFoodItemDetails {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	width:fit-content;
-	padding:20px;
+	width: fit-content;
+	padding: 20px;
 	border-bottom: lightgrey solid 1px;
-	justify-items:center;
+	justify-items: center;
 }
-
-.gearListOwner, .foodListOwner{
-	font-size: 25px;
+.gearListOwner, .foodListOwner {
+	font-size: 30px;
 }
-
-.gearListOwner p, .foodListOwner p{
-	font-size: 16px;
+.gearListOwner p, .foodListOwner p {
+	font-size: 20px;
 }
-
-.gearItemDetails, .foodItemDetails{
+.gearItemDetails, .foodItemDetails {
 	display: none;
 }
-
-.visibleGearItemDetails h3, .visibleFoodItemDetails h3{
+.visibleGearItemDetails h3, .visibleFoodItemDetails h3 {
 	grid-column: span 2;
 }
-
-.visibleGearItemDetails p, .visibleFoodItemDetails p{
+.visibleGearItemDetails p, .visibleFoodItemDetails p {
 	padding: 5px;
 }
-
-.tripDetailsDiv, .gearListDiv, .foodListDiv{
+.tripDetailsDiv, .gearListDiv, .foodListDiv {
 	height: fit-content;
 	width: 80%;
 	padding: 10px;
 	margin-top: 20%;
 	margin: auto;
 }
-
-.gearListDiv, .foodListDiv{
+.gearListDiv, .foodListDiv {
 	display: grid;
 	grid-template-columns: 2fr 1fr;
+	align-items: center;
 }
-
-.gearListDiv h1, .foodListDiv h1{
-	font-size: 30px;
+.gearListDiv h1, .foodListDiv h1 {
+	font-size: 35px;
 }
-
-.currGearList, .currFoodList{
+.currGearList, .currFoodList {
 	grid-column: span 2;
 }
-
-.foodListDiv{
+.foodListDiv {
 	padding-bottom: 20%;
 }
-
-.addFoodItemForm, .addGearItemForm{
+.addFoodItemForm, .addGearItemForm {
 	grid-gap: 10px;
 	padding-bottom: 20px;
 	margin-top: 10px;
 	border: 1px solid lightgrey;
 	padding: 20px;
 }
-
-.visibleGearItemForm, .visibleFoodItemForm{
+.visibleGearItemForm, .visibleFoodItemForm {
 	display: grid;
 }
-
-.addFoodItemForm input, .addGearItemForm input{
+.addFoodItemForm input, .addGearItemForm input {
 	background: transparent;
 	border: none;
 	border-bottom: solid 2px black;
-	font-size: 18px;
+	font-size: 20px;
 }
-
-.addFoodItemForm select, .addGearItemForm select{
+.addFoodItemForm select, .addGearItemForm select {
 	width: fit-content;
+	font-size: 20px;
 }
-
-.addFoodItemForm button, .addGearItemForm button{
+.addFoodItemForm button, .addGearItemForm button {
 	width: 80px;
 	height: 30px;
+	font-size: 20px;
 }
-
-.tripDetailsDiv{
-	color:black;
-	width:fit-content;
+.tripDetailsDiv {
+	color: black;
+	width: fit-content;
 	display: grid;
 	grid-template-columns: 4fr 1fr 4fr;
 	grid-gap: 10px;
-	justify-items:center;
+	justify-items: center;
 	align-items: center;
 }
-
-.tripDetailsDiv p{
+.tripDetailsDiv p {
 	margin: 10px;
 	text-align: center;
 }
-
-.tripDetailsDiv h1{
+.tripDetailsDiv a {
+	font-size: 35px;
 	grid-column: span 3;
 }
-
-.tripDetailsDiv h3{
-	grid-column: span 2;
+.tripDetailsDiv h1:hover {
+	color: #36ba45;
 }
-
-.tripDetailsDiv style{
+.tripDetailsDiv p {
+	font-size: 20px;
+}
+.tripDetailsDiv style {
 	display: inline;
 	border: solid black 2px;
 	height: 50px;
 	transform: rotate(25deg);
 }
-
-.tripDetails i{
+.tripDetails i {
 	left: 5%;
+	bottom: 2%;
 }
-
-.colabShare{
+.colabShare {
 	width: 100%;
 	height: 30px;
 	border: none;
 	border-bottom: 2px solid black;
 	font-size: 25px;
 }
-
-.availUsers{
+.availUsers {
 	width: 100%;
 	display: block;
 	background-color: black;
-	color:white;
+	color: white;
 }
-
-.availUsers option{
+.availUsers option {
 	font-size: 25px;
 	font-weight: bold;
 	color: white;
 }
-
-.shareTripPage{
+.shareTripPage {
 	align-items: center;
 	height: 200px;
 	width: 60%;
 	padding: 40px;
-	margin:auto;
-	margin-top:45%;	
+	margin: auto;
+	margin-top: 45%;
 	background-color: white;
 }
-
-.shareTripPage i{
+.shareTripPage i {
 	right: 80%;
 }
-
-.sharePageGrid{
+.sharePageGrid {
 	display: grid;
 	grid-template-columns: 90% 10%;
 	grid-gap: 15px;
 	justify-content: center;
 }
-
-.sharePageGrid i{
+.sharePageGrid i {
 	bottom: 3%;
-    left: 15%;
+	left: 15%;
 }
-
-
-.archivesPage{
+.archivesPage {
 	position: relative;
 	height: fit-content;
 	min-height: 500px;
 	width: 75%;
 	background-color: white;
-	margin:auto;
+	margin: auto;
 	margin-top: 20%;
 }
-
-.archivesPage h1{
+.archivesPage h1 {
 	text-align: center;
 	padding-top: 10%;
 	text-decoration: underline;
-	font-size: 30px;
+	font-size: 35px;
 }
-
-.listOfArchivedTrips{
-	justify-items:center;
-	padding: 30px;
-	width:fit-content;
-	margin:auto;
+.listOfArchivedTrips {
+	justify-items: center;
+	padding: 25px;
+	width: fit-content;
+	margin: auto;
 	font-size: 25px;
 }
-
-.archivedTripDiv{
+.archivedTripDiv {
 	display: grid;
 	grid-template-columns: 2fr 1fr 1fr;
-	justify-items:center;
+	justify-items: center;
+	border-bottom: solid 1px grey;
+	margin-bottom: 5px;
 }
-
-.archivesPage i{
+.archivesPage i {
 	left: 5%;
 }
-
-@media  (min-width: 640px){
-
-	.loginImg{
+@media (min-width: 640px) {
+	.loginImg {
 		margin-top: 10%;
 		height: 500px;
 		width: 500px;
 	}
-
-	.dashboardPage{
+	.dashboardPage {
 		margin: auto;
 		margin-top: 4%;
+		margin-bottom: 2%;
 		width: 70%
 	}
-
-	.currTripsDiv{
-		width: 70%;
-		margin:auto;
+	.currTripsDiv {
+		width: 65%;
+		margin: auto;
 	}
-
-	.currTrips{
+	.currTrips {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 	}
-
-	.tripDiv{
+	.tripDiv {
 		min-width: 170px;
 	}
-
-	.currTripsDiv h1, .sharedTripsDiv h1{
+	.tripDetailsDiv a {
 		font-size: 40px;
 	}
-
-	.colabTripDiv a, .tripDiv .tripName{
-		font-size: 25px;
+	.currTripsDiv h1, .sharedTripsDiv h1 {
+		font-size: 50px;
 	}
-
-	.createTripForm{
+	.colabTripDiv a, .tripDiv .tripName {
+		font-size: 30px;
+	}
+	.createTripForm {
 		grid-template-columns: 1fr 1fr;
 	}
-
-	.createTripForm input{
-		font-size: 25px;
+	.createTripForm input {
+		font-size: 30px;
 	}
-
-	.clearRouteBtn, .clearEditRouteBtn{
+	.clearRouteBtn, .clearEditRouteBtn {
 		position: absolute;
 		background: white;
 		height: 39px;
 		width: 85px;
 		bottom: 3%;
 		right: 8%;
-		font-size: 20px;
+		font-size: 25px;
 		font-weight: bold;
 	}
-
-	#mapInput, #mapEditInput{
+	#mapInput, #mapEditInput {
 		margin-bottom: 18px;
 	}
-
-	.submitNewTripBtn{
+	.submitNewTripBtn {
 		height: 45px;
 		width: 125px;
 		font-size: 25px;
 	}
-
-	.shareTripPage{
+	.shareTripPage {
 		margin-top: 15%;
 		width: 40%;
 	}
-
-	.sharePageGrid i{
-    	left: 29%;
+	.sharePageGrid {
+		width: 70%;
+		margin: auto;
 	}
-
-	.shareTripPage i{
+	.sharePageGrid i {
+		left: 29%;
+	}
+	.shareTripPage i {
 		right: 69%;
 	}
-
-	.tripDetails{
+	.tripDetails {
 		margin-top: 6%;
 		width: 60%;
 	}
-
-	#map, #map2, #map3{
+	#map, #map2, #map3 {
 		width: 75%;
 	}
-
-	.gearListDiv, .foodListDiv{
-		grid-template-columns: 1fr 2fr;
+	.gearListDiv, .foodListDiv {
+		grid-template-columns: 25% 75%;
 	}
-
-	.gearListDiv h1, .foodListDiv h1{
-		font-size: 35px;
+	.gearListDiv h1, .foodListDiv h1 {
+		font-size: 40px;
 	}
-
-	.gearListDiv i, .foodListDiv i{
+	.visibleGearItemDetails, .visibleFoodItemDetails {
+		font-size: 20px;
+	}
+	.gearListDiv i, .foodListDiv i {
 		align-self: center;
 	}
-
-	.foodListDiv{
+	.foodListDiv {
 		padding-bottom: 10%;
 	}
-
-	.addFoodItemForm, .addGearItemForm{
+	.addFoodItemForm, .addGearItemForm {
 		width: 50%;
 	}
-	.actLoginDiv, .errorMsgDiv, .actRegisterDiv{
+	.actLoginDiv, .errorMsgDiv, .actRegisterDiv {
 		margin-top: 15%;
 		width: 250px;
 		padding: 50px;
 	}
-
-	.actLoginDiv input, .actRegisterDiv input{
+	.actLoginDiv input, .actRegisterDiv input {
 		width: 240px;
 	}
-
-	.actLoginDiv button, .actRegisterDiv button{
+	.actLoginDiv button, .actRegisterDiv button {
 		width: 100px;
 		font-weight: bold;
 	}
-
-	.archivesPage{
+	.archivesPage {
 		margin-top: 8%;
 		width: 50%;
 	}
 }
-

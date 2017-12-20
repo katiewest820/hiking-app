@@ -5,16 +5,14 @@ const mongoose = require('mongoose');
 	item: String,
 	weight: String,
 	quantity: Number
-	
-})
+});
 
 let foodListSchema = new mongoose.Schema({
 	owner: String,
 	item: String,
 	weight: String,
 	quantity: Number
-	
-}) 
+}); 
 
 let hikingTripSchema = new mongoose.Schema({
 	userId: mongoose.Schema.Types.ObjectId,
@@ -29,8 +27,6 @@ let hikingTripSchema = new mongoose.Schema({
 	createdAt: {type: Date, default: Date.now}
 });
 
-
-
  let HikingTrip = mongoose.model('HikingTrip', hikingTripSchema);
  let gearList = mongoose.model('GearList', gearListSchema);
  let foodList = mongoose.model('FoodList', foodListSchema);
@@ -39,7 +35,7 @@ let hikingTripSchema = new mongoose.Schema({
  	HikingTrip: HikingTrip,
  	gearList: gearList,
  	foodList: foodList
- }
+ };
 
 
 
