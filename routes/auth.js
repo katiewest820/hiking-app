@@ -87,7 +87,7 @@ router.post('/register', (req, res) => {
 					console.log(err)
 					res.send(err).status(500);
 				}
-				res.send(`new user created: ${newUser}`).status(200);
+				res.send(newUser).status(200);
 			});
 		});
 	}).catch((err) => {

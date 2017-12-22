@@ -30,47 +30,9 @@ router.use((req, res, next) => {
 router.get('/getByUser/:id', (req, res) => {
 	HikingTrip.find({userId: req.params.id}).select('trail archived')
 	.then((trips) => {
-		console.log('successful get of all trips');
 		res.status(200).send(trips);
 	})
 	.catch((err) => {
-		console.log('something bad happened');
-		res.status(500).send(err);
-	});
-});
-
-//get trip for weight
-router.get('/getForWeight/id/:id', (req, res) => {
-	HikingTrip.findById(req.params.id)
-	.then((trip) => {
-		let orderGearList = {};
-		let orderFoodList = {};
-		trip.gearList.forEach((element) => {
-			if (!orderGearList[element.owner]) {
-				orderGearList[element.owner] = [element];
-			} else {
-				orderGearList[element.owner].push(element);
-			}
-		});
-		trip.foodList.forEach((element) => {
-			if (!orderFoodList[element.owner]) {
-				orderFoodList[element.owner] = [element];
-			} else {
-				orderFoodList[element.owner].push(element);
-			}
-		});
-		trip.orderGearList = orderGearList;
-		trip.orderFoodList = orderFoodList;
-		console.log('successful get of one trip');
-		res.status(200).json({
-			trip: trip,
-			orderGearList: orderGearList,
-			orderFoodList: orderFoodList
-		});
-	})
-	.catch((err) => {
-		console.log('something bad happened');
-		console.log(err);
 		res.status(500).send(err);
 	});
 });
@@ -82,7 +44,6 @@ router.get('/getByColab/:id', (req, res) => {
 		if (err) {
 			console.log(err);
 		}
-		console.log('successful get of colab trips');
 		res.send(trips).status(200);
 	});
 });
@@ -109,7 +70,6 @@ router.get('/id/:id', (req, res) => {
 		});
 		trip.orderGearList = orderGearList;
 		trip.orderFoodList = orderFoodList;
-		console.log('successful get of one trip');
 		res.status(200).json({
 			trip: trip,
 			orderGearList: orderGearList,
@@ -117,7 +77,6 @@ router.get('/id/:id', (req, res) => {
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		console.log(err);
 		res.status(500).send(err);
 	});
@@ -145,6 +104,7 @@ router.post('/', (req, res) => {
 		});
 	});
 });
+
 //post route to add gear item
 router.post('/gearList/id/:id', (req, res) => {
 	HikingTrip.findById(req.params.id)
@@ -157,7 +117,6 @@ router.post('/gearList/id/:id', (req, res) => {
 		trip.gearList.push(newGearList);
 		trip.save();
 		let newItem = trip.gearList.slice(-1);
-		console.log(`successful post to gear list ${newItem}`);
 		res.status(200).send(newItem);
 	})
 	.catch((err) => {
@@ -178,11 +137,9 @@ router.post('/foodList/id/:id', (req, res) => {
 		trip.foodList.push(newFoodList);
 		trip.save();
 		let newItem = trip.foodList.slice(-1);
-		console.log(`successful post to food list ${newItem}`);
 		res.status(200).send(newItem);
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });
@@ -191,14 +148,12 @@ router.post('/foodList/id/:id', (req, res) => {
 router.delete('/id/:id', (req, res) => {
 	HikingTrip.findByIdAndRemove(req.params.id)
 	.then((trip) => {
-		console.log('successful delete of trip');
 		res.status(200).json({
 			message: 'your trip has been deleted',
 			data: trip
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });
@@ -216,7 +171,6 @@ router.delete('/gearList/id/:tripId/:gearId', (req, res) => {
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });
@@ -234,7 +188,6 @@ router.delete('/foodList/id/:tripId/:foodId', (req, res) => {
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });
@@ -249,7 +202,6 @@ router.put('/id/:id', (req, res) => {
 			}
 		});
 		trip.save();
-		console.log('successful put request');
 		res.status(200).send(trip);
 	})
 	.catch((err) => {
@@ -259,6 +211,7 @@ router.put('/id/:id', (req, res) => {
 });
 
 //put route for gear list item
+//NOT CURRENTLY IN USE
 router.put('/gearList/id/:tripId/:gearId', (req, res) => {
 	HikingTrip.findById(req.params.tripId)
 	.then((trip) => {
@@ -280,12 +233,12 @@ router.put('/gearList/id/:tripId/:gearId', (req, res) => {
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });
 
 //put route for food list item
+//NOT CURRENTLY IN USE
 router.put('/foodList/id/:tripId/:foodId', (req, res) => {
 	HikingTrip.findById(req.params.tripId)
 	.then((trip) => {
@@ -300,14 +253,12 @@ router.put('/foodList/id/:tripId/:foodId', (req, res) => {
 			}
 		}
 		trip.save();
-		console.log('successful food item update');
 		res.status(200).json({
 			message: 'your food list item has been updated',
 			data: trip
 		});
 	})
 	.catch((err) => {
-		console.log('something bad happened');
 		res.status(500).send(err);
 	});
 });

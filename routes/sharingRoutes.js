@@ -6,12 +6,13 @@ const sharingSchema = require('../models/sharingModel');
 const router = express.Router();
 
 //share trip with collaborator 
-router.post('/shareTrip', (req,res) => {
+router.post('/shareTrip', (req, res) => {
+
 	 let newSharing = new sharingSchema();
 	 newSharing.trip = mongoose.Types.ObjectId(req.body.tripId);
 	 newSharing.owner = mongoose.Types.ObjectId(req.body.ownerId);
 	 newSharing.collaborator = mongoose.Types.ObjectId(req.body.colabId);
-	 newSharing.save();
+	 newSharing.save()
 	 .then((trip) => {
 		res.status(200).send(trip);
 	})

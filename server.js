@@ -8,7 +8,7 @@ const tripRoutes = require('./routes/tripRoutes');
 const authRoutes = require('./routes/auth');
 const sharing = require('./routes/sharingRoutes');
 
-app.use(morgan('common'));
+//app.use(morgan('common'));
 
 app.use(bodyParser.json());
 
@@ -23,9 +23,6 @@ app.use('/trip', tripRoutes);
 app.use('/auth', authRoutes);
 app.use('/share', sharing);
 
-
-
-
 let server;
 
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
@@ -39,10 +36,11 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
         });
         db.once('open', () => {
             console.log(`connected to database: ${databaseUrl}`);
+            resolve();
         });
         server = app.listen(port, () => {
             console.log(`your server is running on port: ${port}`);
-            resolve();
+            
         });
     });
 }

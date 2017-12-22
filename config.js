@@ -4,4 +4,7 @@ exports.DATABASE_URL = process.env.DATABASE_URL ||
 
 exports.PORT = process.env.PORT || 8082;
 
-exports.JWT_SECRET = process.env.JWT_SECRET || 'izzy west'						
+exports.JWT_SECRET = process.env.JWT_SECRET || 'izzy west';
+
+exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 
+							'mongodb://admin:password@ds163156.mlab.com:63156/testing_hiking_app' ;
