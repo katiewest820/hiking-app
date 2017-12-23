@@ -505,7 +505,8 @@ button:hover {
 		right: 69%;
 	}
 	.tripDetails {
-		margin-top: 6%;
+		margin-top: 4%;
+		margin-bottom: 4%;
 		width: 60%;
 	}
 	#map, #map2, #map3 {
