@@ -8,7 +8,7 @@ const tripRoutes = require('./routes/tripRoutes');
 const authRoutes = require('./routes/auth');
 const sharing = require('./routes/sharingRoutes');
 
-//app.use(morgan('common'));
+app.use(morgan('common'));
 
 app.use(bodyParser.json());
 

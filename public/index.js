@@ -79,7 +79,7 @@ function backToDashboard() {
         fadeOutDiv.fadeOut();
         displayDashboardTrips()
         displayColabTrips()
-        $('.dashboardPage').delay(600).fadeIn();
+        $('.dashboardPage').css('display', 'block');
     })
 }
 
@@ -95,6 +95,7 @@ function deleteTrip() {
             }
         }).done((trip) => {
             divToRemove.remove();
+            displayColabTrips();
         }).fail((err) => {
             console.log(err)
         });

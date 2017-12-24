@@ -14,7 +14,7 @@ html {
 }
 body {
 	background: url("background_stars.png");
-	background-size: cover;
+	/*background-size: cover;*/
 	overflow: hidden;
 }
 section {
@@ -55,7 +55,7 @@ button:hover {
 	opacity: 0.9;
 	margin: auto;
 	text-align: center;
-	margin-top: 40%;
+	margin-top: 35%;
 	padding: 40px;
 	border-radius: 10%;
 }
@@ -138,13 +138,13 @@ button:hover {
 .currTripsDiv {
 	border-bottom: solid 2px black;
 	padding: 20px;
-	min-height: 200px;
+	min-height: 230px;
 }
 .sharedTripsDiv {
 	margin-bottom: 40px;
 	padding: 20px;
 	text-align: center;
-	min-height: 200px;
+	min-height: 230px;
 }
 .tripDiv {
 	display: grid;
@@ -345,6 +345,7 @@ button:hover {
 .tripDetailsDiv a {
 	font-size: 35px;
 	grid-column: span 3;
+	text-align: center;
 }
 .tripDetailsDiv h1:hover {
 	color: #36ba45;
@@ -443,7 +444,7 @@ button:hover {
 	.dashboardPage {
 		margin: auto;
 		margin-top: 4%;
-		margin-bottom: 2%;
+		margin-bottom: 3%;
 		width: 75%
 	}
 	.currTripsDiv {
@@ -531,7 +532,7 @@ button:hover {
 		width: 50%;
 	}
 	.actLoginDiv, .errorMsgDiv, .actRegisterDiv {
-		margin-top: 15%;
+		margin-top: 13%;
 		width: 250px;
 		padding: 50px;
 	}

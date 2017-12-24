@@ -75,8 +75,8 @@ function loginErrorMsg(msg) {
 }
 
 function registrationErrorMsg(msg) {
-    $('.actRegisterPage').fadeOut().delay(2000).fadeIn();
-    $('.errorMsgPage').delay(300).fadeIn().delay(1500).fadeOut()
+    $('.actRegisterPage').fadeOut().delay(2200).fadeIn();
+    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut()
     $('.errorMsgDiv').html(`<p>${msg}</p>`)
 }
 

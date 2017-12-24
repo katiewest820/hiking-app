@@ -15,6 +15,7 @@ function changeToArchivedTrue() {
 			}
 		}).done((trip) => {
 			divToRemove.remove();
+			displayColabTrips()
 		}).fail((err) => {
 			console.log(err);
 		});
