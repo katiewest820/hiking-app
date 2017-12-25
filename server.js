@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const { DATABASE_URL, PORT } = require('./config');
 const tripRoutes = require('./routes/tripRoutes');
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/authRoutes');
 const sharing = require('./routes/sharingRoutes');
 
 app.use(morgan('common'));

@@ -80,7 +80,7 @@ function backToDashboard() {
         displayDashboardTrips()
         displayColabTrips()
         $('.dashboardPage').css('display', 'block');
-    })
+    });
 }
 
 function deleteTrip() {
