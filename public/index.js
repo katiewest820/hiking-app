@@ -173,21 +173,21 @@ function exitTripDetailPage() {
 }
 
 function showAddGearListForm() {
-    $('.addGearItem').on('click', function() {
+    $('.tripDetails').on('click', '.addGearItem', function() {
         $('.addGearItem').toggleClass('fa fa-plus fa fa-minus');
         $('.addGearItemForm').toggleClass('hiddenAddGearItemForm visibleGearItemForm');
     });
 }
 
 function showAddFoodListForm() {
-    $('.addFoodItem').on('click', function() {
+    $('.tripDetails').on('click', '.addFoodItem', function() {
         $('.addFoodItem').toggleClass('fa fa-plus fa fa-minus');
         $('.addFoodItemForm').toggleClass('hiddenAddFoodItemForm visibleFoodItemForm');
     });
 }
 
 function expandGearList() {
-    $('.userGearLists').on('click', '.showGearList', function() {
+    $('.tripDetails').on('click', '.showGearList', function() {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');
         let myItems = $(this).siblings('div');
         myItems.toggleClass('gearItemDetails');
@@ -195,7 +195,7 @@ function expandGearList() {
 }
 
 function expandFoodList() {
-    $('.userFoodLists').on('click', '.showFoodList', function() {
+    $('.tripDetails').on('click', '.showFoodList', function() {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');
         let myItems = $(this).siblings('div');
         myItems.toggleClass('foodItemDetails');
