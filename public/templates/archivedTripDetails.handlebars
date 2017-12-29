@@ -1,0 +1,57 @@
+<div class="tripDetailsDiv">
+    <a  target='_blank' href='https://www.google.com/maps/search/{{trailHead}}+trailhead'>
+        <h1>{{trail}}</h1>
+    </a>
+<p>Start Date: <br> {{startDate}}</p><style></style><p>End Date: <br>{{endDate}}</p>
+</div>
+<div class="mapDistanceTotalsDiv"></div>
+<div id="map2"></div>
+
+<div class="gearListDiv">
+    <h1>Gear Lists</h1>
+   
+    <div class="currGearList">
+        <div class="userGearLists">
+            {{#each gearData}}
+            <div>
+                <h2 class='gearListOwner' value='{{@key}}'>{{@key}}</h2>
+                <i class='fa fa-angle-right fa-3x showGearList' aria-hidden='true' title='See Gear List'></i>
+                <div class='food-{{@key}} gearItemDetails'>
+                    <div class='visibleGearItemDetails'>
+                        {{#each this.gearList}}
+                        <h3>{{this.item}}</h3>
+                        <p>Quantity:{{this.quantity}}</p>
+                        <p>Weight:{{this.weight}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            {{/each}} 
+        </div>
+    </div>
+</div>
+
+<div class="foodListDiv">
+    <h1>Food Lists</h1>
+    
+    <div class="currFoodList">
+        <div class="userFoodLists">
+       {{#each foodData}}
+            <div>
+                <h2 class='foodListOwner' value='{{@key}}'>{{@key}}</h2>
+                <i class='fa fa-angle-right fa-3x showFoodList' aria-hidden='true' title='See Food List'></i>
+                <div class='food-{{@key}} foodItemDetails'>
+                    <div class='visibleFoodItemDetails'>
+                        {{#each this.foodList}}
+                        <h3>{{this.item}}</h3>
+                        <p>Quantity:{{this.quantity}}</p>
+                        <p>Weight:{{this.weight}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<i aria-hidden="true" class="fa fa-arrow-left fa-2x backToArchives" title="Back to Dashboard"></i>

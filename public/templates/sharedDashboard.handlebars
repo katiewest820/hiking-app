@@ -1,0 +1,10 @@
+<h1>Shared Trips:</h1>
+<div class="colabTrips">
+    {{#each colabTrips}}
+    {{#if trip.archived}}
+    <div class='colabTripDiv'>
+        <a value='{{trip._id}}' href='#'>{{trip.trail}}</a>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>

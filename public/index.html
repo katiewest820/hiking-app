@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Backcountry</title>
     <link href="Camping.jpg" rel="icon" type="image/x-icon">
@@ -10,34 +11,48 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 </head>
+
 <body>
-<!-- login -->
+    <!-- login -->
     <section class="actLoginPage">
         <img class="loginImg" height="500px" src="Camping.svg" width="500px">
         <div class="actLoginDiv">
-            <input class="emailLogin" placeholder="Email" type="text"> <input class="passwordLogin" placeholder="Password" type="password"> <button class="loginBtn">Login</button> <button class="createActBtn">Register</button>
+            <input class="emailLogin" placeholder="Email" type="text">
+            <input class="passwordLogin" placeholder="Password" type="password">
+            <button class="loginBtn">Login</button>
+            <button class="createActBtn">Register</button>
         </div>
     </section>
-<!--error message screen-->
+    <!--error message screen-->
     <section class="errorMsgPage">
         <div class="errorMsgDiv"></div>
     </section>
-<!-- registration page -->
+    <!-- registration page -->
     <section class="actRegisterPage">
         <div class="actRegisterDiv">
-            <input class="registrationFN" placeholder="First Name" type="text"> <input class="registrationLN" placeholder="Last Name" type="text"> <input class="registrationEmail" placeholder="Email" type="text"> <input class="registrationPassword" placeholder="Password" type="password"> <button class="registrationSubmitBtn">Submit</button> <button class="cancelRegistrationBtn">Cancel</button>
+            <input class="registrationFN" placeholder="First Name" type="text">
+            <input class="registrationLN" placeholder="Last Name" type="text">
+            <input class="registrationEmail" placeholder="Email" type="text">
+            <input class="registrationPassword" placeholder="Password" type="password">
+            <button class="registrationSubmitBtn">Submit</button>
+            <button class="cancelRegistrationBtn">Cancel</button>
         </div>
     </section>
-<!-- main/dashboard page -->
+    <!-- main/dashboard page -->
     <section class="dashboardPage">
-        <div class="currTripsDiv">
-            <h1>Your Trips:</h1>
+        <div class="currTripsDiv"></div>
+        <div class="sharedTripsDiv"></div>
+        <!--<h1>Your Trips:</h1>
             <div class="currTrips"></div>
         </div>
-        <div class="sharedTripsDiv">
+        
             <h1>Shared Trips:</h1>
             <div class="colabTrips"></div>
         </div>
+        <div class="dashboardToolbar">
+            <i aria-hidden="true" class="fa fa-ellipsis-v fa-2x toolbarIcon"></i>
+            <div class="dashboardBtns togglerClass">
+                <i aria-hidden="true" class="fa fa-plus fa-2x createNewTrip" title="Create New Trip"></i> <i aria-hidden="true" class="fa fa-sign-out fa-2x logOut" title="Log Out"></i> <i aria-hidden="true" class="fa fa-archive fa-2x seeArchives" title="See Archives"></i>-->
         <div class="dashboardToolbar">
             <i aria-hidden="true" class="fa fa-ellipsis-v fa-2x toolbarIcon"></i>
             <div class="dashboardBtns togglerClass">
@@ -45,75 +60,38 @@
             </div>
         </div>
     </section>
-<!--create new trip-->
+    <!--create new trip-->
     <section class="createTripPage">
         <div class="createTripForm">
-            <input class="trailName" placeholder="Trail Name" type="text"> <input class="trailheadName" placeholder="Trailhead" type="text"> <input class="startDate" onfocus="(this.type='date')" placeholder="Start Date" type="text"> <input class="endDate" onfocus="(this.type='date')" placeholder="End Date" type="text">
+            <input class="trailName" placeholder="Trail Name" type="text">
+            <input class="trailheadName" placeholder="Trailhead" type="text">
+            <input class="startDate" onfocus="(this.type='date')" placeholder="Start Date" type="text">
+            <input class="endDate" onfocus="(this.type='date')" placeholder="End Date" type="text">
         </div>
-        <div id="map"></div><button class="submitNewTripBtn">Create Trip</button> <i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard" title="Back to Dashboard"></i>
+        <div id="map"></div>
+        <button class="submitNewTripBtn">Create Trip</button> <i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard" title="Back to Dashboard"></i>
     </section>
-<!--trip details page -->
-    <section class="tripDetails">
-        <!--<div class="tripDetailsDiv"></div>
-        <div class="mapDistanceTotalsDiv"></div>
-        <div id="map2"></div>
-
-        <div class="gearListDiv">
-            <h1>Gear Lists</h1><i aria-hidden="true" class="fa fa-plus fa-2x addGearItem" title="Add List Item"></i>
-            <div class="currGearList">
-                <div class="hiddenAddGearItemForm addGearItemForm">
-                    <input class="newGearListOwner" placeholder="Item Owner" type="text"> 
-                    <input class="newGearItem" placeholder="Gear Item" type="text"> 
-                    <input class="newGearItemWeight" placeholder="Item Weight" type="text"> 
-                    <select class="weightMeasure" name="weight">
-                        <option value="oz">Oz</option>
-                        <option value="lbs">Lbs</option>
-                        <option value="g">Grams</option>
-                    </select> 
-                    <input class="newGearItemQ" placeholder="Quantity" type="text"> 
-                    <button class="submitGearItemBtn">Submit</button>
-                </div>
-                <div class="userGearLists"></div>
-            </div>
-        </div>
-
-        <div class="foodListDiv">
-            <h1>Food Lists</h1><i aria-hidden="true" class="fa fa-plus fa-2x addFoodItem" title="Add List Item"></i>
-            <div class="currFoodList">
-                <div class="hiddenAddFoodItemForm addFoodItemForm">
-                    <input class="newFoodListOwner" placeholder="Item Owner" type="text"> 
-                    <input class="newFoodItem" placeholder="Food Item" type="text"> 
-                    <input class="newFoodItemWeight" placeholder="Item Weight" type="text"> 
-                    <select class="foodWeightMeasure" name="weight">
-                        <option value="oz">Oz</option>
-                        <option value="lbs">Lbs</option>
-                        <option value="g">Grams</option>
-                    </select> 
-                    <input class="newFoodItemQ" placeholder="Quantity" type="text"> 
-                    <button class="submitFoodItemBtn">Submit</button>
-                </div>
-                <div class="userFoodLists"></div>
-            </div>
-        </div><i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard leaveTripPage" title="Back to Dashboard"></i>-->
-    </section>
-<!--share trip page-->
+    <!--trip details page -->
+    <section class="tripDetails"></section>
+    <!--share trip page-->
     <section class="shareTripPage">
         <div class="sharePageGrid">
             <div class="autoPop">
-                <input class="colabShare" placeholder="Colaborator" type="text"> <datalist class="availUsers">
+                <input class="colabShare" placeholder="Colaborator" type="text">
+                <datalist class="availUsers">
                 </datalist>
             </div><a href="#"><i aria-hidden="true" class="fa fa-share-alt fa-2x shareTripBtn" title="Share Trip"></i></a>
         </div><i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard" title="Back to Dashboard"></i>
     </section>
-<!--archives page -->
+    <!--archives page -->
     <section class="archivesPage">
         <h1>Your Archived Trips:</h1>
-        <div class="listOfArchivedTrips"></div><i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard leaveArchives" title="Back to Dashboard"></i>
+        <div class="listOfArchivedTrips"></div>
+        <i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard leaveArchives" title="Back to Dashboard"></i>
     </section>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZwyMuYIv63gurPf9os1D5RLBFix7hDM&libraries=places"></script>
     <script src="colab.js" type="text/javascript"></script>
-    
     <script src="templatesCompiled.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>
     <script src="map.js" type="text/javascript"></script>
@@ -121,6 +99,6 @@
     <script src="archives.js" type="text/javascript"></script>
     <script src="auth.js" type="text/javascript"></script>
     <script src="editTrip.js" type="text/javascript"></script>
-
 </body>
+
 </html>

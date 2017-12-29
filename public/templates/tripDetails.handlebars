@@ -28,14 +28,15 @@
             <div>
                 <h2 class='gearListOwner' value='{{@key}}'>{{@key}}</h2>
                 <i class='fa fa-angle-right fa-3x showGearList' aria-hidden='true' title='See Gear List'></i>
-                <div class='food-{{@key}} gearItemDetails'>
+                <div class='gear-{{@key}} gearItemDetails'>
+                    {{#each this.gearList}}
                     <div class='visibleGearItemDetails'>
-                        {{#each this.gearList}}
                         <h3>{{this.item}}</h3>
                         <p>Quantity:{{this.quantity}}</p>
                         <p>Weight:{{this.weight}}</p>
-                        {{/each}}
+                        <a class='deleteGearItem' value='{{this._id}}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a>
                     </div>
+                    {{/each}}
                 </div>
             </div>
             {{/each}}
@@ -66,13 +67,14 @@
                 <h2 class='foodListOwner' value='{{@key}}'>{{@key}}</h2>
                 <i class='fa fa-angle-right fa-3x showFoodList' aria-hidden='true' title='See Food List'></i>
                 <div class='food-{{@key}} foodItemDetails'>
+                    {{#each this.foodList}}
                     <div class='visibleFoodItemDetails'>
-                        {{#each this.foodList}}
                         <h3>{{this.item}}</h3>
                         <p>Quantity:{{this.quantity}}</p>
                         <p>Weight:{{this.weight}}</p>
-                        {{/each}}
+                        <a class='deleteFoodItem' value='{{this._id}}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a>
                     </div>
+                    {{/each}}
                 </div>
             </div>
             {{/each}}

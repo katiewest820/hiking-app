@@ -1,7 +1,7 @@
 let myId;
 
 function editTripPageLoad() {
-	$('.currTrips').on('click', '.editTrip', function() {
+	$('.dashboardPage').on('click', '.editTrip', function() {
 		let myLat = [];
 		let myLng = [];
 		$('.submitEditedTripBtn').remove();

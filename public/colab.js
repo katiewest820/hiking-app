@@ -6,19 +6,21 @@ function displayColabTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
-        $('.colabTrips').empty();
-        for (let i = 0; i < trips.length; i++) {
-            if (trips[i].trip.archived == false) {
-                $('.colabTrips').append(`<div class='colabTripDiv'><a value='${trips[i].trip._id}' href='#'>${trips[i].trip.trail}</a></div>`)
-            }
+        $('.sharedTripsDiv').empty();
+        //sharedDashboard template start
+        let colabTripVals = {
+            colabTrips: trips
         }
+        let templateScript = Handlebars.templates.sharedDashboard(colabTripVals);
+        $('.sharedTripsDiv').append(templateScript)
+        //sharedDashboard template end 
     }).fail((err) => {
         console.log(err)
     });
 }
 
 function displayColabTripDetails() {
-    $('.colabTrips').on('click', '.colabTripDiv', function(event) {
+    $('.dashboardPage').on('click', '.colabTripDiv', function(event) {
         event.preventDefault()
         let myLat = [];
         let myLng = [];
@@ -35,7 +37,8 @@ function displayColabTripDetails() {
             }
         }).done((data) => {
             $('.dashboardPage').fadeOut();
-            $('.tripDetails').delay(500).fadeIn();
+            $('.tripDetails').empty().delay(500).fadeIn();
+            //tripDetails template start
             let gearData = {};
             let foodData = {};
             for (let owner in data.orderGearList) {
@@ -54,35 +57,9 @@ function displayColabTripDetails() {
                 gearData: gearData,
                 foodData: foodData
             };
-
             let templateScript = Handlebars.templates.tripDetails(vals);
-
             $('.tripDetails').append(templateScript)
-
-    
-
-            // let startDate = moment(data.trip.startDate).utc().format('MMM Do YYYY')
-            // let endDate = moment(data.trip.endDate).utc().format('MMM Do YYYY')
-            // let trailHead = data.trip.trailheadName.split(' ').join('+')
-            // $('.tripDetailsDiv').empty().prepend(`<a  target='_blank' href='https://www.google.com/maps/search/${trailHead}+trailhead'><h1>${data.trip.trail}</h1></a><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`)
-            // for (let owner in data.orderGearList) {
-            //     let gearContent = `<div><h2 class='gearListOwner' value='${owner}'>${owner}</h2><i class='fa fa-angle-right fa-3x showGearList' aria-hidden='true' title='See Gear List'></i><div class='gear-${owner} gearItemDetails'>`;
-            //     for (let i = 0; i < data.orderGearList[owner].length; i++) {
-            //         gearContent += `<div class='visibleGearItemDetails'><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
-            //             <a class='deleteGearItem' value='${data.orderGearList[owner][i]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`;
-            //     }
-            //     gearContent += `</div></div><hr>`
-            //     $('.userGearLists').append(gearContent);
-            // }
-            // for (let owner in data.orderFoodList) {
-            //     let foodContent = `<div><h2 class='foodListOwner' value='${owner}'>${owner}</h2><i class='fa fa-angle-right fa-3x showFoodList' aria-hidden='true' title='See Gear List'></i><div class='food-${owner} foodItemDetails'>`;
-            //     for (let i = 0; i < data.orderFoodList[owner].length; i++) {
-            //         foodContent += `<div class='visibleFoodItemDetails'><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
-            //             <a class='deleteFoodItem' value='${data.orderFoodList[owner][i]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`;
-            //     }
-            //     foodContent += `</div></div><hr>`
-            //     $('.userFoodLists').append(foodContent);
-            // }
+            //tripDetails template end
              calculatePackWeight()
              for (let i = 0; i < data.trip.mapPoints.length; i++) {
                  myLat.push(data.trip.mapPoints[i].lat);
@@ -141,10 +118,10 @@ function shareTrip() {
 }
 
 function shareTripFormLoad() {
-    $('.currTrips').on('click', '.shareImg', function() {
+    $('.dashboardPage').on('click', '.shareImg', function() {
         tripIdValue = $(this).attr('value');
         $('.dashboardPage').fadeOut();
-        $('.shareTripPage').delay(500).fadeIn().css('display', 'grid');
+        $('.shareTripPage').delay(700).fadeIn().css('display', 'grid');
     });
 }
 

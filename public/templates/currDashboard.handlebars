@@ -1,0 +1,16 @@
+<h1>Your Trips:</h1>
+<div class="currTrips">
+    {{#each trips}}
+    {{#if archived}}
+    <div class='tripDiv'>
+        <a class='tripName' value='{{_id}}' href='#'>{{trail}}</a>
+        <i class='fa fa-trash deleteTrip' aria-hidden='true' value='{{_id}}' title='Delete Trip'></i>
+        <i class='fa fa-share-alt shareImg' aria-hidden='true' value='{{_id}}' title='Share Trip'></i>
+        <i class='fa fa-archive archiveTrip' aria-hidden='true' value='{{_id}}' title='Archive Trip'></i>
+        <i class='fa fa-pencil editTrip' aria-hidden='true' value='{{_id}}' title='Edit Trip'></i>
+    </div>
+    {{/if}}
+    {{/each}}
+</div>
+
+

@@ -10,30 +10,28 @@ function displayDashboardTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
-        $('.currTrips').empty();
-        for (let i = 0; i < trips.length; i++) {
-            if (trips[i].archived == false) {
-                $('.currTrips').append(`<div class='tripDiv' ><a class='tripName' value='${trips[i]._id}' href='#'>${trips[i].trail}</a>
-                    <i class='fa fa-trash deleteTrip' aria-hidden='true' value='${trips[i]._id}' title='Delete Trip'></i>
-                    <i class='fa fa-share-alt shareImg' aria-hidden='true' value='${trips[i]._id}' title='Share Trip'></i>
-                    <i class='fa fa-archive archiveTrip' aria-hidden='true' value='${trips[i]._id}' title='Archive Trip'></i>
-                    <i class='fa fa-pencil editTrip' aria-hidden='true' value='${trips[i]._id}' title='Edit Trip'></i></div>`);
+        $('.currTripsDiv').empty();
+        //currDashboard template start
+            let tripVals = {
+                trips: trips
             }
-        }
+            let templateScript = Handlebars.templates.currDashboard(tripVals);
+            $('.currTripsDiv').append(templateScript)
+        //currDashboard template end    
     }).fail((err) => {
         console.log(err)
     })
 }
 
 function toolBarToggle() {
-    $('.toolbarIcon').on('click', function() {
+    $('.dashboardPage').on('click', '.toolbarIcon', function() {
         $('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
         $('.togglerClass').toggleClass('dashboardBtns toggledDashboardBtns');
     });
 }
 
 function createNewTripPageLoad() {
-    $('.createNewTrip').on('click', function() {
+    $('.dashboardPage').on('click', '.createNewTrip', function() {
         $('.submitEditedTripBtn').remove();
         $('.submitNewTripBtn').css('display', 'block');
         $('.dashboardPage').fadeOut();
@@ -74,17 +72,17 @@ function addNewTrip() {
 }
 
 function backToDashboard() {
-    $('.backToDashboard').on('click', function() {
+    $('body').on('click', '.backToDashboard', function() {
         let fadeOutDiv = $(this).parent('section');
         fadeOutDiv.fadeOut();
         displayDashboardTrips()
         displayColabTrips()
-        $('.dashboardPage').css('display', 'block');
+        $('.dashboardPage').fadeIn();
     });
 }
 
 function deleteTrip() {
-    $('.currTrips').on('click', '.deleteTrip', function(element) {
+    $('.dashboardPage').on('click', '.deleteTrip', function(element) {
         let divToRemove = $(this).parent('.tripDiv');
         let myId = element.currentTarget.attributes.value.nodeValue;
         $.ajax({
@@ -103,10 +101,8 @@ function deleteTrip() {
 }
 
 function apiCallforTripDetailsPage() {
-    $('.currTrips').on('click', '.tripName', function(event) {
+    $('.dashboardPage').on('click', '.tripName', function(event) {
         event.preventDefault();
-        $('.userGearLists').empty();
-        $('.userFoodLists').empty();
         tripIdValue = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/id/${tripIdValue}`,
@@ -127,29 +123,29 @@ function displayTripDetails(data) {
     let myLat = [];
     let myLng = [];
     $('.dashboardPage').fadeOut();
-    $('.tripDetails').delay(500).fadeIn();
-    let startDate = moment(data.trip.startDate).utc().format('MMM Do YYYY');
-    let endDate = moment(data.trip.endDate).utc().format('MMM Do YYYY');
-    let trailHead = data.trip.trailheadName.split(' ').join('+');
-    $('.tripDetailsDiv').empty().prepend(`<a  target='_blank' href='https://www.google.com/maps/search/${trailHead}+trailhead'><h1>${data.trip.trail}</h1></a><p>Start Date: <br> ${startDate}</p><style></style><p>End Date: <br>${endDate}</p>`);
+    $('.tripDetails').empty().delay(500).fadeIn();
+    //tripDetails template start
+    let gearData = {};
+    let foodData = {};
     for (let owner in data.orderGearList) {
-        let gearContent = `<div><h2 class='gearListOwner' value='${owner}'>${owner}</h2><i class='fa fa-angle-right fa-3x showGearList' aria-hidden='true' title='See Gear List'></i><div class='gear-${owner} gearItemDetails'>`;
-        for (let i = 0; i < data.orderGearList[owner].length; i++) {
-            gearContent += `<div class='visibleGearItemDetails'><h3>${data.orderGearList[owner][i].item}</h3><p>Quantity: ${data.orderGearList[owner][i].quantity}</p><p>Weight: ${data.orderGearList[owner][i].weight}</p>
-                        <a class='deleteGearItem' value='${data.orderGearList[owner][i]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`;
-        }
-        gearContent += `</div></div><hr>`;
-        $('.userGearLists').append(gearContent);
+        gearData[owner] = {'gearList': data.orderGearList[owner]} 
     }
-    for (let owner in data.orderFoodList) {
-        let foodContent = `<div><h2 class='foodListOwner' value='${owner}'>${owner}</h2><i class='fa fa-angle-right fa-3x showFoodList' aria-hidden='true' title='See Food List'></i><div class='food-${owner} foodItemDetails'>`;
-        for (let i = 0; i < data.orderFoodList[owner].length; i++) {
-            foodContent += `<div class='visibleFoodItemDetails'><h3>${data.orderFoodList[owner][i].item}</h3><p>Quantity: ${data.orderFoodList[owner][i].quantity}</p><p>Weight: ${data.orderFoodList[owner][i].weight}</p>
-                        <a class='deleteFoodItem' value='${data.orderFoodList[owner][i]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`;
-        }
-        foodContent += `</div></div><hr>`;
-        $('.userFoodLists').append(foodContent);
+    for(let owner in data.orderFoodList){
+        foodData[owner] = {'foodList': data.orderFoodList[owner]}
     }
+    console.log(gearData)
+    console.log(foodData)
+    let vals = {
+        trailHead: data.trip.trailheadName.split(' ').join('+'),
+        trail: data.trip.trail,
+        startDate: moment(data.trip.startDate).utc().format('MMM Do YYYY'),
+        endDate: moment(data.trip.endDate).utc().format('MMM Do YYYY'),
+        gearData: gearData,
+        foodData: foodData
+    };
+    let templateScript = Handlebars.templates.tripDetails(vals);
+    $('.tripDetails').append(templateScript)
+    //tripDetails template end
     for (let i = 0; i < data.trip.mapPoints.length; i++) {
         myLat.push(data.trip.mapPoints[i].lat);
         myLng.push(data.trip.mapPoints[i].lng);
@@ -203,14 +199,15 @@ function expandFoodList() {
 }
 
 function addGearItem() {
-    $('.submitGearItemBtn').on('click', function() {
+    $('.tripDetails').on('click', '.submitGearItemBtn', function() {
         let weight = `${$('.newGearItemWeight').val()} ${$('.weightMeasure').val()}`
         let addedGearItem = {
-            owner: $('.newGearListOwner').val(),
+            owner: $('.newGearListOwner').val().trim().toLowerCase(),
             item: $('.newGearItem').val(),
             weight: weight,
             quantity: $('.newGearItemQ').val()
         }
+        console.log(addedGearItem)
         $.ajax({
             url: `${myURL}trip/gearList/id/${tripIdValue}`,
             type: 'POST',
@@ -237,14 +234,15 @@ function addGearItem() {
 }
 
 function addFoodItem() {
-    $('.submitFoodItemBtn').on('click', function() {
+    $('.tripDetails').on('click', '.submitFoodItemBtn', function() {
         let weight = `${$('.newFoodItemWeight').val()} ${$('.foodWeightMeasure').val()}`;
         let addedFoodItem = {
-            owner: $('.newFoodListOwner').val(),
+            owner: $('.newFoodListOwner').val().trim().toLowerCase(),
             item: $('.newFoodItem').val(),
             weight: weight,
             quantity: $('.newFoodItemQ').val()
         }
+        console.log(addedFoodItem)
         $.ajax({
             url: `${myURL}trip/foodList/id/${tripIdValue}`,
             type: 'POST',
@@ -271,9 +269,10 @@ function addFoodItem() {
 }
 
 function deleteGearItem() {
-    $('.userGearLists').on('click', '.deleteGearItem', function(event) {
+    $('.tripDetails').on('click', '.deleteGearItem', function(event) {
         event.preventDefault();
         let divToRemove = $(this).parent('div');
+        console.log(divToRemove)
         let myId = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/gearList/id/${tripIdValue}/${myId}`,
@@ -291,9 +290,11 @@ function deleteGearItem() {
 }
 
 function deleteFoodItem() {
-    $('.userFoodLists').on('click', '.deleteFoodItem', function(event) {
+    $('.tripDetails').on('click', '.deleteFoodItem', function(event) {
         event.preventDefault();
+
         let divToRemove = $(this).parent('div');
+        console.log(divToRemove)
         let myId = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/foodList/id/${tripIdValue}/${myId}`,

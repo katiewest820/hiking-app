@@ -60,6 +60,10 @@ function initMap(lat, lng) {
 }
 
 function initRouteMap(mylat, mylng) {
+    if(mylat == 0 && mylng == 0){
+        $('#map2').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content');
+        return
+    }
     let position;
     let map = new google.maps.Map(document.getElementById('map2'), {
         zoom: 12,
@@ -80,9 +84,6 @@ function initRouteMap(mylat, mylng) {
     };
     if (markers.length == 1) {
         calcRoute(markers)
-    }
-    if (markers.length == 0) {
-        $('#map2').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content');
     }
     calcRouteAgain(markers)
 };

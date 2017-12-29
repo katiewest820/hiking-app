@@ -90,7 +90,7 @@ router.post('/', (req, res) => {
 		startDate: req.body.startDate,
 		endDate: req.body.endDate,
 		trailheadName: req.body.trailheadName,
-		archived: false,
+		archived: true,
 		mapPoints: req.body.mapPoints
 	});
 	newTrip.save((err, trip) => {
