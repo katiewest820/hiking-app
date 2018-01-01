@@ -8,6 +8,17 @@ Checkout Backcountry site [HERE](https://protected-beach-53100.herokuapp.com/)
 
 ## Usefulness:
 
+**Backcountry** is useful for individuals and/or groups who are planning a hiking trip and want a space to organize their trip details.
+
+
+##Features:
+
+- Google.maps for planning out a trip route
+- Distance and duration estimator
+- Gear and Food list tool that calculates weight of list items
+- Collaboration tool that looks up registered individuals by name
+- Archives tool that allows user to archive trips and reactivate or delete them at a later time
+
 ## Technologies Used
 
 ### Frontend:
