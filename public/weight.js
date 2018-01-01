@@ -9,6 +9,7 @@ function calculatePackWeight() {
             authorization: myStorage.tokenKey
         }
     }).done((data) => {
+        console.log(data)
         for (let owner in data.orderGearList) {
             let total = [];
             for (let i = 0; i < data.orderGearList[owner].length; i++) {
@@ -62,7 +63,7 @@ function displayGearWeight() {
         let myOwner = $('.gearListOwner').each((index, element) => {
             if (owner == $(element).attr('value')) {
                 let myWeight = ownerGearWeight[owner] / 16;
-                $(element).append(`<p class='gearWeightDisplay'>Current List Weight: ${myWeight} Lbs</p>`);
+                $(element).find('.gearWeight').html(`<p class='gearWeightDisplay'>Current List Weight: ${myWeight} Lbs</p>`);
             }
         });
     }
@@ -74,7 +75,7 @@ function displayFoodWeight() {
         let myOwner = $('.foodListOwner').each((index, element) => {
             if (owner == $(element).attr('value')) {
                 let myWeight = ownerFoodWeight[owner] / 16;
-                $(element).append(`<p class='foodWeightDisplay'>Current List Weight: ${myWeight} Lbs</p>`);
+                $(element).find('.foodWeight').html(`<p class='foodWeightDisplay'>Current List Weight: ${myWeight} Lbs</p>`);
             }
         });
     }

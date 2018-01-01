@@ -34,12 +34,17 @@ function displayArchivedTrips() {
                 authorization: myStorage.tokenKey
             }
         }).done((trips) => {
+            // archivesList templat start
             for (let i = 0; i < trips.length; i++) {
                 if (trips[i].archived == false) {
-                    $('.listOfArchivedTrips').append(`<div class='archivedTripDiv'><a href='#' value='${trips[i]._id}'>${trips[i].trail}</a>
-	 					<i class='fa fa-trash deleteArchive' value='${trips[i]._id}' aria-hidden='true' title='Delete Trip'></i><i class='fa fa-check-circle-o reactivateTrip' value='${trips[i]._id}' aria-hidden='true' title='Reactivate Trip'></i><div>`)
+                    let archivedTrip = {
+                        trip: trips[i]
+                    }
+                    let templateScript = Handlebars.templates.archivesList(archivedTrip);
+                    $('.listOfArchivedTrips').append(templateScript)
                 }
             }
+            // archivesList template end
         }).fail((err) => {
             console.log(err)
         });
@@ -122,6 +127,7 @@ function displayArchivedTripDetails() {
             };
             let templateScript = Handlebars.templates.archivedTripDetails(vals);
             $('.tripDetails').append(templateScript)
+            calculatePackWeight()
             //archivedTripDetails template end
             for (let i = 0; i < data.trip.mapPoints.length; i++) {
                 myLat.push(data.trip.mapPoints[i].lat);
@@ -145,7 +151,7 @@ function backtoArchives() {
 };
 
 function backToDashboardFromArchives() {
-	$('.archivesPage').on('click', '.leaveArchives', function() {
+    $('.archivesPage').on('click', '.leaveArchives', function() {
         $('.archivesPage').fadeOut();
         displayDashboardTrips();
         displayColabTrips();
@@ -153,10 +159,10 @@ function backToDashboardFromArchives() {
     });
 }
 
-    changeToArchived()
-    displayArchivedTrips()
-    deleteArchives()
-    reactivateArchives()
-    displayArchivedTripDetails()
-    backtoArchives()
-    backToDashboardFromArchives()
+changeToArchived()
+displayArchivedTrips()
+deleteArchives()
+reactivateArchives()
+displayArchivedTripDetails()
+backtoArchives()
+backToDashboardFromArchives()

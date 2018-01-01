@@ -12,11 +12,11 @@ function displayDashboardTrips() {
     }).done((trips) => {
         $('.currTripsDiv').empty();
         //currDashboard template start
-            let tripVals = {
-                trips: trips
-            }
-            let templateScript = Handlebars.templates.currDashboard(tripVals);
-            $('.currTripsDiv').append(templateScript)
+        let tripVals = {
+            trips: trips
+        }
+        let templateScript = Handlebars.templates.currDashboard(tripVals);
+        $('.currTripsDiv').append(templateScript)
         //currDashboard template end    
     }).fail((err) => {
         console.log(err)
@@ -128,10 +128,10 @@ function displayTripDetails(data) {
     let gearData = {};
     let foodData = {};
     for (let owner in data.orderGearList) {
-        gearData[owner] = {'gearList': data.orderGearList[owner]} 
+        gearData[owner] = { 'gearList': data.orderGearList[owner] }
     }
-    for(let owner in data.orderFoodList){
-        foodData[owner] = {'foodList': data.orderFoodList[owner]}
+    for (let owner in data.orderFoodList) {
+        foodData[owner] = { 'foodList': data.orderFoodList[owner] }
     }
     console.log(gearData)
     console.log(foodData)
@@ -207,7 +207,6 @@ function addGearItem() {
             weight: weight,
             quantity: $('.newGearItemQ').val()
         }
-        console.log(addedGearItem)
         $.ajax({
             url: `${myURL}trip/gearList/id/${tripIdValue}`,
             type: 'POST',
@@ -219,14 +218,23 @@ function addGearItem() {
         }).done((gearItem) => {
             let className = `gear-${gearItem[0].owner}`;
             if ($('.userGearLists').find(`.${className}`).length == 0) {
-                $('.userGearLists').append(`<div><h2 class='gearListOwner' value='${gearItem[0].owner}'>${gearItem[0].owner}</h2>
-                <i class='fa fa-angle-down fa-3x showGearList' aria-hidden='true' title='See Gear List'></i><div class='${className}'></div></div><hr>`);
+                let gearVals = {
+                    gearItem: gearItem,
+                    className: className
+                };
+                console.log(gearVals.className)
+                let templateScript = Handlebars.templates.addNewGearList(gearVals);
+                $('.userGearLists').append(templateScript)
+            }else{
+                let gearItemVals = {
+                    gearItem: gearItem
+                };
+                let templateScript = Handlebars.templates.addNewGearItem(gearItemVals);
+                $(`.${className}`).append(templateScript)
             }
-            $(`.${className}`).append(`<div class='visibleGearItemDetails'><h3>${gearItem[0].item}</h3>
-                <p>Quantity: ${gearItem[0].quantity}</p><p>Weight:${gearItem[0].weight}</p>
-                <a class='deleteGearItem' value='${gearItem[0]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`);
             calculatePackWeight()
             $('.addGearItemForm').children('input').val('')
+
         }).fail((err) => {
             console.log(err)
         })
@@ -254,14 +262,22 @@ function addFoodItem() {
         }).done((foodItem) => {
             let className = `food-${foodItem[0].owner}`;
             if ($('.userFoodLists').find(`.${className}`).length == 0) {
-                $('.userFoodLists').append(`<div><h2 class='foodListOwner' value='${foodItem[0].owner}'>${foodItem[0].owner}</h2>
-                    <i class='fa fa-angle-down fa-3x showFoodList' aria-hidden='true' title='See Food List'></i><div class='${className}'></div></div><hr>`);
+                let foodVals = {
+                    foodItem: foodItem,
+                    className: className
+                };
+                console.log(foodVals)
+                let templateScript = Handlebars.templates.addNewFoodList(foodVals);
+                $('.userFoodLists').append(templateScript)
+            }else{
+                let foodItemVals = {
+                    foodItem: foodItem
+                };
+                let templateScript = Handlebars.templates.addNewFoodItem(foodItemVals);
+                $(`.${className}`).append(templateScript)
             }
-            $(`.${className}`).append(`<div class='visibleFoodItemDetails'><h3>${foodItem[0].item}</h3>
-                <p>Quantity: ${foodItem[0].quantity}</p><p>Weight: ${foodItem[0].weight}</p>
-                <a class='deleteFoodItem' value='${foodItem[0]._id}' href='#'><i class='fa fa-trash' aria-hidden='true'></i></a></div>`);
-            calculatePackWeight()
-             $('.addFoodItemForm').children('input').val('')
+            $('.addFoodItemForm').children('input').val('');
+            calculatePackWeight();
         }).fail((err) => {
             console.log(err)
         });
@@ -272,7 +288,7 @@ function deleteGearItem() {
     $('.tripDetails').on('click', '.deleteGearItem', function(event) {
         event.preventDefault();
         let divToRemove = $(this).parent('div');
-        console.log(divToRemove)
+        let divCount = $(divToRemove).parent();
         let myId = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/gearList/id/${tripIdValue}/${myId}`,
@@ -282,6 +298,9 @@ function deleteGearItem() {
             }
         }).done((gearItem) => {
             divToRemove.remove();
+            if(divCount[0].children.length == 0){
+                $(divCount).siblings('.gearListOwner').parent('div').remove();
+            }
             calculatePackWeight();
         }).fail((err) => {
             console.log(err)
@@ -292,9 +311,8 @@ function deleteGearItem() {
 function deleteFoodItem() {
     $('.tripDetails').on('click', '.deleteFoodItem', function(event) {
         event.preventDefault();
-
         let divToRemove = $(this).parent('div');
-        console.log(divToRemove)
+        let divCount = $(divToRemove).parent();
         let myId = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/foodList/id/${tripIdValue}/${myId}`,
@@ -304,6 +322,9 @@ function deleteFoodItem() {
             }
         }).done((foodItem) => {
             divToRemove.remove();
+            if(divCount[0].children.length == 0){
+                $(divCount).siblings('.foodListOwner').parent('div').remove();
+            }
             calculatePackWeight();
         }).fail((err) => {
             console.log(err)

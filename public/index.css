@@ -13,14 +13,15 @@ html {
 	position: relative;
 }
 body {
-	background: url("background_stars.png");
+	background: url("mtHood.jpg");
 	/*background-size: cover;*/
 	overflow: hidden;
 }
 section {
 	opacity: 0.9;
-	border-radius: 5%;
+	border: solid black 7px;
 }
+
 .backToDashboard {
 	position: absolute;
 	bottom: 3%;
@@ -39,6 +40,10 @@ button:hover {
 }
 .actLoginPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, .shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage {
 	display: none;
+}
+
+.actLoginPage, .actRegisterPage, .errorMsgPage{
+	border:none;
 }
 .loginImg {
 	height: 300px;
@@ -385,13 +390,14 @@ button:hover {
 	align-items: center;
 	height: 200px;
 	width: 60%;
-	padding: 40px;
+	padding: 50px;
 	margin: auto;
 	margin-top: 45%;
 	background-color: white;
 }
 .shareTripPage i {
 	right: 80%;
+	bottom: 5%;
 }
 .sharePageGrid {
 	display: grid;
@@ -429,6 +435,7 @@ button:hover {
 	display: grid;
 	grid-template-columns: 2fr 1fr 1fr;
 	justify-items: center;
+	text-align: center;
 	border-bottom: solid 1px grey;
 	margin-bottom: 5px;
 }

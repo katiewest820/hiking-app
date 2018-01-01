@@ -26,7 +26,9 @@
         <div class="userGearLists">
             {{#each gearData}}
             <div>
-                <h2 class='gearListOwner' value='{{@key}}'>{{@key}}</h2>
+                <h2 class='gearListOwner' value='{{@key}}'>{{@key}}
+                    <div class="gearWeight"></div>
+                </h2>
                 <i class='fa fa-angle-right fa-3x showGearList' aria-hidden='true' title='See Gear List'></i>
                 <div class='gear-{{@key}} gearItemDetails'>
                     {{#each this.gearList}}
@@ -64,7 +66,9 @@
         <div class="userFoodLists">
        {{#each foodData}}
             <div>
-                <h2 class='foodListOwner' value='{{@key}}'>{{@key}}</h2>
+                <h2 class='foodListOwner' value='{{@key}}'>{{@key}}
+                    <div class="foodWeight"></div>
+                </h2>
                 <i class='fa fa-angle-right fa-3x showFoodList' aria-hidden='true' title='See Food List'></i>
                 <div class='food-{{@key}} foodItemDetails'>
                     {{#each this.foodList}}
