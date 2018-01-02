@@ -12,7 +12,7 @@ Checkout Backcountry site [HERE](https://protected-beach-53100.herokuapp.com/)
 
 ## Features:
 
-- Google.maps for planning out a trip route
+- Google maps and Google places for searching a location and planning out a trip route
 - Distance and duration estimator
 - Gear and Food list tool that calculates weight of list items
 - Collaboration tool that looks up registered individuals by name
