@@ -7,7 +7,6 @@ const router = express.Router();
 
 //share trip with collaborator 
 router.post('/shareTrip', (req, res) => {
-
 	 let newSharing = new sharingSchema();
 	 newSharing.trip = mongoose.Types.ObjectId(req.body.tripId);
 	 newSharing.owner = mongoose.Types.ObjectId(req.body.ownerId);

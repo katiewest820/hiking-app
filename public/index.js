@@ -2,6 +2,7 @@ let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
 
+//Get request for current owners trips and displays trips on dashboard
 function displayDashboardTrips() {
     $.ajax({
         url: `${myURL}trip/getByUser/${localStorage.getItem('userId')}`,
@@ -23,6 +24,7 @@ function displayDashboardTrips() {
     })
 }
 
+//Toggles toolbar open and closed
 function toolBarToggle() {
     $('.dashboardPage').on('click', '.toolbarIcon', function() {
         $('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
@@ -30,6 +32,7 @@ function toolBarToggle() {
     });
 }
 
+//Loads create new trip page
 function createNewTripPageLoad() {
     $('.dashboardPage').on('click', '.createNewTrip', function() {
         $('.submitEditedTripBtn').remove();
@@ -41,6 +44,7 @@ function createNewTripPageLoad() {
     });
 }
 
+//Saves newly created trip and returns to dashboard
 function addNewTrip() {
     $('.submitNewTripBtn').on('click', function() {
         let tripDetails = {
@@ -71,6 +75,7 @@ function addNewTrip() {
     });
 }
 
+//Back to dashboard using back arrow
 function backToDashboard() {
     $('body').on('click', '.backToDashboard', function() {
         let fadeOutDiv = $(this).parent('section');
@@ -81,6 +86,7 @@ function backToDashboard() {
     });
 }
 
+//Deletes owners trip from dashboard using garbage icon
 function deleteTrip() {
     $('.dashboardPage').on('click', '.deleteTrip', function(element) {
         let divToRemove = $(this).parent('.tripDiv');
@@ -119,6 +125,7 @@ function apiCallforTripDetailsPage() {
     });
 }
 
+//Displays trip details
 function displayTripDetails(data) {
     console.log(data)
     let myLat = [];
@@ -167,6 +174,7 @@ function exitTripDetailPage() {
     });
 }
 
+//Toggles open and closed input form to add new gear item
 function showAddGearListForm() {
     $('.tripDetails').on('click', '.addGearItem', function() {
         $('.addGearItem').toggleClass('fa fa-plus fa fa-minus');
@@ -174,6 +182,7 @@ function showAddGearListForm() {
     });
 }
 
+//Toggles open and closed input form to add new food item
 function showAddFoodListForm() {
     $('.tripDetails').on('click', '.addFoodItem', function() {
         $('.addFoodItem').toggleClass('fa fa-plus fa fa-minus');
@@ -181,6 +190,7 @@ function showAddFoodListForm() {
     });
 }
 
+//Toggles open and closed existing gear list for one person
 function expandGearList() {
     $('.tripDetails').on('click', '.showGearList', function() {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');
@@ -189,6 +199,7 @@ function expandGearList() {
     });
 }
 
+//Toggles open and closed existing gear list for one person
 function expandFoodList() {
     $('.tripDetails').on('click', '.showFoodList', function() {
         $(this).toggleClass('fa fa-angle-right fa fa-angle-down');

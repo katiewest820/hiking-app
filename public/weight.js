@@ -1,6 +1,7 @@
 let ownerGearWeight = {};
 let ownerFoodWeight = {};
 
+//Get request for current gear and food list details. Converts values to lbs and totals
 function calculatePackWeight() {
     $.ajax({
         url: `${myURL}trip/id/${tripIdValue}`,
@@ -57,6 +58,7 @@ function calculatePackWeight() {
     });
 }
 
+//Displays gear list weight total on trip details page
 function displayGearWeight() {
     $('.gearWeightDisplay').empty();
     for (let owner in ownerGearWeight) {
@@ -69,6 +71,7 @@ function displayGearWeight() {
     }
 }
 
+//Displays food list weight total on trip details page
 function displayFoodWeight() {
     $('.foodWeightDisplay').empty();
     for (let owner in ownerFoodWeight) {

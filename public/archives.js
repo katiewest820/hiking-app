@@ -1,3 +1,4 @@
+//When archive button selected on dashboard changes archived boolean to false and removes trip from dashboard
 function changeToArchived() {
     $('.dashboardPage').on('click', '.archiveTrip', function() {
         let myId = $(this).attr('value')
@@ -22,6 +23,7 @@ function changeToArchived() {
     });
 };
 
+//Loads archived page and displays all trips with archived boolean of value false
 function displayArchivedTrips() {
     $('.dashboardPage').on('click', '.seeArchives', function() {
         $('.listOfArchivedTrips').empty('a');
@@ -51,6 +53,7 @@ function displayArchivedTrips() {
     });
 };
 
+//Deletes archived trip when delete icon clicked
 function deleteArchives() {
     $('.listOfArchivedTrips').on('click', '.deleteArchive', function() {
         let myId = $(this).attr('value');
@@ -69,6 +72,7 @@ function deleteArchives() {
     });
 };
 
+//Changes archived boolean value to true and removes trip from archived page and move it to dashboard 
 function reactivateArchives() {
     $('.listOfArchivedTrips').on('click', '.reactivateTrip', function() {
         let myId = $(this).attr('value');
@@ -92,6 +96,7 @@ function reactivateArchives() {
     });
 };
 
+//Displays trip details without edit functionality
 function displayArchivedTripDetails() {
     $('.listOfArchivedTrips').on('click', 'a', function() {
         $('.archivesPage').fadeOut();
@@ -142,6 +147,7 @@ function displayArchivedTripDetails() {
     });
 };
 
+//When back arrow is clicked on archived trip details user is sent back to archives page
 function backtoArchives() {
     $('.tripDetails').on('click', '.backToArchives', function() {
         $('.tripDetails').fadeOut();
@@ -150,6 +156,7 @@ function backtoArchives() {
     });
 };
 
+//When back arrow is clicked on archies page user is sent back to dashboard
 function backToDashboardFromArchives() {
     $('.archivesPage').on('click', '.leaveArchives', function() {
         $('.archivesPage').fadeOut();

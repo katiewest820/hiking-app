@@ -1,14 +1,16 @@
-let options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
 let markers = [];
 let wayPoints = [];
 let lat;
 let lng;
 let directionsService = new google.maps.DirectionsService();
 let directionsDisplay;
+
+//Gets current location (lat/lng) of user
+let options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
 navigator.geolocation.getCurrentPosition(
     (position) => {
         lat = position.coords.latitude;
@@ -17,6 +19,7 @@ navigator.geolocation.getCurrentPosition(
         console.log(err)
     }, options);
 
+//Loads create trip page map that allows user to create a route and save route
 function initMap(lat, lng) {
     markers = [];
     let myPosition = {
@@ -59,6 +62,7 @@ function initMap(lat, lng) {
     });
 }
 
+//Loads trip details page map that displays previously create map route without edit functionality 
 function initRouteMap(mylat, mylng) {
     if(mylat == 0 && mylng == 0){
         $('#map2').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content');
@@ -88,6 +92,7 @@ function initRouteMap(mylat, mylng) {
     calcRouteAgain(markers)
 };
 
+//Loads edit trip page map that allows user to add markers to an existing route 
 function initEditRouteMap(mylat, mylng) {
     let position;
     let map = new google.maps.Map(document.getElementById('map3'), {
@@ -137,6 +142,7 @@ function initEditRouteMap(mylat, mylng) {
     calcRouteAgain(markers)
 };
 
+//Calculates route with 2 markers
 function calcRoute(markers) {
     let start = markers[0];
     let end = markers[1];
@@ -153,6 +159,7 @@ function calcRoute(markers) {
     });
 }
 
+//Calculates route with 3 + markers
 function calcRouteAgain(markers) {
     let start = markers[0];
     let end = markers[markers.length - 1];
@@ -180,6 +187,7 @@ function calcRouteAgain(markers) {
     });
 }
 
+//If user clears edit map, map is switched to create route map 
 function clearMapRoute() {
     $('.createTripPage').on('click', '.clearRouteBtn', function() {
         $('#map3').replaceWith('<div id=map></div>');

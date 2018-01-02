@@ -1,5 +1,6 @@
 let myId;
 
+//Get request for trip details when edit icon is selected
 function editTripPageLoad() {
 	$('.dashboardPage').on('click', '.editTrip', function() {
 		let myLat = [];
@@ -28,6 +29,7 @@ function editTripPageLoad() {
 	});
 }
 
+//Displays trip details in create trip page form inputs so that user can edit
 function displayTripDetailsToEdit(trip) {
 	let startDate = moment(trip.trip.startDate).utc().format('MM/DD/YYYY');
 	let endDate = moment(trip.trip.endDate).utc().format('MM/DD/YYYY');
@@ -40,6 +42,7 @@ function displayTripDetailsToEdit(trip) {
 	$('.submitEditedTripBtn').css('display', 'block');
 }
 
+//Put request to update edited trip details
 function submitTripChanges() {
 	$('.createTripPage').on('click', '.submitEditedTripBtn', function() {
 		let edits = {

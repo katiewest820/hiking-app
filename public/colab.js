@@ -1,3 +1,4 @@
+//Get request for current shared trips and displays trips on dashboard
 function displayColabTrips() {
     $.ajax({
         url: `${myURL}trip/getByColab/${localStorage.getItem('userId')}`,
@@ -19,6 +20,7 @@ function displayColabTrips() {
     });
 }
 
+//Displays trip details of collaborated trip
 function displayColabTripDetails() {
     $('.dashboardPage').on('click', '.colabTripDiv', function(event) {
         event.preventDefault()
@@ -74,6 +76,7 @@ function displayColabTripDetails() {
     });
 }
 
+//Deletes shared trip if trip was deleted by owner
 function deleteColabTrips() {
     $('.currTrips').on('click', '.deleteTrip', function(element) {
         let myId = element.currentTarget.attributes.value.nodeValue;
@@ -91,6 +94,7 @@ function deleteColabTrips() {
     });
 }
 
+//From share screen shares trip with selected user and returns to dashboard 
 function shareTrip() {
     $('.shareTripBtn').on('click', function() {
         let shareTripId = {
@@ -117,6 +121,7 @@ function shareTrip() {
     });
 }
 
+//If share icon is clicked on dashboard share screen is loaded
 function shareTripFormLoad() {
     $('.dashboardPage').on('click', '.shareImg', function() {
         $('.colabShare').val('');
@@ -127,6 +132,7 @@ function shareTripFormLoad() {
     });
 }
 
+//Searches for registered users by name and populates dropdown with full name
 function findColaborator() {
     $('.colabShare').on('keyup', function() {
         if ($(this).val().length < 3) {
@@ -147,6 +153,7 @@ function findColaborator() {
     });
 }
 
+//Selects collaborator and clears dropdown
 function selectColaborator() {
     $('.availUsers').on('click', 'option', function(event) {
         $('.colabShare').attr('name', event.target.attributes.value.nodeValue).val(event.currentTarget.firstChild.data);
