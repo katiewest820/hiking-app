@@ -119,6 +119,8 @@ function shareTrip() {
 
 function shareTripFormLoad() {
     $('.dashboardPage').on('click', '.shareImg', function() {
+        $('.colabShare').val('');
+        $('.availUsers').empty();
         tripIdValue = $(this).attr('value');
         $('.dashboardPage').fadeOut();
         $('.shareTripPage').delay(700).fadeIn().css('display', 'grid');

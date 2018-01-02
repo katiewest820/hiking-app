@@ -120,6 +120,7 @@ function apiCallforTripDetailsPage() {
 }
 
 function displayTripDetails(data) {
+    console.log(data)
     let myLat = [];
     let myLng = [];
     $('.dashboardPage').fadeOut();
@@ -133,8 +134,6 @@ function displayTripDetails(data) {
     for (let owner in data.orderFoodList) {
         foodData[owner] = { 'foodList': data.orderFoodList[owner] }
     }
-    console.log(gearData)
-    console.log(foodData)
     let vals = {
         trailHead: data.trip.trailheadName.split(' ').join('+'),
         trail: data.trip.trail,
@@ -224,20 +223,19 @@ function addGearItem() {
                 };
                 console.log(gearVals.className)
                 let templateScript = Handlebars.templates.addNewGearList(gearVals);
-                $('.userGearLists').append(templateScript)
+                $('.userGearLists').append(templateScript);
             }else{
                 let gearItemVals = {
                     gearItem: gearItem
-                };
+                }
                 let templateScript = Handlebars.templates.addNewGearItem(gearItemVals);
-                $(`.${className}`).append(templateScript)
+                $(`.${className}`).append(templateScript);
             }
-            calculatePackWeight()
-            $('.addGearItemForm').children('input').val('')
-
+            calculatePackWeight();
+            $('.addGearItemForm').children('input').val('');
         }).fail((err) => {
-            console.log(err)
-        })
+            console.log(err);
+        });
     });
 }
 
@@ -279,7 +277,7 @@ function addFoodItem() {
             $('.addFoodItemForm').children('input').val('');
             calculatePackWeight();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -327,7 +325,7 @@ function deleteFoodItem() {
             }
             calculatePackWeight();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
