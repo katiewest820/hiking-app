@@ -444,13 +444,16 @@ button:hover {
 @media (min-width: 640px) {
 	.loginImg {
 		margin-top: 9%;
-		height: 600px;
-		width: 600px;
+		height: 500px;
+		width: 500px;
 	}
 	.actLoginDiv, .errorMsgDiv, .actRegisterDiv {
 		margin-top: 13%;
 		width: 250px;
 		padding: 50px;
+	}
+	.actRegisterDiv{
+		margin-top: 10%;
 	}
 	.actLoginDiv input, .actRegisterDiv input {
 		width: 240px;
@@ -483,7 +486,7 @@ button:hover {
 		font-size: 40px;
 	}
 	.mapDistanceTotalsDiv, .tripDetailsDiv p{
-		font-size: 25px;
+		font-size: 23px;
 	}
 	.currTripsDiv h1, .sharedTripsDiv h1 {
 		font-size: 50px;
