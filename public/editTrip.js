@@ -31,12 +31,15 @@ function editTripPageLoad() {
 
 //Displays trip details in create trip page form inputs so that user can edit
 function displayTripDetailsToEdit(trip) {
-	startDate = moment(trip.trip.startDate).utc().format('MM/DD/YYYY');
-	endDate = moment(trip.trip.endDate).utc().format('MM/DD/YYYY');
+	console.log(trip)
+	$('.startDate').attr('type', 'date');
+	$('.endDate').attr('type', 'date');
+	let startDateVal = moment(trip.trip.startDate).utc().format('YYYY-MM-DD');
+	let endDateVal = moment(trip.trip.endDate).utc().format('YYYY-MM-DD');
 	$('.trailName').val(`${trip.trip.trail}`);
 	$('.trailheadName').val(`${trip.trip.trailheadName}`);
-	$('.startDate').val(`${startDate}`);
-	$('.endDate').val(`${endDate}`);
+	$('.startDate').val(`${startDateVal}`)
+	$('.endDate').val(`${endDateVal}`)
 	$('.submitNewTripBtn').css('display', 'none');
 	$('.createTripPage').append(`<button class='submitEditedTripBtn'>Submit Changes</button>`);
 	$('.submitEditedTripBtn').css('display', 'block');
