@@ -13,23 +13,23 @@ function displayColabTrips() {
             colabTrips: trips
         }
         let templateScript = Handlebars.templates.sharedDashboard(colabTripVals);
-        $('.sharedTripsDiv').append(templateScript)
+        $('.sharedTripsDiv').append(templateScript);
         //sharedDashboard template end 
     }).fail((err) => {
-        console.log(err)
+        console.log(err);
     });
 }
 
 //Displays trip details of collaborated trip
 function displayColabTripDetails() {
     $('.dashboardPage').on('click', '.colabTripDiv', function(event) {
-        event.preventDefault()
+        event.preventDefault();
         let myLat = [];
         let myLng = [];
         $('.userGearLists').empty();
         $('.userFoodLists').empty();
         $('.tripDetailsDiv').empty();
-        let myId = $(this).children('a').attr('value')
+        let myId = $(this).children('a').attr('value');
         tripIdValue = myId;
         $.ajax({
             url: `${myURL}trip/id/${myId}`,
@@ -38,8 +38,8 @@ function displayColabTripDetails() {
                 authorization: myStorage.tokenKey
             }
         }).done((data) => {
-            $('.dashboardPage').fadeOut();
-            $('.tripDetails').empty().delay(500).fadeIn();
+            $('.dashboardPage').css('display', 'none');
+            $('.tripDetails').empty().fadeIn();
             //tripDetails template start
             let gearData = {};
             let foodData = {};
@@ -49,8 +49,6 @@ function displayColabTripDetails() {
             for(let owner in data.orderFoodList){
                 foodData[owner] = {'foodList': data.orderFoodList[owner]}
             }
-            console.log(gearData)
-            console.log(foodData)
             let vals = {
                 trailHead: data.trip.trailheadName.split(' ').join('+'),
                 trail: data.trip.trail,
@@ -60,18 +58,18 @@ function displayColabTripDetails() {
                 foodData: foodData
             };
             let templateScript = Handlebars.templates.tripDetails(vals);
-            $('.tripDetails').append(templateScript)
+            $('.tripDetails').append(templateScript);
             //tripDetails template end
-             calculatePackWeight()
+             calculatePackWeight();
              for (let i = 0; i < data.trip.mapPoints.length; i++) {
                  myLat.push(data.trip.mapPoints[i].lat);
                  myLng.push(data.trip.mapPoints[i].lng);
              }
              $('.mapDistanceTotalsDiv').empty();
-             $('#map2').empty().css('height', '500px')
-             setTimeout(initRouteMap, 800, myLat, myLng);
+             $('#map2').empty().css('height', '500px');
+             setTimeout(initRouteMap, 400, myLat, myLng);
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -87,9 +85,9 @@ function deleteColabTrips() {
                 authorization: myStorage.tokenKey
             }
         }).done((trip) => {
-            console.log(trip)
+            console.log(trip);
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -113,10 +111,10 @@ function shareTrip() {
         }).done((share) => {
             displayColabTrips();
             displayDashboardTrips();
-            $('.shareTripPage').fadeOut();
-            $('.dashboardPage').delay(500).fadeIn();
+            $('.shareTripPage').css('display', 'none');
+            $('.dashboardPage').fadeIn();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -127,8 +125,8 @@ function shareTripFormLoad() {
         $('.colabShare').val('');
         $('.availUsers').empty();
         tripIdValue = $(this).attr('value');
-        $('.dashboardPage').fadeOut();
-        $('.shareTripPage').delay(700).fadeIn().css('display', 'grid');
+        $('.dashboardPage').css('display', 'none');
+        $('.shareTripPage').fadeIn().css('display', 'grid');
     });
 }
 

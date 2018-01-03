@@ -11,6 +11,49 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 </head>
 <body>
+    <button class="helpBtn" title="User Guide">???</button>
+    <!--User guide page -->
+    <section class="helpPage">
+        <i class="fa fa-times fa-2x closeHelpWindow" aria-hidden="true"></i>
+        <div class="helpInfoDiv">
+            <div instructionArea>
+                <h2>Build a trip</h2>
+                <i class="fa fa-lightbulb-o expandDiv" aria-hidden="true"></i>
+                <div class="instructions textToExpand">
+                    <p>Click on <span><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>(toolbar icon) to expand toolbar.
+                        <br> Select <span><i class="fa fa-plus" aria-hidden="true"></i></span>(add icon) to begin building new trip.
+                        <br> Enter dates of trip, trip name, trailhead name. Build route on map by searching for location and clicking on trail points to create marker points. When finished, click "Save Route"</p>
+                </div>
+            </div>
+            <div instructionArea>
+                <h2>Edit a trip</h2>
+                <i class="fa fa-lightbulb-o expandDiv" aria-hidden="true"></i>
+                <div class="instructions textToExpand">
+                    <p><b>Only the creator of a trip has permission to archive, delete and edit trip details.</b>
+                        <br> To edit trip details, click on <span><i class="fa fa-pencil" aria-hidden="true"></i></span>(edit icon) under the trip you wish to edit.
+                        <br> Enter changes into corresponding fields. To add trail points to route, click map to add markers. To clear route and start again, click on clear button. To save click "Save Changes"</p>
+                </div>
+            </div>
+            <div instructionArea>
+                <h2>Archive a trip</h2>
+                <i class="fa fa-lightbulb-o expandDiv" aria-hidden="true"></i>
+                <div class="instructions textToExpand">
+                    <p>Click on <span><i class="fa fa-archive" aria-hidden="true"></i></span>(archive icon) under the trip you wish to archive.
+                        <br> This will remove the trip from your dashboard and the dashboards of collaborators.
+                        <br> To view your list of archived trips, expand the toolbar and click on the archived icon. From the archived page you can reactivate a trip by clicking on <span><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>(reactivate icon).</p>
+                </div>
+            </div>
+            <div instructionArea>
+                <h2>Share a trip</h2>
+                <i class="fa fa-lightbulb-o expandDiv" aria-hidden="true"></i>
+                <div class="instructions textToExpand">
+                    <p>Click on <span><i class="fa fa-share-alt" aria-hidden="true"></i></span>(share icon) under the trip you wish to share.
+                        <br> In the input field enter the name of the collaborator and select the correct person from the dropdown. Click the share icon to submit.
+                        Trip sharing allows the collaborator to see all trip details and build gear/food lists for themselves and others.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- login -->
     <section class="actLoginPage">
         <img class="loginImg" height="500px" src="Camping.svg" width="500px">
@@ -43,8 +86,8 @@
         <div class="dashboardToolbar">
             <i aria-hidden="true" class="fa fa-ellipsis-v fa-2x toolbarIcon" title="Toolbar"></i>
             <div class="dashboardBtns togglerClass">
-                <i aria-hidden="true" class="fa fa-plus fa-2x createNewTrip" title="Create New Trip"></i> 
-                <i aria-hidden="true" class="fa fa-sign-out fa-2x logOut" title="Log Out"></i> 
+                <i aria-hidden="true" class="fa fa-plus fa-2x createNewTrip" title="Create New Trip"></i>
+                <i aria-hidden="true" class="fa fa-sign-out fa-2x logOut" title="Log Out"></i>
                 <i aria-hidden="true" class="fa fa-archive fa-2x seeArchives" title="See Archives"></i>
             </div>
         </div>
@@ -52,7 +95,7 @@
     <!--create new trip-->
     <section class="createTripPage">
         <div class="createTripForm">
-            <input class="trailName" placeholder="Trail Name" type="text">
+            <input class="trailName" placeholder="Trip Name" type="text">
             <input class="trailheadName" placeholder="Trailhead" type="text">
             <input class="startDate" onfocus="(this.type='date')" placeholder="Start Date" type="text">
             <input class="endDate" onfocus="(this.type='date')" placeholder="End Date" type="text">

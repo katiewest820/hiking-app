@@ -1,8 +1,8 @@
 //When archive button selected on dashboard changes archived boolean to false and removes trip from dashboard
 function changeToArchived() {
     $('.dashboardPage').on('click', '.archiveTrip', function() {
-        let myId = $(this).attr('value')
-        let divToRemove = ($(this).parent('.tripDiv'))
+        let myId = $(this).attr('value');
+        let divToRemove = ($(this).parent('.tripDiv'));
         let updates = {
             'archived': false
         };
@@ -16,19 +16,19 @@ function changeToArchived() {
             }
         }).done((trip) => {
             divToRemove.remove();
-            displayColabTrips()
+            displayColabTrips();
         }).fail((err) => {
             console.log(err);
         });
     });
-};
+}
 
 //Loads archived page and displays all trips with archived boolean of value false
 function displayArchivedTrips() {
     $('.dashboardPage').on('click', '.seeArchives', function() {
         $('.listOfArchivedTrips').empty('a');
-        $('.dashboardPage').fadeOut();
-        $('.archivesPage').delay(400).fadeIn();
+        $('.dashboardPage').css('display', 'none');
+        $('.archivesPage').fadeIn();
         $.ajax({
             url: `${myURL}trip/getByUser/${myStorage.userId}`,
             type: 'GET',
@@ -43,15 +43,15 @@ function displayArchivedTrips() {
                         trip: trips[i]
                     }
                     let templateScript = Handlebars.templates.archivesList(archivedTrip);
-                    $('.listOfArchivedTrips').append(templateScript)
+                    $('.listOfArchivedTrips').append(templateScript);
                 }
             }
             // archivesList template end
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
-};
+}
 
 //Deletes archived trip when delete icon clicked
 function deleteArchives() {
@@ -67,10 +67,10 @@ function deleteArchives() {
         }).done((trip) => {
             divToRemove.remove();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
-};
+}
 
 //Changes archived boolean value to true and removes trip from archived page and move it to dashboard 
 function reactivateArchives() {
@@ -89,18 +89,16 @@ function reactivateArchives() {
                 authorization: myStorage.tokenKey
             }
         }).done((trip) => {
-            divToRemove.remove()
+            divToRemove.remove();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
-};
+}
 
 //Displays trip details without edit functionality
 function displayArchivedTripDetails() {
     $('.listOfArchivedTrips').on('click', 'a', function() {
-        $('.archivesPage').fadeOut();
-        $('.tripDetails').empty().delay(400).fadeIn();
         tripIdValue = $(this).attr('value')
         $.ajax({
             url: `${myURL}trip/id/${tripIdValue}`,
@@ -111,8 +109,8 @@ function displayArchivedTripDetails() {
         }).done((data) => {
             let myLat = [];
             let myLng = [];
-            $('.dashboardPage').fadeOut();
-            $('.tripDetails').delay(500).fadeIn();
+            $('.archivesPage').css('display', 'none');
+            $('.tripDetails').empty().fadeIn();
             //archivedTripDetails template start
             let gearData = {};
             let foodData = {};
@@ -140,26 +138,26 @@ function displayArchivedTripDetails() {
             };
             $('.mapDistanceTotalsDiv').empty();
             $('#map2').empty().css('height', '500px');
-            setTimeout(initRouteMap, 800, myLat, myLng);
+            setTimeout(initRouteMap, 400, myLat, myLng);
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
-};
+}
 
 //When back arrow is clicked on archived trip details user is sent back to archives page
 function backtoArchives() {
     $('.tripDetails').on('click', '.backToArchives', function() {
-        $('.tripDetails').fadeOut();
-        $('.archivesPage').delay(400).fadeIn();
-        $('.backToArchives').delay(1000).remove();
+        $('.tripDetails').css('display', 'none');
+        $('.archivesPage').fadeIn();
+        $('.backToArchives').delay(100).remove();
     });
-};
+}
 
 //When back arrow is clicked on archies page user is sent back to dashboard
 function backToDashboardFromArchives() {
     $('.archivesPage').on('click', '.leaveArchives', function() {
-        $('.archivesPage').fadeOut();
+        $('.archivesPage').css('display', 'none');
         displayDashboardTrips();
         displayColabTrips();
         $('.dashboardPage').fadeIn();

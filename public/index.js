@@ -1,6 +1,7 @@
 let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
+ let fadeOutSection;
 
 //Get request for current owners trips and displays trips on dashboard
 function displayDashboardTrips() {
@@ -11,17 +12,46 @@ function displayDashboardTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
+        $('.helpBtn').fadeIn();
         $('.currTripsDiv').empty();
         //currDashboard template start
         let tripVals = {
             trips: trips
         }
         let templateScript = Handlebars.templates.currDashboard(tripVals);
-        $('.currTripsDiv').append(templateScript)
+        $('.currTripsDiv').append(templateScript);
         //currDashboard template end    
     }).fail((err) => {
         console.log(err)
-    })
+    });
+}
+
+//Loads help info page when user info button clicked
+function loadHelpPage(){
+    $('.helpBtn').on('click', function(){
+        fadeOutSection = $(this).siblings('section:visible');
+        $(fadeOutSection).css('display', 'none');
+        $('.helpBtn').fadeOut();
+        $('.helpPage').fadeIn();
+    });
+}
+
+//Closes help page and reloads section user was previously on
+function closeHelpPage(){
+    $('.closeHelpWindow').on('click', function(){
+        $('.helpPage').css('display', 'none');
+        $(fadeOutSection).fadeIn();
+        $('.helpBtn').fadeIn();
+    });
+}
+
+//Toggles instruction sections open and closed
+function expandInstructions(){
+    $('.expandDiv').on('click', function(){
+        let areaToExpand = $(this).siblings('.textToExpand');
+        $(this).toggleClass('lit');
+        $(areaToExpand).toggleClass('instructions');   
+    });
 }
 
 //Toggles toolbar open and closed
@@ -37,10 +67,11 @@ function createNewTripPageLoad() {
     $('.dashboardPage').on('click', '.createNewTrip', function() {
         $('.submitEditedTripBtn').remove();
         $('.submitNewTripBtn').css('display', 'block');
-        $('.dashboardPage').fadeOut();
-        $('.createTripPage').delay(400).fadeIn();
+        $('.dashboardPage').css('display', 'none');
+        $('.createTripPage').fadeIn();
+        $('input').val('');
         $('#map3').replaceWith('<div id=map></div>');
-        setTimeout(initMap, 800, lat, lng);
+        setTimeout(initMap, 500, lat, lng);
     });
 }
 
@@ -64,13 +95,12 @@ function addNewTrip() {
                 authorization: myStorage.tokenKey
             }
         }).done((trip) => {
-            $('input').val('');
             displayColabTrips();
             displayDashboardTrips();
-            $('.createTripPage').fadeOut();
-            $('.dashboardPage').delay(500).fadeIn();
+            $('.createTripPage').css('display', 'none');
+            $('.dashboardPage').fadeIn();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -79,9 +109,9 @@ function addNewTrip() {
 function backToDashboard() {
     $('body').on('click', '.backToDashboard', function() {
         let fadeOutDiv = $(this).parent('section');
-        fadeOutDiv.fadeOut();
-        displayDashboardTrips()
-        displayColabTrips()
+        fadeOutDiv.css('display', 'none');
+        displayDashboardTrips();
+        displayColabTrips();
         $('.dashboardPage').fadeIn();
     });
 }
@@ -101,7 +131,7 @@ function deleteTrip() {
             divToRemove.remove();
             displayColabTrips();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -127,11 +157,10 @@ function apiCallforTripDetailsPage() {
 
 //Displays trip details
 function displayTripDetails(data) {
-    console.log(data)
     let myLat = [];
     let myLng = [];
-    $('.dashboardPage').fadeOut();
-    $('.tripDetails').empty().delay(500).fadeIn();
+    $('.dashboardPage').css('display', 'none');
+    $('.tripDetails').empty().fadeIn();
     //tripDetails template start
     let gearData = {};
     let foodData = {};
@@ -150,7 +179,7 @@ function displayTripDetails(data) {
         foodData: foodData
     };
     let templateScript = Handlebars.templates.tripDetails(vals);
-    $('.tripDetails').append(templateScript)
+    $('.tripDetails').append(templateScript);
     //tripDetails template end
     for (let i = 0; i < data.trip.mapPoints.length; i++) {
         myLat.push(data.trip.mapPoints[i].lat);
@@ -158,7 +187,7 @@ function displayTripDetails(data) {
     }
     $('.mapDistanceTotalsDiv').empty();
     $('#map2').empty().css('height', '500px');
-    setTimeout(initRouteMap, 800, myLat, myLng);
+    setTimeout(initRouteMap, 400, myLat, myLng);
 }
 
 function exitTripDetailPage() {
@@ -232,7 +261,6 @@ function addGearItem() {
                     gearItem: gearItem,
                     className: className
                 };
-                console.log(gearVals.className)
                 let templateScript = Handlebars.templates.addNewGearList(gearVals);
                 $('.userGearLists').append(templateScript);
             }else{
@@ -259,7 +287,6 @@ function addFoodItem() {
             weight: weight,
             quantity: $('.newFoodItemQ').val()
         }
-        console.log(addedFoodItem)
         $.ajax({
             url: `${myURL}trip/foodList/id/${tripIdValue}`,
             type: 'POST',
@@ -275,15 +302,14 @@ function addFoodItem() {
                     foodItem: foodItem,
                     className: className
                 };
-                console.log(foodVals)
                 let templateScript = Handlebars.templates.addNewFoodList(foodVals);
-                $('.userFoodLists').append(templateScript)
+                $('.userFoodLists').append(templateScript);
             }else{
                 let foodItemVals = {
                     foodItem: foodItem
                 };
                 let templateScript = Handlebars.templates.addNewFoodItem(foodItemVals);
-                $(`.${className}`).append(templateScript)
+                $(`.${className}`).append(templateScript);
             }
             $('.addFoodItemForm').children('input').val('');
             calculatePackWeight();
@@ -312,7 +338,7 @@ function deleteGearItem() {
             }
             calculatePackWeight();
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -342,6 +368,8 @@ function deleteFoodItem() {
 }
 
 createNewTripPageLoad()
+loadHelpPage()
+closeHelpPage()
 addNewTrip()
 apiCallforTripDetailsPage()
 addGearItem()
@@ -356,3 +384,5 @@ deleteTrip()
 toolBarToggle()
 backToDashboard()
 exitTripDetailPage()
+
+ expandInstructions()

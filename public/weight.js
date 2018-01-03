@@ -10,7 +10,6 @@ function calculatePackWeight() {
             authorization: myStorage.tokenKey
         }
     }).done((data) => {
-        console.log(data)
         for (let owner in data.orderGearList) {
             let total = [];
             for (let i = 0; i < data.orderGearList[owner].length; i++) {

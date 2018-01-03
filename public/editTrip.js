@@ -14,25 +14,27 @@ function editTripPageLoad() {
 				authorization: myStorage.tokenKey
 			}
 		}).done((trip) => {
-			$('.dashboardPage').fadeOut();
-			$('.createTripPage').delay(400).fadeIn();
+			$('.dashboardPage').css('display', 'none');
+			$('.createTripPage').fadeIn();
 			$('#map').replaceWith('<div id=map3></div>');
 			for (let i = 0; i < trip.trip.mapPoints.length; i++) {
 				myLat.push(trip.trip.mapPoints[i].lat);
 				myLng.push(trip.trip.mapPoints[i].lng);
 			}
-			setTimeout(initEditRouteMap, 800, myLat, myLng);
+			setTimeout(initEditRouteMap, 400, myLat, myLng);
 			displayTripDetailsToEdit(trip);
 		}).fail((err) => {
-			console.log(err)
+			console.log(err);
 		});
 	});
 }
 
 //Displays trip details in create trip page form inputs so that user can edit
 function displayTripDetailsToEdit(trip) {
-	let startDate = moment(trip.trip.startDate).utc().format('MM/DD/YYYY');
-	let endDate = moment(trip.trip.endDate).utc().format('MM/DD/YYYY');
+	startDate = moment(trip.trip.startDate).utc().format('MM/DD/YYYY');
+	endDate = moment(trip.trip.endDate).utc().format('MM/DD/YYYY');
+	console.log(startDate)
+	console.log(endDate)
 	$('.trailName').val(`${trip.trip.trail}`);
 	$('.trailheadName').val(`${trip.trip.trailheadName}`);
 	$('.startDate').val(`${startDate}`);
@@ -62,13 +64,13 @@ function submitTripChanges() {
 			}
 		}).done((trip) => {
 			$('input').val('');
-			displayDashboardTrips()
-			displayColabTrips()
-			$('.createTripPage').fadeOut();
-			$('.dashboardPage').delay(400).fadeIn();
+			displayDashboardTrips();
+			displayColabTrips();
+			$('.createTripPage').css('display', 'none');
+			$('.dashboardPage').fadeIn();
 			$('#map3').replaceWith('<div id=map></div>');
 		}).fail((err) => {
-			console.log(err)
+			console.log(err);
 		});
 	});
 }

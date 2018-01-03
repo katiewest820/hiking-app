@@ -14,6 +14,7 @@ function logOut() {
         localStorage.removeItem('userId');
         localStorage.removeItem('token');
         $('body').css('overflow', 'hidden');
+        $('.helpBtn').fadeOut();
         $('.dashboardPage').fadeOut();
         $('.actLoginPage').delay(400).fadeIn();
     });
@@ -21,8 +22,8 @@ function logOut() {
 
 function fadeInLoginDiv() {
     $('.loginImg').on('mouseenter', function() {
-        $('.loginImg').fadeOut('slow');
-        $('.actLoginDiv').delay(500).fadeIn('slow');
+        $('.loginImg').fadeOut(600);
+        $('.actLoginDiv').delay(700).fadeIn();
     });
 }
 
@@ -40,15 +41,15 @@ function userLogin() {
         }).done((response) => {
             if (response == 'you must enter a username and password') {
                 loginErrorMsg('Please enter your email and password to login');
-                return
+                return;
             }
             if (response == 'this user does not exist') {
                 loginErrorMsg('Email doesn\'t exist in our records. Click register to create an account');
-                return
+                return;
             }
             if (response == 'password does not match email') {
                 loginErrorMsg('Incorrect password. Please try again');
-                return
+                return;
             }
             localStorage.setItem('tokenKey', response.token);
             localStorage.setItem('userId', response.userId);
@@ -60,24 +61,24 @@ function userLogin() {
             displayColabTrips();
             displayDashboardTrips();
             $('.actLoginDiv').children('input').each((index, element) => {
-                $(element).val('')
-            })
+                $(element).val('');
+            });
         }).fail((err) => {
             console.log(err)
-        })
+        });
     });
 }
 
 function loginErrorMsg(msg) {
     $('.actLoginPage').fadeOut().delay(2200).fadeIn();
-    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut()
-    $('.errorMsgDiv').html(`<p>${msg}</p>`)
+    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
+    $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 
 function registrationErrorMsg(msg) {
     $('.actRegisterPage').fadeOut().delay(2200).fadeIn();
-    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut()
-    $('.errorMsgDiv').html(`<p>${msg}</p>`)
+    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
+    $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 
 function registrationSuccessMsg(msg) {
@@ -90,14 +91,14 @@ function registrationSuccessMsg(msg) {
 function loadRegisterPage() {
     $('.createActBtn').on('click', function() {
         $('.actLoginPage').fadeOut();
-        $('.actRegisterPage').delay(400).fadeIn()
+        $('.actRegisterPage').delay(400).fadeIn();
         $('.actRegisterDiv').css('display', 'block');
     });
 }
 
 function cancelRegistration() {
     $('.cancelRegistrationBtn').on('click', function() {
-        $('.actRegisterPage').fadeOut()
+        $('.actRegisterPage').fadeOut();
         $('.actLoginPage').delay(400).fadeIn();
     });
 }
@@ -118,26 +119,26 @@ function createNewUser() {
         }).done((response) => {
             if (response == 'An account already exists for this email') {
                 registrationErrorMsg('An account already exists for this email. Please login');
-                return
+                return;
             }
             if (response == 'please enter an email address') {
                 registrationErrorMsg('Please enter an email address');
-                return
+                return;
             }
             if (response == 'please enter a password') {
                 registrationErrorMsg('Please enter a password');
-                return
+                return;
             }
             if (response == 'please enter a first and last name') {
                 registrationErrorMsg('Please enter a first and last name')
-                return
+                return;
             }
-            registrationSuccessMsg('Your account was successfully created!')
+            registrationSuccessMsg('Your account was successfully created!');
             $('.actRegisterDiv').children('input').each((index, element) => {
                 $(element).val('')
-            })
+            });
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
