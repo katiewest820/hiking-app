@@ -6,6 +6,7 @@ Test login details:
 
 **email:**
 johnsmith@email.com
+
 **password:**
 password123
 
