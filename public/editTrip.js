@@ -33,8 +33,6 @@ function editTripPageLoad() {
 function displayTripDetailsToEdit(trip) {
 	startDate = moment(trip.trip.startDate).utc().format('MM/DD/YYYY');
 	endDate = moment(trip.trip.endDate).utc().format('MM/DD/YYYY');
-	console.log(startDate)
-	console.log(endDate)
 	$('.trailName').val(`${trip.trip.trail}`);
 	$('.trailheadName').val(`${trip.trip.trailheadName}`);
 	$('.startDate').val(`${startDate}`);
