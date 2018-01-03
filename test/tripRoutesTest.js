@@ -26,8 +26,6 @@ let foodListId;
 
 //auth test setup
 function createTestUser() {
-    //describe('POST endpoint for auth register', function() {
-    //  it('should make post request to register a new user', function() {
     console.log('creating user')
     let newTestUser = {
         firstName: 'Katie',
@@ -41,12 +39,6 @@ function createTestUser() {
             .send(newTestUser)
             .then((res) => {
                 console.log('inside of create test user')
-                // res.should.have.status(200);
-                // res.body.firstName.should.equal(newUser.firstName);
-                // res.body.lastName.should.equal(newUser.lastName);
-                // res.body.email.should.equal(newUser.email);
-                // res.body.password.should.not.equal(newUser.password);
-                	//console.log('after login test user')
                 	loginTestUser().then(() => {
                 		 resolve()
                 	});
@@ -54,21 +46,14 @@ function createTestUser() {
                    
                     
                 })
-           // })
             .catch((err) => {
                 console.log(err)
                 reject(err)
             });
-    //});
-    // });
     });
-
-};
-
+}
 
 function loginTestUser() {
-    //describe('POST endpoint for auth login', function() {
-    //  it('should make a post requst to login', function() {
     console.log('logging in user')
     let loginTestUser = {
         firstName: 'Katie',
@@ -81,29 +66,23 @@ function loginTestUser() {
             .post('/auth/login')
             .send(loginTestUser)
             .then((res) => {
-                console.log(res.text)
-                console.log(res.body)
                 token = res.body.token;
                 userId = res.body.userId;
-                console.log('token:' + ' ' + token)
-                console.log('id:' + ' ' + userId)
-                // res.should.have.status(200);
-                // res.body.should.have.property('token');
-                seedTripData()
-                resolve()
+                seedTripData();
+                resolve();
             })
             .catch((err) => {
                 console.log(err)
                 reject(err)
             });
     });
-};
+}
 
 function seedTripData() {
     console.log('seeding hiking app data');
     seedData = [];
     for (let i = 0; i < 5; i++) {
-        seedData.push(generatedTripSeedData())
+        seedData.push(generatedTripSeedData());
     }
     return HikingTrip.insertMany(seedData);
 }
@@ -112,22 +91,21 @@ function seedGearData() {
     console.log('seeding gear data');
     const seedGearData = [];
     for (let i = 0; i < 3; i++) {
-        seedGearData.push(genearatedGearListData())
+        seedGearData.push(genearatedGearListData());
     }
-    return seedGearData
+    return seedGearData;
 }
 
 function seedFoodData() {
     console.log('seeding food data');
     const seedFoodData = [];
     for (let i = 0; i < 3; i++) {
-        seedFoodData.push(genearatedFoodListData())
+        seedFoodData.push(genearatedFoodListData());
     }
     return seedFoodData
 }
 
 function generatedTripSeedData() {
-    console.log(userId)
     return {
         userId: userId,
         trail: faker.lorem.words(),
@@ -160,15 +138,13 @@ function genearatedFoodListData() {
 
 function tearDownDb() {
     console.log('deleting database data');
-    return mongoose.connection.db.dropDatabase()
+    return mongoose.connection.db.dropDatabase();
 }
 
 describe('Trip test API resources', function() {
     before(function(done) {
         Promise.resolve(runServer(TEST_DATABASE_URL)).then(() => {
-            console.log('after database')
             Promise.resolve(createTestUser()).then(() => {
-            	console.log('after creating test users')
                 done()
             });
         });
@@ -190,7 +166,7 @@ describe('Trip test API resources', function() {
                     for (let i = 0; i < seedData.length; i++) {
                         res.body[i].trail.should.equal(seedData[i].trail)
                     }
-                    tripId = res.body[0]._id
+                    tripId = res.body[0]._id;
                 })
                 .catch((err) => {
                     console.log(err)
@@ -209,7 +185,7 @@ describe('Trip test API resources', function() {
         		res.body.trip._id.should.equal(tripId);
         	})
         	.catch((err) => {
-        		console.log(err)
+        		console.log(err);
         	});
         });
     });
@@ -240,10 +216,10 @@ describe('Trip test API resources', function() {
     				res.body[0].collaborator.should.equal(colabId);
     				res.body[0].owner.should.equal(userId);
     				res.body[0].trip._id.should.equal(tripId);
-    			})
-    		})
+    			});
+    		});
     		.catch((err) => {
-    			console.log(err)
+    			console.log(err);
     		});
 		});	
     });
@@ -257,7 +233,7 @@ describe('Trip test API resources', function() {
     			res.status.should.equal(200);
     		})
     		.catch((err) => {
-    			console.log(err)
+    			console.log(err);
     		});
 		});	
     });
@@ -284,7 +260,7 @@ describe('Trip test API resources', function() {
 	 			res.body.data._id.should.be.a('string');
 	 		})
 	 		.catch((err) => {
-	 			console.log(err)
+	 			console.log(err);
 	 		});
 		});
 
@@ -309,7 +285,7 @@ describe('Trip test API resources', function() {
 				res.body[0]._id.should.be.a('string');
 			})
 			.catch((err) => {
-				console.log(err)
+				console.log(err);
 			});
 		});
 
@@ -326,7 +302,7 @@ describe('Trip test API resources', function() {
 			.send(newGearItem)
 			.then((res) => {
 				gearListId = res.body[0]._id; 
-				res.status.should.equal(200)
+				res.status.should.equal(200);
 				res.body[0].owner.should.equal(newGearItem.owner);
 				res.body[0].item.should.equal(newGearItem.item);
 				res.body[0].weight.should.equal(newGearItem.weight);
@@ -334,7 +310,7 @@ describe('Trip test API resources', function() {
 				res.body[0]._id.should.be.a('string');
 			})
 			.catch((err) => {
-				console.log(err)
+				console.log(err);
 			});
 		});
 
@@ -367,7 +343,7 @@ describe('Trip test API resources', function() {
  				res.body.userId.should.equal(tripPreUpdate.userId);
  			})
  			.catch((err) => {
- 				console.log(err)
+ 				console.log(err);
  			});
  		});
 	});
@@ -378,12 +354,12 @@ describe('Trip test API resources', function() {
  			.delete(`/trip/gearList/id/${tripId}/${gearListId}`)
  			.set('authorization', token)
  			.then((res) => {
- 				let deletedId = res.body.data.gearList.gearListId
+ 				let deletedId = res.body.data.gearList.gearListId;
  				res.status.should.equal(200);
  				should.not.exist(deletedId);
  			})
  			.catch((err) => {
- 				console.log(err)
+ 				console.log(err);
  			}); 
  		});
 
@@ -392,12 +368,12 @@ describe('Trip test API resources', function() {
  			.delete(`/trip/foodList/id/${tripId}/${foodListId}`)
  			.set('authorization', token)
  			.then((res) => {
- 				let deletedId = res.body.data.foodList.foodListId
+ 				let deletedId = res.body.data.foodList.foodListId;
  				res.status.should.equal(200);
  				should.not.exist(deletedId);
  			})
  			.catch((err) => {
- 				console.log(err)
+ 				console.log(err);
  			}); 
 		});
 
@@ -412,12 +388,11 @@ describe('Trip test API resources', function() {
  			.delete(`/trip/id/${tripId}`)
  			.set('authorization', token)
  			.then((res) => {
- 				console.log(res.body)
  				res.status.should.equal(200);
  				should.not.exist(res.tripToDelete);
  			})
  			.catch((err) => {
- 				console.log(err)
+ 				console.log(err);
  			});
  		});
  	});
