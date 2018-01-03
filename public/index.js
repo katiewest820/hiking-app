@@ -65,6 +65,8 @@ function toolBarToggle() {
 //Loads create new trip page
 function createNewTripPageLoad() {
     $('.dashboardPage').on('click', '.createNewTrip', function() {
+        $('.startDate').attr('type', 'text');
+        $('.endDate').attr('type', 'text');
         $('.submitEditedTripBtn').remove();
         $('.submitNewTripBtn').css('display', 'block');
         $('.dashboardPage').css('display', 'none');
