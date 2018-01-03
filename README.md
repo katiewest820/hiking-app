@@ -2,6 +2,14 @@
 
 Checkout Backcountry site [HERE](https://protected-beach-53100.herokuapp.com/)
 
+Test login details:
+
+**email:**
+johnsmith@email.com
+
+**password:**
+password123
+
 ## Summary:
 
 **Backcountry** is a hiking collaboration app that allows users to create hiking/backpacking trips and share those trips in order to collaborate with other registered users. Users will be able to build trip routes with Google maps and create gear and food lists for each group member that totals list weight. After a trip is completed trip owners will be able to either delete trip or archive it for later reactivation and use. 
