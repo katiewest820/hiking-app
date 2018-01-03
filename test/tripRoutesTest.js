@@ -217,7 +217,7 @@ describe('Trip test API resources', function() {
     				res.body[0].owner.should.equal(userId);
     				res.body[0].trip._id.should.equal(tripId);
     			});
-    		});
+    		})
     		.catch((err) => {
     			console.log(err);
     		});
