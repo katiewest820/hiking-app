@@ -31,7 +31,6 @@ function editTripPageLoad() {
 
 //Displays trip details in create trip page form inputs so that user can edit
 function displayTripDetailsToEdit(trip) {
-	console.log(trip)
 	$('.startDate').attr('type', 'date');
 	$('.endDate').attr('type', 'date');
 	let startDateVal = moment(trip.trip.startDate).utc().format('YYYY-MM-DD');
