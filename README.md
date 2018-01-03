@@ -5,11 +5,8 @@ Checkout Backcountry site [HERE](https://protected-beach-53100.herokuapp.com/)
 Test login details:
 
 **email:**
-
 johnsmith@email.com
-
-**password**
-
+**password:**
 password123
 
 ## Summary:
