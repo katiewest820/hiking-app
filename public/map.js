@@ -1,23 +1,9 @@
 let markers = [];
 let wayPoints = [];
-let lat;
-let lng;
+let lat = 39.8283; //default location center of USA
+let lng = -98.5795;
 let directionsService = new google.maps.DirectionsService();
 let directionsDisplay;
-
-//Gets current location (lat/lng) of user
-let options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
-navigator.geolocation.getCurrentPosition(
-    (position) => {
-        lat = position.coords.latitude;
-        lng = position.coords.longitude;
-    }, (err) => {
-        console.log(err)
-    }, options);
 
 //Loads create trip page map that allows user to create a route and save route
 function initMap(lat, lng) {
@@ -27,7 +13,7 @@ function initMap(lat, lng) {
         lng: lng
     }
     let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+        zoom: 4,
         center: myPosition
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
@@ -42,6 +28,8 @@ function initMap(lat, lng) {
             return
         }
         map.setCenter(new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()));
+        map.setZoom(10)
+        
     });
     map.addListener('click', function(e) {
         let marker = new google.maps.Marker({
@@ -70,7 +58,7 @@ function initRouteMap(mylat, mylng) {
     }
     let position;
     let map = new google.maps.Map(document.getElementById('map2'), {
-        zoom: 12,
+        zoom: 10,
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
@@ -96,7 +84,7 @@ function initRouteMap(mylat, mylng) {
 function initEditRouteMap(mylat, mylng) {
     let position;
     let map = new google.maps.Map(document.getElementById('map3'), {
-        zoom: 12,
+        zoom: 10,
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);

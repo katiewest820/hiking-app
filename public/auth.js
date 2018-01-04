@@ -5,7 +5,7 @@ function checkUserLogin() {
         $('body').css('overflow', 'visible');
         displayDashboardTrips();
         displayColabTrips();
-        return
+        return;
     }
     $('.introPage').fadeIn();
     $('.helpBtn').css('display', 'none');
@@ -49,7 +49,7 @@ function userLogin() {
                 return;
             }
             if (response == 'this user does not exist') {
-                loginErrorMsg('Email doesn\'t exist in our records. Click register to create an account');
+                loginErrorMsg('Email does not exist in our records. Please register for an account');
                 return;
             }
             if (response == 'password does not match email') {
@@ -69,7 +69,7 @@ function userLogin() {
                 $(element).val('');
             });
         }).fail((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 }
@@ -106,7 +106,7 @@ function loadRegisterPage() {
 
 //Loads login page when user clicks 'login'
 function loadLoginPage() {
-    $('.loginPageLoadBtn').on('click', function(){
+    $('.loginPageLoadBtn').on('click', function() {
         $('.introPage').fadeOut();
         $('.actLoginPage').delay(300).fadeIn();
         $('.actLoginDiv').css('display', 'block');
@@ -150,16 +150,69 @@ function createNewUser() {
                 return;
             }
             if (response == 'please enter a first and last name') {
-                registrationErrorMsg('Please enter a first and last name')
+                registrationErrorMsg('Please enter a first and last name');
                 return;
             }
             registrationSuccessMsg('Your account was successfully created!');
             $('.actRegisterDiv').children('input').each((index, element) => {
-                $(element).val('')
+                $(element).val('');
             });
         }).fail((err) => {
             console.log(err);
         });
+    });
+}
+
+//Load trip demo page
+function demoPage() {
+    $('.tripPageDemo').on('click', function() {
+        $('.tripDetails').empty();
+        $('.introPage').css('display', 'none');
+        $('.tripDetails').fadeIn();
+        $('body').css('overflow', 'visible');
+        //demo page template using archives template start
+        let gearData = {};
+        let foodData = {};
+        for (let owner in demoTrip.orderGearList) {
+            gearData[owner] = { 'gearList': demoTrip.orderGearList[owner] }
+        }
+        for (let owner in demoTrip.orderFoodList) {
+            foodData[owner] = { 'foodList': demoTrip.orderFoodList[owner] }
+        }
+        let vals = {
+            trailHead: demoTrip.trip.trailheadName.split(' ').join('+'),
+            trail: demoTrip.trip.trail,
+            startDate: moment(demoTrip.trip.startDate).utc().format('MMM Do YYYY'),
+            endDate: moment(demoTrip.trip.endDate).utc().format('MMM Do YYYY'),
+            gearData: gearData,
+            foodData: foodData
+        };
+        let templateScript = Handlebars.templates.archivedTripDetails(vals);
+        $('.tripDetails').append(templateScript);
+        //demo page template end
+        calculatePackWeight(demoTrip);
+        let myLat = [];
+        let myLng = [];
+        for (let i = 0; i < demoTrip.trip.mapPoints.length; i++) {
+            myLat.push(demoTrip.trip.mapPoints[i].lat);
+            myLng.push(demoTrip.trip.mapPoints[i].lng);
+        };
+        $('.mapDistanceTotalsDiv').empty();
+        $('#map2').empty().css('height', '500px');
+        setTimeout(initRouteMap, 400, myLat, myLng);
+        $('.backToArchives').css('display','none');
+        $('.tripDetails').append(`<i aria-hidden="true" class="fa fa-arrow-left fa-2x backToLogin" title="Back to Login"></i>`);
+    });
+}
+
+//Return to landing page
+function leaveDemoPage(){
+    $('.tripDetails').on('click', '.backToLogin', function(){
+        $('body').css('overflow', 'hidden');
+        $('.backToLogin').css('display','none');
+        $('.backToArchives').css('display', 'block');
+        $('.tripDetails').css('display', 'none');
+        $('.introPage').fadeIn();
     });
 }
 
@@ -171,3 +224,5 @@ loadRegisterPage()
 loadLoginPage()
 cancelRegistrationOrLogin()
 createNewUser()
+demoPage()
+leaveDemoPage()

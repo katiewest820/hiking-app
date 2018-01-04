@@ -57,7 +57,7 @@ function displayArchivedTrips() {
 function deleteArchives() {
     $('.listOfArchivedTrips').on('click', '.deleteArchive', function() {
         let myId = $(this).attr('value');
-        let divToRemove = $(this).parent('.archivedTripDiv')
+        let divToRemove = $(this).parent('.archivedTripDiv');
         $.ajax({
             url: `${myURL}trip/id/${myId}`,
             type: 'DELETE',
@@ -99,7 +99,7 @@ function reactivateArchives() {
 //Displays trip details without edit functionality
 function displayArchivedTripDetails() {
     $('.listOfArchivedTrips').on('click', 'a', function() {
-        tripIdValue = $(this).attr('value')
+        tripIdValue = $(this).attr('value');
         $.ajax({
             url: `${myURL}trip/id/${tripIdValue}`,
             type: 'GET',
@@ -127,15 +127,15 @@ function displayArchivedTripDetails() {
                 endDate: moment(data.trip.endDate).utc().format('MMM Do YYYY'),
                 gearData: gearData,
                 foodData: foodData
-            };
+            }
             let templateScript = Handlebars.templates.archivedTripDetails(vals);
-            $('.tripDetails').append(templateScript)
-            calculatePackWeight()
+            $('.tripDetails').append(templateScript);
+            calculatePackWeight();
             //archivedTripDetails template end
             for (let i = 0; i < data.trip.mapPoints.length; i++) {
                 myLat.push(data.trip.mapPoints[i].lat);
                 myLng.push(data.trip.mapPoints[i].lng);
-            };
+            }
             $('.mapDistanceTotalsDiv').empty();
             $('#map2').empty().css('height', '500px');
             setTimeout(initRouteMap, 400, myLat, myLng);
@@ -150,7 +150,6 @@ function backtoArchives() {
     $('.tripDetails').on('click', '.backToArchives', function() {
         $('.tripDetails').css('display', 'none');
         $('.archivesPage').fadeIn();
-        $('.backToArchives').delay(100).remove();
     });
 }
 
