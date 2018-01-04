@@ -5,7 +5,7 @@ const demoTrip = {
         "trail": "mcniel point",
         "startDate": "2017-12-22T00:00:00.000Z",
         "endDate": "2017-12-29T00:00:00.000Z",
-        "trailheadName": "top Supr trailhead",
+        "trailheadName": "top Spur trailhead",
         "archived": false,
         "__v": 45,
         "createdAt": "2017-12-27T19:24:29.572Z",
