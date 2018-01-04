@@ -1,6 +1,7 @@
 let markers = [];
 let wayPoints = [];
-let lat = 39.8283; //default location center of USA
+//default location center of USA
+let lat = 39.8283; 
 let lng = -98.5795;
 let directionsService = new google.maps.DirectionsService();
 let directionsDisplay;
