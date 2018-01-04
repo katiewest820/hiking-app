@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Backcountry</title>
     <link href="Camping.jpg" rel="icon" type="image/x-icon">
@@ -10,9 +11,50 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 </head>
+
 <body>
-    <button class="helpBtn" title="User Guide">???</button>
-    <!--User guide page -->
+    <i class="fa fa-question fa-2x helpBtn" aria-hidden="true" title="User Guide"></i>
+    <section class="introPage">
+        <img class="loginImg" height="500px" src="Camping.svg" width="500px">
+        <div class="aboutSite">
+            <div>
+                <h1>What is Backcountry?</h1>
+                <p>Backcountry is a hiking collaboration site that provides users the tools they need to plan their next hiking adventure. Users can create itineraries, build trip routes, gear lists, food lists and share trip details with other users. Trip creators can also archive their completed trips for later review and use.</p>
+            </div>
+            <div>
+                <h1>Getting Started is Easy!</h1>
+
+                <p><i class="fa fa-tree" aria-hidden="true"></i><span class="createActBtn">Register</span> for an account</p>
+                <p><i class="fa fa-tree" aria-hidden="true"></i><span class="loginPageLoadBtn">Login</span> to your account</p>
+                <p><i class="fa fa-tree" aria-hidden="true"></i>Begin building trips and collaborating <br>with your hiking community!</p>
+            </div>
+        </div>
+    </section>    
+<!-- login -->
+    <section class="actLoginPage">        
+        <div class="actLoginDiv">
+            <input class="emailLogin" placeholder="Email" type="text">
+            <input class="passwordLogin" placeholder="Password" type="password">
+            <button class="loginBtn">Login</button>
+            <button class="cancelRegistrationBtn">Cancel</button>
+        </div>
+    </section>
+<!--error message screen-->
+    <section class="errorMsgPage">
+        <div class="errorMsgDiv"></div>
+    </section>
+<!-- registration page -->
+    <section class="actRegisterPage">
+        <div class="actRegisterDiv">
+            <input class="registrationFN" placeholder="First Name" type="text">
+            <input class="registrationLN" placeholder="Last Name" type="text">
+            <input class="registrationEmail" placeholder="Email" type="text">
+            <input class="registrationPassword" placeholder="Password" type="password">
+            <button class="registrationSubmitBtn">Submit</button>
+            <button class="cancelRegistrationBtn">Cancel</button>
+        </div>
+    </section>
+<!--User guide page -->
     <section class="helpPage">
         <i class="fa fa-times fa-2x closeHelpWindow" aria-hidden="true"></i>
         <div class="helpInfoDiv">
@@ -48,38 +90,12 @@
                 <i class="fa fa-lightbulb-o expandDiv" aria-hidden="true"></i>
                 <div class="instructions textToExpand">
                     <p>Click on <span><i class="fa fa-share-alt" aria-hidden="true"></i></span>(share icon) under the trip you wish to share.
-                        <br> In the input field enter the name of the collaborator and select the correct person from the dropdown. Click the share icon to submit.
-                        Trip sharing allows the collaborator to see all trip details and build gear/food lists for themselves and others.</p>
+                        <br> In the input field enter the name of the collaborator and select the correct person from the dropdown. Click the share icon to submit. Trip sharing allows the collaborator to see all trip details and build gear/food lists for themselves and others.</p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- login -->
-    <section class="actLoginPage">
-        <img class="loginImg" height="500px" src="Camping.svg" width="500px">
-        <div class="actLoginDiv">
-            <input class="emailLogin" placeholder="Email" type="text">
-            <input class="passwordLogin" placeholder="Password" type="password">
-            <button class="loginBtn">Login</button>
-            <button class="createActBtn">Register</button>
-        </div>
-    </section>
-    <!--error message screen-->
-    <section class="errorMsgPage">
-        <div class="errorMsgDiv"></div>
-    </section>
-    <!-- registration page -->
-    <section class="actRegisterPage">
-        <div class="actRegisterDiv">
-            <input class="registrationFN" placeholder="First Name" type="text">
-            <input class="registrationLN" placeholder="Last Name" type="text">
-            <input class="registrationEmail" placeholder="Email" type="text">
-            <input class="registrationPassword" placeholder="Password" type="password">
-            <button class="registrationSubmitBtn">Submit</button>
-            <button class="cancelRegistrationBtn">Cancel</button>
-        </div>
-    </section>
-    <!-- main/dashboard page -->
+<!-- main/dashboard page -->
     <section class="dashboardPage">
         <div class="currTripsDiv"></div>
         <div class="sharedTripsDiv"></div>
@@ -92,20 +108,20 @@
             </div>
         </div>
     </section>
-    <!--create new trip-->
+<!--create new trip-->
     <section class="createTripPage">
         <div class="createTripForm">
             <input class="trailName" placeholder="Trip Name" type="text">
             <input class="trailheadName" placeholder="Trailhead" type="text">
-            <input class="startDate" onfocus="(this.type='date')"  placeholder="Start Date" type="text">
-            <input class="endDate" onfocus="(this.type='date')"  placeholder="End Date" type="text">
+            <input class="startDate" onfocus="(this.type='date')" placeholder="Start Date" type="text">
+            <input class="endDate" onfocus="(this.type='date')" placeholder="End Date" type="text">
         </div>
         <div id="map"></div>
         <button class="submitNewTripBtn">Create Trip</button> <i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard" title="Back to Dashboard"></i>
     </section>
-    <!--trip details page -->
+<!--trip details page -->
     <section class="tripDetails"></section>
-    <!--share trip page-->
+<!--share trip page-->
     <section class="shareTripPage">
         <div class="sharePageGrid">
             <div class="autoPop">
@@ -115,7 +131,7 @@
             </div><a href="#"><i aria-hidden="true" class="fa fa-share-alt fa-2x shareTripBtn" title="Share Trip"></i></a>
         </div><i aria-hidden="true" class="fa fa-arrow-left fa-2x backToDashboard" title="Back to Dashboard"></i>
     </section>
-    <!--archives page -->
+<!--archives page -->
     <section class="archivesPage">
         <h1>Your Archived Trips:</h1>
         <div class="listOfArchivedTrips"></div>
@@ -132,4 +148,5 @@
     <script src="auth.js" type="text/javascript"></script>
     <script src="editTrip.js" type="text/javascript"></script>
 </body>
+
 </html>

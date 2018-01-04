@@ -1,3 +1,4 @@
+//If user is logged in dashboard loads
 function checkUserLogin() {
     if (localStorage.getItem('userId')) {
         $('.dashboardPage').fadeIn();
@@ -6,9 +7,11 @@ function checkUserLogin() {
         displayColabTrips();
         return
     }
-    $('.actLoginPage').fadeIn();
+    $('.introPage').fadeIn();
+    $('.helpBtn').css('display', 'none');
 }
 
+//Logs user out
 function logOut() {
     $('.logOut').on('click', function() {
         localStorage.removeItem('userId');
@@ -16,17 +19,19 @@ function logOut() {
         $('body').css('overflow', 'hidden');
         $('.helpBtn').fadeOut();
         $('.dashboardPage').fadeOut();
-        $('.actLoginPage').delay(400).fadeIn();
+        $('.introPage').delay(400).fadeIn();
     });
 }
 
+//Start image fades upon mouseover
 function fadeInLoginDiv() {
     $('.loginImg').on('mouseenter', function() {
         $('.loginImg').fadeOut(600);
-        $('.actLoginDiv').delay(700).fadeIn();
+        $('.aboutSite').delay(700).fadeIn();
     });
 }
 
+//Logs user in
 function userLogin() {
     $('.loginBtn').on('click', function() {
         let userLoginInfo = {
@@ -69,6 +74,7 @@ function userLogin() {
     });
 }
 
+//Login error messages
 function loginErrorMsg(msg) {
     $('.actLoginPage').fadeOut().delay(2200).fadeIn();
     $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
@@ -81,6 +87,7 @@ function registrationErrorMsg(msg) {
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 
+//Registration success message
 function registrationSuccessMsg(msg) {
     $('.actRegisterPage').fadeOut();
     $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
@@ -88,21 +95,34 @@ function registrationSuccessMsg(msg) {
     $('.actLoginPage').delay(2600).fadeIn();
 }
 
+//Loads register page when user clicks 'register'
 function loadRegisterPage() {
     $('.createActBtn').on('click', function() {
-        $('.actLoginPage').fadeOut();
-        $('.actRegisterPage').delay(400).fadeIn();
+        $('.introPage').fadeOut();
+        $('.actRegisterPage').delay(300).fadeIn();
         $('.actRegisterDiv').css('display', 'block');
     });
 }
 
-function cancelRegistration() {
-    $('.cancelRegistrationBtn').on('click', function() {
-        $('.actRegisterPage').fadeOut();
-        $('.actLoginPage').delay(400).fadeIn();
+//Loads login page when user clicks 'login'
+function loadLoginPage() {
+    $('.loginPageLoadBtn').on('click', function(){
+        $('.introPage').fadeOut();
+        $('.actLoginPage').delay(300).fadeIn();
+        $('.actLoginDiv').css('display', 'block');
     });
 }
 
+//Cancels login or registration and returns to start page
+function cancelRegistrationOrLogin() {
+    $('.cancelRegistrationBtn').on('click', function() {
+        let divToFade = $(this).parent('div');
+        $(divToFade).fadeOut();
+        $('.introPage').delay(300).fadeIn();
+    });
+}
+
+//Registers new user
 function createNewUser() {
     $('.registrationSubmitBtn').on('click', function() {
         let newUser = {
@@ -148,5 +168,6 @@ logOut()
 userLogin()
 fadeInLoginDiv()
 loadRegisterPage()
-cancelRegistration()
+loadLoginPage()
+cancelRegistrationOrLogin()
 createNewUser()

@@ -38,27 +38,61 @@ button:hover{
 	border: solid 2px #b5cc56;
 	cursor: pointer;
 }
-.actLoginPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, .shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage, .helpPage{
+.actLoginPage, .introPage, .hiddenAddGearItemForm, .hiddenAddFoodItemForm, .createTripPage, .dashboardPage, .shareTripPage, .tripDetails, .errorMsgPage, .actRegisterPage, .archivesPage, .helpPage{
 	display: none;
 }
-.actLoginPage, .actRegisterPage, .errorMsgPage{
+.actLoginPage, .introPage, .actRegisterPage, .errorMsgPage{
 	border:none;
+}
+.aboutSite{
+	display: none;
+	height: fit-content;
+	margin:auto;
+	text-align: center;
+	margin-top: 9%;
+}
+.aboutSite div{
+	padding: 30px;
+	background-color: white;
+	border:solid 5px black;
+	margin: 20px;
+}
+.aboutSite h1{
+		border-bottom: black 3px solid;
+		font-size: 30px;
+		margin-bottom: 10px;
+	}
+	.aboutSite p{
+		font-size: 18px;
+		padding: 5px;
+	}
+	.aboutSite i{
+		padding-right: 10px;
+	}
+	.aboutSite i:hover{
+		color:black;
+		cursor: auto;
+	}
+.loginPageLoadBtn, .createActBtn{
+	color: #b5cc56;
+	font-size: 140%;
+	font-weight: bold;
+}
+.loginPageLoadBtn:hover, .createActBtn:hover{
+	color:black;
+	text-decoration: underline;
+	cursor: pointer;
 }
 .helpBtn{
 	display: none;
 	position: absolute;
-	right: 15px;
-	top: 15px;
+	right: 10px;
+	top: 9px;
 	border-radius: 10%;
 	padding: 5px 15px;
 	background-color: black;
 	color:white;
-	font-size: 20px;
 	font-weight: bold;
-	border:solid 2px white;
-}
-.helpBtn:hover{
-	background-color: #b5cc56;
 	border:solid 2px white;
 }
 .helpPage{
@@ -103,7 +137,7 @@ button:hover{
 	margin-top: 45%;
 }
 .actLoginDiv, .actRegisterDiv{
-	display: none;
+	/*display: none;*/
 	height: 250px;
 	width: 200px;
 	background-color: white;
@@ -194,9 +228,6 @@ button:hover{
 	padding: 20px;
 	min-height: 230px;
 }
-.currTrips{
-	justify-items:center;
-}
 .sharedTripsDiv{
 	padding: 20px;
 	text-align: center;
@@ -206,15 +237,16 @@ button:hover{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	margin: auto;
+	margin-bottom: 10px;
 	justify-items: center;
 	width: fit-content;
 	min-width: 120px;
+	min-height: 70px;
 	border: solid 1px lightgrey;
 	box-shadow: 10px 5px 5px grey;
 	padding: 10px;
-	margin:10px;
 }
-.tripDiv .tripName{
+.tripName{
 	text-align: center;
 	grid-column: span 4;
 	font-size: 20px;
@@ -225,7 +257,6 @@ button:hover{
 .colabTripDiv a{
 	font-size: 20px;
 	font-weight: bold;
-	
 }
 .dashboardToolbar{
 	position: absolute;
@@ -506,6 +537,20 @@ button:hover{
 		height: 500px;
 		width: 500px;
 	}
+	.aboutSite{
+		width:50%;
+		margin-top: 5%;
+	}
+	.aboutSite h1{
+		width:55%;
+		margin:auto;
+		font-size: 38px;
+	}
+	.aboutSite p{
+		width:75%;
+		margin:auto;
+		font-size: 24px;
+	}
 	.actLoginDiv, .errorMsgDiv, .actRegisterDiv{
 		margin-top: 13%;
 		width: 250px;
@@ -534,7 +579,6 @@ button:hover{
 		position: absolute;
 		right: 35px;
 		top: 35px;
-		font-size: 35px;
 	}
 	.helpInfoDiv{
 		width: 70%;
@@ -544,7 +588,6 @@ button:hover{
 	.dashboardToolbar{
 		font-size: 1em;
 	}
-	
 	.currTrips{
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -553,6 +596,7 @@ button:hover{
 	}
 	.tripDiv{
 		min-width: 200px;
+		margin:10px;
 	}
 	.tripDetailsDiv a{
 		font-size: 40px;
