@@ -295,6 +295,7 @@ button:hover{
 }
 .createTripForm input{
 	border: none;
+	width:100%;
 	border-bottom: black solid 2px;
 	font-size: 18px;
 }

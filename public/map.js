@@ -1,7 +1,7 @@
 let markers = [];
 let wayPoints = [];
 //default location center of USA
-let lat = 39.8283; 
+let lat = 39.8283;
 let lng = -98.5795;
 let directionsService = new google.maps.DirectionsService();
 let directionsDisplay;
@@ -30,7 +30,7 @@ function initMap(lat, lng) {
         }
         map.setCenter(new google.maps.LatLng(places[0].geometry.location.lat(), places[0].geometry.location.lng()));
         map.setZoom(10)
-        
+
     });
     map.addListener('click', function(e) {
         let marker = new google.maps.Marker({
@@ -39,10 +39,10 @@ function initMap(lat, lng) {
         });
         let myLat = marker.getPosition().lat();
         let myLng = marker.getPosition().lng();
-        let flag = {lat: myLat, lng: myLng};
+        let flag = { lat: myLat, lng: myLng };
         markers.push(flag);
         map.panTo(e.latLng);
-        if (markers.length > 1) {
+        if (markers.length > 0) {
             calcRoute(markers)
         }
         if (markers.length > 2) {
@@ -51,9 +51,9 @@ function initMap(lat, lng) {
     });
 }
 
-//Loads trip details page map that displays previously create map route without edit functionality 
+//Loads trip details page map that displays previously created map route without edit functionality 
 function initRouteMap(mylat, mylng) {
-    if(mylat == 0 && mylng == 0){
+    if (mylat == 0 && mylng == 0) {
         $('#map2').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content');
         return
     }
@@ -65,17 +65,17 @@ function initRouteMap(mylat, mylng) {
     directionsDisplay.setMap(map);
     markers = [];
     for (i = 0; i < mylat.length; i++) {
-        position = new google.maps.LatLng({lat: mylat[i], lng: mylng[i]});
+        position = new google.maps.LatLng({ lat: mylat[i], lng: mylng[i] });
         let setLat = position.lat();
         let setLng = position.lng();
-        let flag = {lat: setLat, lng: setLng};
+        let flag = { lat: setLat, lng: setLng };
         markers.push(flag);
         let marker = new google.maps.Marker({
             position: position,
             map: map
         });
     };
-    if (markers.length == 1) {
+    if (markers.length < 3) {
         calcRoute(markers)
     }
     calcRouteAgain(markers)
@@ -83,6 +83,10 @@ function initRouteMap(mylat, mylng) {
 
 //Loads edit trip page map that allows user to add markers to an existing route 
 function initEditRouteMap(mylat, mylng) {
+    if (mylat.length == 0 && mylng.length == 0) {
+        createNewMap();
+        return;
+    }
     let position;
     let map = new google.maps.Map(document.getElementById('map3'), {
         zoom: 10,
@@ -102,10 +106,10 @@ function initEditRouteMap(mylat, mylng) {
     });
     markers = [];
     for (i = 0; i < mylat.length; i++) {
-        position = new google.maps.LatLng({lat: mylat[i], lng: mylng[i]});
+        position = new google.maps.LatLng({ lat: mylat[i], lng: mylng[i] });
         let setLat = position.lat();
         let setLng = position.lng();
-        let flag = {lat: setLat, lng: setLng};
+        let flag = { lat: setLat, lng: setLng };
         markers.push(flag);
         let marker = new google.maps.Marker({
             position: position,
@@ -119,22 +123,25 @@ function initEditRouteMap(mylat, mylng) {
         });
         let myLat = newMarker.getPosition().lat();
         let myLng = newMarker.getPosition().lng();
-        let newFlag = {lat: myLat, lng: myLng};
+        let newFlag = { lat: myLat, lng: myLng };
         markers.push(newFlag);
         map.panTo(e.latLng);
         calcRouteAgain(markers)
     });
-    if (markers.length == 0) {
-        $('#map3').html('<h1 class="noMapMsg">No Map Information Available</h1>').css('height', 'fit-content');
-        return
-    }
     calcRouteAgain(markers)
 };
 
-//Calculates route with 2 markers
+//Calculates route with less than 3 markers
 function calcRoute(markers) {
-    let start = markers[0];
-    let end = markers[1];
+    let start;
+    let end;
+    if (markers.length == 1) {
+         start = markers[0];
+         end = markers[0]
+    } else {
+         start = markers[0];
+         end = markers[1];
+    }
     let request = {
         origin: start,
         destination: end,
@@ -179,11 +186,16 @@ function calcRouteAgain(markers) {
 //If user clears edit map, map is switched to create route map 
 function clearMapRoute() {
     $('.createTripPage').on('click', '.clearRouteBtn', function() {
-        $('#map3').replaceWith('<div id=map></div>');
-        markers.length = 0;
-        wayPoints.length = 0;
-        setTimeout(initMap, 300, lat, lng);
+        createNewMap();
     });
+}
+
+//Loads new map with no markers
+function createNewMap() {
+    $('#map3').replaceWith('<div id=map></div>');
+    markers.length = 0;
+    wayPoints.length = 0;
+    setTimeout(initMap, 300, lat, lng);
 }
 
 clearMapRoute()

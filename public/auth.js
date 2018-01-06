@@ -18,8 +18,8 @@ function logOut() {
         localStorage.removeItem('token');
         $('body').css('overflow', 'hidden');
         $('.helpBtn').fadeOut();
-        $('.dashboardPage').fadeOut();
-        $('.introPage').delay(400).fadeIn();
+        $('.dashboardPage').css('display', 'none');
+        $('.introPage').fadeIn();
     });
 }
 
@@ -38,7 +38,12 @@ function userLogin() {
             email: $('.emailLogin').val(),
             password: $('.passwordLogin').val()
         }
-        $.ajax({
+      loginApiCall(userLoginInfo);
+    });
+}
+
+function loginApiCall(userLoginInfo){
+      $.ajax({
             url: `${myURL}auth/login`,
             type: 'POST',
             contentType: 'application/json',
@@ -71,13 +76,14 @@ function userLogin() {
         }).fail((err) => {
             console.log(err);
         });
-    });
 }
 
 //Login error messages
 function loginErrorMsg(msg) {
-    $('.actLoginPage').fadeOut().delay(2200).fadeIn();
-    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
+    $('.actLoginPage').css('display', 'none');
+    $('.errorMsgPage').fadeIn().delay(1400).fadeOut(200, () => {
+        $('.actLoginPage').fadeIn();
+    });
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 
@@ -88,18 +94,20 @@ function registrationErrorMsg(msg) {
 }
 
 //Registration success message
-function registrationSuccessMsg(msg) {
-    $('.actRegisterPage').fadeOut();
-    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
+function registrationSuccessMsg(msg, userLoginInfo) {
+    $('.actRegisterPage').css('display', 'none');
+    $('.errorMsgPage').fadeIn().delay(1000).fadeOut(200, () => {
+       loginApiCall(userLoginInfo); 
+    });
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
-    $('.actLoginPage').delay(2600).fadeIn();
+    
 }
 
 //Loads register page when user clicks 'register'
 function loadRegisterPage() {
     $('.createActBtn').on('click', function() {
-        $('.introPage').fadeOut();
-        $('.actRegisterPage').delay(300).fadeIn();
+        $('.introPage').css('display', 'none');
+        $('.actRegisterPage').fadeIn();
         $('.actRegisterDiv').css('display', 'block');
     });
 }
@@ -107,8 +115,8 @@ function loadRegisterPage() {
 //Loads login page when user clicks 'login'
 function loadLoginPage() {
     $('.loginPageLoadBtn').on('click', function() {
-        $('.introPage').fadeOut();
-        $('.actLoginPage').delay(300).fadeIn();
+        $('.introPage').css('display', 'none');
+        $('.actLoginPage').fadeIn();
         $('.actLoginDiv').css('display', 'block');
     });
 }
@@ -117,8 +125,8 @@ function loadLoginPage() {
 function cancelRegistrationOrLogin() {
     $('.cancelRegistrationBtn').on('click', function() {
         let divToFade = $(this).parent('div');
-        $(divToFade).fadeOut();
-        $('.introPage').delay(300).fadeIn();
+        $(divToFade).css('display', 'none');
+        $('.introPage').fadeIn();
     });
 }
 
@@ -128,6 +136,10 @@ function createNewUser() {
         let newUser = {
             firstName: $('.registrationFN').val(),
             lastName: $('.registrationLN').val(),
+            email: $('.registrationEmail').val(),
+            password: $('.registrationPassword').val()
+        }
+        let userLoginInfo = {
             email: $('.registrationEmail').val(),
             password: $('.registrationPassword').val()
         }
@@ -153,7 +165,8 @@ function createNewUser() {
                 registrationErrorMsg('Please enter a first and last name');
                 return;
             }
-            registrationSuccessMsg('Your account was successfully created!');
+            registrationSuccessMsg('Your account was successfully created!', userLoginInfo);
+            
             $('.actRegisterDiv').children('input').each((index, element) => {
                 $(element).val('');
             });

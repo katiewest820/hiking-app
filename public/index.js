@@ -12,7 +12,7 @@ function displayDashboardTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
-        $('.helpBtn').fadeIn();
+        $('.helpBtn').delay(500).fadeIn();
         $('.currTripsDiv').empty();
         //currDashboard template start
         let tripVals = {
