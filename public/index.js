@@ -5,6 +5,11 @@ let fadeOutSection;
 
 //Get request for current owners trips and displays trips on dashboard
 function displayDashboardTrips() {
+    let state = $('.dashboardPage').find('.toolbarIcon').hasClass('fa-ellipsis-h');
+    console.log(state)
+    if(state){
+        toggleToolBarFunction()
+    }
     $.ajax({
         url: `${myURL}trip/getByUser/${localStorage.getItem('userId')}`,
         type: 'GET',
@@ -12,7 +17,6 @@ function displayDashboardTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
-
         $('.helpBtn').delay(500).fadeIn();
         $('.currTripsDiv').empty();
         //currDashboard template start
@@ -63,9 +67,13 @@ function expandInstructions() {
 //Toggles toolbar open and closed
 function toolBarToggle() {
     $('.dashboardPage').on('click', '.toolbarIcon', function() {
-        $('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
-        $('.togglerClass').toggleClass('dashboardBtns toggledDashboardBtns');
+        toggleToolBarFunction()
     });
+}
+
+function toggleToolBarFunction(){
+    $('.toolbarIcon').toggleClass('fa-ellipsis-v fa-ellipsis-h');
+    $('.togglerClass').toggleClass('dashboardBtns toggledDashboardBtns');
 }
 
 //Loads create new trip page

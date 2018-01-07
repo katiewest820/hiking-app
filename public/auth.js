@@ -81,15 +81,18 @@ function loginApiCall(userLoginInfo){
 //Login error messages
 function loginErrorMsg(msg) {
     $('.actLoginPage').css('display', 'none');
-    $('.errorMsgPage').fadeIn().delay(1400).fadeOut(200, () => {
+    $('.errorMsgPage').fadeIn().delay(1000).fadeOut(200, () => {
         $('.actLoginPage').fadeIn();
     });
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 
+//Registration error messages
 function registrationErrorMsg(msg) {
-    $('.actRegisterPage').fadeOut().delay(2200).fadeIn();
-    $('.errorMsgPage').delay(400).fadeIn().delay(1400).fadeOut();
+    $('.actRegisterPage').css('display', 'none');
+    $('.errorMsgPage').fadeIn().delay(1000).fadeOut(200, () => {
+        $('.actRegisterPage').fadeIn();
+    });
     $('.errorMsgDiv').html(`<p>${msg}</p>`);
 }
 

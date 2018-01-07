@@ -264,24 +264,33 @@ button:hover{
 	font-size: 20px;
 	font-weight: bold;
 }
-.dashboardToolbar{
-	position: absolute;
-	bottom: 5%;
-	left: 5%;
-	display: grid;
-	grid-template-columns: 15% 85%;
-	font-size: .75em;
-	grid-gap: 10px;
-}
 .dashboardBtns{
 	height: 0px;
 	overflow: hidden;
 }
-.togglerClass i{
-	margin: 5px;
+.togglerClass button{
+	display: block;
+	width: 110px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: justify;
 }
-.toolbarIcon{
-	align-self: center;
+.togglerClass button:hover{
+	background-color: #b5cc56;
+}
+.togglerClass i:hover{
+	color:black;
+}
+.togglerClass i{
+	margin: 0px 5px;
+}
+.toolbarIcon, .togglerClass{
+	position: absolute;
+	right: 20px;
+	top: 3%;
+}
+.togglerClass{
+	top: 6%;
 }
 .createTripPage{
 	position: relative;
@@ -580,8 +589,8 @@ button:hover{
 		width: 75%
 	}
 	.noTripsMsg{
-	margin-top: 6%;
-	font-size: 150%;
+		margin-top: 6%;
+		font-size: 150%;
 	}
 	.helpPage{
 		margin-top: 6%;
@@ -596,8 +605,9 @@ button:hover{
 		margin:auto;
 		font-size: 140%;
 	}
-	.dashboardToolbar{
-		font-size: 1em;
+	.togglerClass button{
+		width: 140px;
+		font-size: 24px;
 	}
 	.currTrips{
 		display: grid;
