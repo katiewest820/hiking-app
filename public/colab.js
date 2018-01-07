@@ -7,6 +7,7 @@ function displayColabTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
+        console.log(`shared ${trips}`)
         $('.sharedTripsDiv').empty();
         //sharedDashboard template start
         let colabTripVals = {

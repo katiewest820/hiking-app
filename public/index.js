@@ -1,7 +1,7 @@
 let myURL = window.location.href.split('#')[0];
 let myStorage = window.localStorage;
 let tripIdValue;
- let fadeOutSection;
+let fadeOutSection;
 
 //Get request for current owners trips and displays trips on dashboard
 function displayDashboardTrips() {
@@ -12,6 +12,7 @@ function displayDashboardTrips() {
             authorization: myStorage.tokenKey
         }
     }).done((trips) => {
+
         $('.helpBtn').delay(500).fadeIn();
         $('.currTripsDiv').empty();
         //currDashboard template start
@@ -21,14 +22,19 @@ function displayDashboardTrips() {
         let templateScript = Handlebars.templates.currDashboard(tripVals);
         $('.currTripsDiv').append(templateScript);
         //currDashboard template end    
+        if(trips.length == 0){
+            console.log('yes')
+            $('.currTrips').append(`<p class='noTripsMsg'>No Trips? No worries! 
+                Begin building your next adventure <span class="createNewTrip"><br>HERE</span></p>`);
+        }
     }).fail((err) => {
         console.log(err)
     });
 }
 
 //Loads help info page when user info button clicked
-function loadHelpPage(){
-    $('.helpBtn').on('click', function(){
+function loadHelpPage() {
+    $('.helpBtn').on('click', function() {
         fadeOutSection = $(this).siblings('section:visible');
         $(fadeOutSection).css('display', 'none');
         $('.helpBtn').fadeOut();
@@ -37,8 +43,8 @@ function loadHelpPage(){
 }
 
 //Closes help page and reloads section user was previously on
-function closeHelpPage(){
-    $('.closeHelpWindow').on('click', function(){
+function closeHelpPage() {
+    $('.closeHelpWindow').on('click', function() {
         $('.helpPage').css('display', 'none');
         $(fadeOutSection).fadeIn();
         $('.helpBtn').fadeIn();
@@ -46,11 +52,11 @@ function closeHelpPage(){
 }
 
 //Toggles instruction sections open and closed
-function expandInstructions(){
-    $('.expandDiv').on('click', function(){
+function expandInstructions() {
+    $('.expandDiv').on('click', function() {
         let areaToExpand = $(this).siblings('.textToExpand');
         $(this).toggleClass('lit');
-        $(areaToExpand).toggleClass('instructions');   
+        $(areaToExpand).toggleClass('instructions');
     });
 }
 
@@ -71,7 +77,7 @@ function createNewTripPageLoad() {
         $('.submitNewTripBtn').css('display', 'block');
         $('.dashboardPage').css('display', 'none');
         $('.createTripPage').fadeIn();
-        $('input').val('');
+        $('input').val('').css('border-bottom', 'solid black 2px');
         $('#map3').replaceWith('<div id=map></div>');
         setTimeout(initMap, 500, lat, lng);
     });
@@ -87,6 +93,24 @@ function addNewTrip() {
             startDate: $('.startDate').val(),
             endDate: $('.endDate').val(),
             mapPoints: markers
+        }
+        //checks inputs for values
+        let nonEmptyValues = $('.createTripForm').find('input').filter(function() {
+            return $(this).val();
+        });
+        if(nonEmptyValues){
+            $(nonEmptyValues).css('border-bottom', 'solid black 2px')
+        }
+        let values = $('.createTripForm').find('input').filter(function() {
+            return $(this).val() == "";
+        });
+        if (values.length > 0) {
+            $(values).css('border-bottom', 'solid red 2px').val('Required Field').css('color', 'red');
+
+            setTimeout(() => {
+                $(values).val('').css('color', 'black');
+            }, 1500);
+            return
         }
         $.ajax({
             url: `${myURL}trip`,
@@ -265,7 +289,7 @@ function addGearItem() {
                 };
                 let templateScript = Handlebars.templates.addNewGearList(gearVals);
                 $('.userGearLists').append(templateScript);
-            }else{
+            } else {
                 let gearItemVals = {
                     gearItem: gearItem
                 }
@@ -306,7 +330,7 @@ function addFoodItem() {
                 };
                 let templateScript = Handlebars.templates.addNewFoodList(foodVals);
                 $('.userFoodLists').append(templateScript);
-            }else{
+            } else {
                 let foodItemVals = {
                     foodItem: foodItem
                 };
@@ -335,7 +359,7 @@ function deleteGearItem() {
             }
         }).done((gearItem) => {
             divToRemove.remove();
-            if(divCount[0].children.length == 0){
+            if (divCount[0].children.length == 0) {
                 $(divCount).siblings('.gearListOwner').parent('div').remove();
             }
             calculatePackWeight();
@@ -359,7 +383,7 @@ function deleteFoodItem() {
             }
         }).done((foodItem) => {
             divToRemove.remove();
-            if(divCount[0].children.length == 0){
+            if (divCount[0].children.length == 0) {
                 $(divCount).siblings('.foodListOwner').parent('div').remove();
             }
             calculatePackWeight();
@@ -387,4 +411,4 @@ toolBarToggle()
 backToDashboard()
 exitTripDetailPage()
 
- expandInstructions()
+expandInstructions()

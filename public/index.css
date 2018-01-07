@@ -73,12 +73,12 @@ button:hover{
 		color:black;
 		cursor: auto;
 	}
-.loginPageLoadBtn, .createActBtn, .tripPageDemo{
+.loginPageLoadBtn, .createActBtn, .tripPageDemo, .currTrips .createNewTrip{
 	color: #b5cc56;
 	font-size: 140%;
 	font-weight: bold;
 }
-.loginPageLoadBtn:hover, .createActBtn:hover, .tripPageDemo:hover{
+.loginPageLoadBtn:hover, .createActBtn:hover, .tripPageDemo:hover, .currTrips .createNewTrip:hover{
 	color:black;
 	text-decoration: underline;
 	cursor: pointer;
@@ -137,7 +137,6 @@ button:hover{
 	margin-top: 45%;
 }
 .actLoginDiv, .actRegisterDiv{
-	/*display: none;*/
 	height: 250px;
 	width: 200px;
 	background-color: white;
@@ -204,6 +203,13 @@ button:hover{
 	min-height: 500px;
 	background-color: white;
 	padding: 30px;
+}
+.noTripsMsg{
+	margin-top: 25%;
+	font-size: 125%;
+	font-weight:bold;
+	grid-column: span 2;
+	text-align: center;
 }
 .tripDetails{
 	position: relative;
@@ -573,6 +579,10 @@ button:hover{
 		margin-bottom: 4%;
 		width: 75%
 	}
+	.noTripsMsg{
+	margin-top: 6%;
+	font-size: 150%;
+	}
 	.helpPage{
 		margin-top: 6%;
 	}
@@ -596,6 +606,7 @@ button:hover{
 		margin: auto;
 	}
 	.tripDiv{
+		justify-self:center;
 		min-width: 200px;
 		margin:10px;
 	}
