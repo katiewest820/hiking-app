@@ -243,6 +243,15 @@ button:hover{
 	text-align: center;
 	min-height: 230px;
 }
+.shareTripBtn{
+	height: 32px;
+	width: 70px;
+	font-weight: bold;
+	font-size: 20px;
+	background: transparent;
+	border-radius: 10%;
+	border: solid black 2px;
+}
 .tripDiv{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -483,7 +492,6 @@ button:hover{
 	border: none;
 	border-bottom: 2px solid black;
 	font-size: 25px;
-	padding-left: 15px;
 }
 .availUsers{
 	width: 100%;
@@ -507,12 +515,12 @@ button:hover{
 	background-color: white;
 }
 .shareTripPage i{
-	right: 80%;
+	left: 12%;
 	bottom: 5%;
 }
 .sharePageGrid{
 	display: grid;
-	grid-template-columns: 90% 10%;
+	grid-template-columns: 75% 25%;
 	grid-gap: 15px;
 	justify-content: center;
 }
@@ -555,6 +563,7 @@ button:hover{
 	height: 35px;
 	font-size: 18px;
 	background: none;
+	border-radius: 10%;
 	border:solid 2px black;
 }
 .archivesPage i, .backToLogin{
@@ -688,7 +697,7 @@ button:hover{
 		left: 29%;
 	}
 	.shareTripPage i{
-		right: 69%;
+		left: 28%;
 	}
 	.tripDetails{
 		margin-top: 4%;

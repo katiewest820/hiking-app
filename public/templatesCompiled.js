@@ -68,7 +68,7 @@ templates['addNewGearList'] = template({"1":function(container,depth0,helpers,pa
     + alias4(container.lambda((depths[1] != null ? depths[1].className : depths[1]), depth0))
     + "'>\r\n		<div class='visibleGearItemDetails'>\r\n			<h3>"
     + alias4(((helper = (helper = helpers.item || (depth0 != null ? depth0.item : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"item","hash":{},"data":data}) : helper)))
-    + "</h3>\r\n    		<p>Quantity:!!! "
+    + "</h3>\r\n    		<p>Quantity: "
     + alias4(((helper = (helper = helpers.quantity || (depth0 != null ? depth0.quantity : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"quantity","hash":{},"data":data}) : helper)))
     + "</p>\r\n    		<p>Weight: "
     + alias4(((helper = (helper = helpers.weight || (depth0 != null ? depth0.weight : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"weight","hash":{},"data":data}) : helper)))

@@ -59,7 +59,7 @@ function initRouteMap(mylat, mylng) {
     }
     let position;
     let map = new google.maps.Map(document.getElementById('map2'), {
-        zoom: 10,
+        zoom: 8,
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
@@ -89,7 +89,7 @@ function initEditRouteMap(mylat, mylng) {
     }
     let position;
     let map = new google.maps.Map(document.getElementById('map3'), {
-        zoom: 10,
+        zoom: 8,
     });
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
