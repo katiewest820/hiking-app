@@ -25,6 +25,7 @@ section{
 .backToDashboard{
 	position: absolute;
 	bottom: 3%;
+	left: 4%;
 }
 input:focus{
 	border-bottom: 2px solid #b5cc56;
@@ -69,7 +70,7 @@ button:hover{
 	.aboutSite i{
 		padding-right: 10px;
 	}
-	.aboutSite i:hover{
+	.aboutSite i:hover, .reactivateTrip i:hover{
 		color:black;
 		cursor: auto;
 	}
@@ -148,6 +149,9 @@ button:hover{
 }
 .actRegisterDiv{
 	height: 310px;
+}
+.actLoginDiv{
+	margin-top: 40%;
 }
 .actLoginDiv label, .actRegisterDiv label{
 	font-weight: bold;
@@ -270,12 +274,12 @@ button:hover{
 }
 .togglerClass button{
 	display: block;
-	width: 110px;
-	font-size: 18px;
+	width: 140px;
+	font-size: 24px;
 	font-weight: bold;
 	text-align: justify;
 }
-.togglerClass button:hover{
+.togglerClass button:hover, .reactivateTrip:hover{
 	background-color: #b5cc56;
 }
 .togglerClass i:hover{
@@ -373,7 +377,6 @@ button:hover{
 	grid-template-columns: 1fr 1fr;
 	width: fit-content;
 	padding: 20px;
-	border-bottom: lightgrey solid 1px;
 	justify-items: center;
 }
 .gearListOwner, .foodListOwner{
@@ -381,6 +384,8 @@ button:hover{
 }
 .gearListOwner p, .foodListOwner p{
 	font-size: 20px;
+	border-bottom: 1px solid lightgrey;
+	width: fit-content;
 }
 .gearItemDetails, .foodItemDetails{
 	display: none;
@@ -390,6 +395,9 @@ button:hover{
 }
 .visibleGearItemDetails p, .visibleFoodItemDetails p{
 	padding: 5px;
+}
+.gearListDiv{
+		border-bottom: 2px solid black;
 }
 .tripDetailsDiv, .gearListDiv, .foodListDiv{
 	height: fit-content;
@@ -523,28 +531,33 @@ button:hover{
 }
 .archivesPage h1{
 	text-align: center;
-	padding-top: 10%;
+	padding-top: 5%;
 	text-decoration: underline;
 	font-size: 35px;
 }
 .listOfArchivedTrips{
 	justify-items: center;
-	padding: 25px;
+	padding: 15px;
 	width: fit-content;
 	margin: auto;
 	font-size: 25px;
 }
 .archivedTripDiv{
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr;
-	justify-items: center;
-	text-align: center;
-	border-bottom: solid 1px grey;
-	margin-bottom: 5px;
+	grid-template-columns: 5fr 1fr;
+	grid-gap: 5px;
+	width: fit-content;
+	margin-bottom: 10px;
+}
+.reactivateTrip {
+	grid-column: span 2;
+	width: 110px;
+	font-size: 18px;
 }
 .archivesPage i, .backToLogin{
 	left: 5%;
 	align-self: center;
+	margin-right: 8px;
 }
 
 @media (min-width: 640px){
@@ -606,8 +619,8 @@ button:hover{
 		font-size: 140%;
 	}
 	.togglerClass button{
-		width: 140px;
-		font-size: 24px;
+		width: 160px;
+		font-size: 28px;
 	}
 	.currTrips{
 		display: grid;
@@ -706,6 +719,13 @@ button:hover{
 	}
 	.archivesPage h1{
 		font-size: 45px;
+	}
+	.archivedTripDiv{
+		grid-template-columns: 6fr 1fr;
+	}
+	.reactivateTrip {
+		width: 125px;
+		font-size: 20px;
 	}
 	.archivesPage a, .availUsers option, .colabShare{
 		font-size: 30px;

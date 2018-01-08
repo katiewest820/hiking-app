@@ -6,7 +6,6 @@ let fadeOutSection;
 //Get request for current owners trips and displays trips on dashboard
 function displayDashboardTrips() {
     let state = $('.dashboardPage').find('.toolbarIcon').hasClass('fa-ellipsis-h');
-    console.log(state)
     if(state){
         toggleToolBarFunction()
     }
@@ -27,7 +26,6 @@ function displayDashboardTrips() {
         $('.currTripsDiv').append(templateScript);
         //currDashboard template end    
         if(trips.length == 0){
-            console.log('yes')
             $('.currTrips').append(`<p class='noTripsMsg'>No Trips? No worries! 
                 Begin building your next adventure <span class="createNewTrip"><br>HERE</span></p>`);
         }
@@ -102,7 +100,7 @@ function addNewTrip() {
             endDate: $('.endDate').val(),
             mapPoints: markers
         }
-        //checks inputs for values
+        //checks inputs for values. Errors if an input is empty
         let nonEmptyValues = $('.createTripForm').find('input').filter(function() {
             return $(this).val();
         });
@@ -117,7 +115,7 @@ function addNewTrip() {
 
             setTimeout(() => {
                 $(values).val('').css('color', 'black');
-            }, 1500);
+            }, 1200);
             return
         }
         $.ajax({
@@ -280,6 +278,23 @@ function addGearItem() {
             weight: weight,
             quantity: $('.newGearItemQ').val()
         }
+        let nonEmptyValues = $('.addGearItemForm').find('input').filter(function() {
+            return $(this).val();
+        });
+        if(nonEmptyValues){
+            $(nonEmptyValues).css('border-bottom', 'solid black 2px')
+        }
+        let values = $('.addGearItemForm').find('input').filter(function() {
+            return $(this).val() == "";
+        });
+        if (values.length > 0) {
+            $(values).css('border-bottom', 'solid red 2px').val('Required Field').css('color', 'red');
+
+            setTimeout(() => {
+                $(values).val('').css('color', 'black');
+            }, 1200);
+            return
+        }
         $.ajax({
             url: `${myURL}trip/gearList/id/${tripIdValue}`,
             type: 'POST',
@@ -320,6 +335,23 @@ function addFoodItem() {
             item: $('.newFoodItem').val(),
             weight: weight,
             quantity: $('.newFoodItemQ').val()
+        }
+        let nonEmptyValues = $('.adFoodItemForm').find('input').filter(function() {
+            return $(this).val();
+        });
+        if(nonEmptyValues){
+            $(nonEmptyValues).css('border-bottom', 'solid black 2px')
+        }
+        let values = $('.addFoodItemForm').find('input').filter(function() {
+            return $(this).val() == "";
+        });
+        if (values.length > 0) {
+            $(values).css('border-bottom', 'solid red 2px').val('Required Field').css('color', 'red');
+
+            setTimeout(() => {
+                $(values).val('').css('color', 'black');
+            }, 1200);
+            return
         }
         $.ajax({
             url: `${myURL}trip/foodList/id/${tripIdValue}`,
@@ -369,6 +401,7 @@ function deleteGearItem() {
             divToRemove.remove();
             if (divCount[0].children.length == 0) {
                 $(divCount).siblings('.gearListOwner').parent('div').remove();
+                 //$(divCount).siblings('.gearListOwner').parent('hr').remove();
             }
             calculatePackWeight();
         }).fail((err) => {
@@ -418,5 +451,4 @@ deleteTrip()
 toolBarToggle()
 backToDashboard()
 exitTripDetailPage()
-
 expandInstructions()
