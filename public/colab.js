@@ -15,6 +15,9 @@ function displayColabTrips() {
         let templateScript = Handlebars.templates.sharedDashboard(colabTripVals);
         $('.sharedTripsDiv').append(templateScript);
         //sharedDashboard template end 
+        if(trips.length == 0){
+            $('.colabTrips').append(`<p class='noTripsMsg'>Trips that others share with you will be listed here</p>`)
+        }
     }).fail((err) => {
         console.log(err);
     });

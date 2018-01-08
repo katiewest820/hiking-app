@@ -50,36 +50,36 @@ button:hover{
 	height: fit-content;
 	margin:auto;
 	text-align: center;
-	margin-top: 7%;
+	margin-top: 13%;
 }
 .aboutSite div{
-	padding: 30px;
+	padding: 25px;
 	background-color: white;
 	border:solid 5px black;
-	margin: 20px;
+	margin: 22px;
 }
-.aboutSite h1{
+	.aboutSite h1{
 		border-bottom: black 3px solid;
 		font-size: 30px;
 		margin-bottom: 10px;
 	}
-	.aboutSite p{
-		font-size: 18px;
-		padding: 5px;
-	}
-	.aboutSite i{
-		padding-right: 10px;
-	}
-	.aboutSite i:hover, .reactivateTrip i:hover{
-		color:black;
-		cursor: auto;
-	}
-.loginPageLoadBtn, .createActBtn, .tripPageDemo, .currTrips .createNewTrip{
+.aboutSite p{
+	font-size: 18px;
+	padding: 5px;
+}
+.aboutSite i{
+	padding-right: 10px;
+}
+.aboutSite i:hover, .reactivateTrip i:hover{
+	color:black;
+	cursor: auto;
+}
+.loginPageLoadBtn, .createActBtn, .tripPageDemo, .currTrips .createNewTrip, .demoLogin{
 	color: #b5cc56;
 	font-size: 140%;
 	font-weight: bold;
 }
-.loginPageLoadBtn:hover, .createActBtn:hover, .tripPageDemo:hover, .currTrips .createNewTrip:hover{
+.loginPageLoadBtn:hover, .createActBtn:hover, .tripPageDemo:hover, .currTrips .createNewTrip:hover, .demoLogin:hover{
 	color:black;
 	text-decoration: underline;
 	cursor: pointer;
@@ -279,7 +279,7 @@ button:hover{
 	font-weight: bold;
 	text-align: justify;
 }
-.togglerClass button:hover, .reactivateTrip:hover{
+.togglerClass button:hover{
 	background-color: #b5cc56;
 }
 .togglerClass i:hover{
@@ -531,7 +531,7 @@ button:hover{
 }
 .archivesPage h1{
 	text-align: center;
-	padding-top: 5%;
+	padding-top: 10%;
 	text-decoration: underline;
 	font-size: 35px;
 }
@@ -546,13 +546,16 @@ button:hover{
 	display: grid;
 	grid-template-columns: 5fr 1fr;
 	grid-gap: 5px;
-	width: fit-content;
+	width: 170px;
 	margin-bottom: 10px;
 }
 .reactivateTrip {
 	grid-column: span 2;
-	width: 110px;
+	width: 125px;
+	height: 35px;
 	font-size: 18px;
+	background: none;
+	border:solid 2px black;
 }
 .archivesPage i, .backToLogin{
 	left: 5%;
@@ -567,8 +570,8 @@ button:hover{
 		width: 500px;
 	}
 	.aboutSite{
-		width:50%;
-		margin-top: 4%;
+		width:55%;
+		margin-top: 5%;
 	}
 	.aboutSite h1{
 		width:55%;
@@ -714,18 +717,16 @@ button:hover{
 		width: 50%;
 	}
 	.archivesPage{
-		margin-top: 9%;
+		margin-top: 7%;
 		width: 50%;
 	}
 	.archivesPage h1{
+		padding-top: 5%;
 		font-size: 45px;
 	}
 	.archivedTripDiv{
 		grid-template-columns: 6fr 1fr;
-	}
-	.reactivateTrip {
-		width: 125px;
-		font-size: 20px;
+		width: 200px;
 	}
 	.archivesPage a, .availUsers option, .colabShare{
 		font-size: 30px;

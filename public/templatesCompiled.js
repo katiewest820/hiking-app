@@ -141,7 +141,7 @@ templates['archivesList'] = template({"compiler":[7,">= 4.0.0"],"main":function(
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.trip : depth0)) != null ? stack1.trail : stack1), depth0))
     + "</a>\r\n	<i class='fa fa-trash deleteArchive' value='"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.trip : depth0)) != null ? stack1._id : stack1), depth0))
-    + "' aria-hidden='true'></i>\r\n	<button class='reactivateTrip' value='"
+    + "' aria-hidden='true' title='Delete Trip'></i>\r\n	<button class='reactivateTrip' value='"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.trip : depth0)) != null ? stack1._id : stack1), depth0))
     + "'><i class='fa fa-check-circle-o' ></i>Reactivate Trip</button>\r\n<div>\r\n\r\n\r\n                ";
 },"useData":true});
