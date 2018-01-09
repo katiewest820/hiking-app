@@ -119,13 +119,14 @@ button:hover{
 	padding-bottom: 10px;
 }
 .expandDiv:hover{
-	color:#ecb400;
-}
-.lit{
-	color:#ecb400;
+	color:#b5cc56;
+	cursor: pointer;
 }
 .instructions, .expandInfo{
 	display: none;
+}
+.instructionArea{
+	margin: 3%;
 }
 .closeHelpWindow{
 	margin:10px;
@@ -271,7 +272,6 @@ button:hover{
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 10px;
-	max-width: 100px;
 }
 .colabTripDiv a{
 	font-size: 20px;
@@ -571,7 +571,14 @@ button:hover{
 	align-self: center;
 	margin-right: 8px;
 }
-
+@media(min-width: 1200px){
+	.currTrips{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		width: 65%;
+		margin: auto;
+	}
+}
 @media (min-width: 640px){
 	.loginImg{
 		margin-top: 8%;
@@ -634,16 +641,12 @@ button:hover{
 		width: 160px;
 		font-size: 28px;
 	}
-	.currTrips{
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		width: 65%;
-		margin: auto;
-	}
 	.tripDiv{
 		justify-self:center;
 		min-width: 200px;
-		margin:10px;
+		min-height: 115px;
+		align-content: center;
+
 	}
 	.tripDetailsDiv a{
 		font-size: 40px;
