@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 	res.sendFile(_dirname + './public/index.html').status(200);
 });
 
-app.all('/')
+app.all('/');
 app.use('/trip', tripRoutes);
 app.use('/auth', authRoutes);
 app.use('/share', sharing);
