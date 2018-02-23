@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: WM1jRJwOae545jb+C1J45C6LG6HxpknS+lvU++0GzMAnVwsmftY8Bn0ap08VF/3WIaLoi4cmZqnSmdZaYgBgr+LmZl/UakdQxMGHqTQNgeu/gMTQnXW/wHJ0ZxjD3BnbA79PVLhl2tHJMVB2mkpGDA8f5QX8YGqTXUmkC8H+bbwLmVyL9d1QkQp/7arTaGOFfsHWIPP23OSiNr6HDNOKN4zGWeXTYeMuKxnNT6uOZigmS6NDhK3ESF6N8acJB8vd0Qi0Jhv/ihlXe/VwIfsYtgBttiiQ+SIrqkRf+FFAA6D31tFGCnIV2IYRLCk1o+zF036Y2rMVquQ+1Mt3/2bPdW5Y64Tdh8sUijvwAbVCu/TSm4AfkXhsUjWz+qzu2Ku3Duvdh6Atap5+dbJJKFcxjnuR/h5YtZ5n/2CZoGZ7QG8iUj+CYqTDsvCvIWEshMyeG4CUWO9xiiqXhFRCfF1n6G718oHLjah6HufATJ4oWlkTBy86axiNP7BXv/Tgqk7KT1R+kuvl+OcIv8L8IWQpiQBXTIxM/1iQUv5DsEIYUZarYgIUMqkoeJaJ7l1YeafH4tjvtooLifJAGT6bpSRL+ooWjTJDK87tdNPlJ6AS1zXY1bQ4bz9m5X5tgsHMr3HpdYvbuF1uGjsYOctl7twKlEXSmUw0ZBPzxNuoXR+n94E=
-  app: hiking-app
+  app: protected-beach-53100
   on:
-    repo: protected-beach-53100
+    repo: katiewest820/hiking-app
