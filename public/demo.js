@@ -4,9 +4,9 @@ function loadDemoAct(){
         let userLoginInfo = {
             email: 'johnsmith@email.com',
             password: 'password123'
-        }
+        };
         loginApiCall(userLoginInfo);
     });
 }
 
-loadDemoAct()
+loadDemoAct();
